@@ -1,0 +1,43 @@
+name: Quality Gates
+
+on: [pull_request, push]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+
+      - name: Unit + Coverage
+        run: pnpm test:unit --coverage
+
+      - name: E2E
+        run: pnpm test:e2e
+
+      - name: Lighthouse CI (Performance Budget)
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            https://alayainsider.com/
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: k6 Load Smoke
+        run: |
+          k6 run --vus 50 --duration 30s tests/performance/k6/load-products.js
+
+      - name: Accessibility (Playwright + axe)
+        run: pnpm test:a11y
+
+      - name: Security
+        run: pnpm audit --audit-level=high
+
+      - name: Visual Regression (Storybook + Percy or Chromatic)
+        # Add Chromatic or Percy step here
+        run: echo "Visual regression gate (configure in real repo)"

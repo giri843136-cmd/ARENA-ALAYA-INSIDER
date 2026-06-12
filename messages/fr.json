@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "ALAYA INSIDER",
+    "tagline": "Découverte Éditoriale Curatée",
+    "description": "Un sanctuaire éditorial pour la femme exigeante. Des découvertes soigneusement curatées pour la maison, la beauté, le style et l'art de vivre."
+  },
+  "nav": {
+    "universes": "Univers",
+    "discover": "Découvrir",
+    "collections": "Collections",
+    "journal": "Journal",
+    "brands": "Marques",
+    "search": "Rechercher",
+    "saved": "Favoris",
+    "cart": "Panier",
+    "account": "Compte"
+  },
+  "hero": {
+    "headline": "Un sanctuaire<br />pour la<br />discernante.",
+    "subheadline": "Des objets soigneusement curatés pour la maison, la beauté, le style et l'art de vivre.",
+    "cta": "Commencer l'Exploration",
+    "readJournal": "Lire le Journal"
+  },
+  "trust": {
+    "curatedByWomen": "Sélectionné par des femmes, pour des femmes",
+    "editoriallyVerified": "Vérifié par la Rédaction",
+    "sustainablySourced": "Provenance Durable",
+    "planet1Percent": "1% pour la Planète"
+  },
+  "product": {
+    "addToCart": "Ajouter au Panier",
+    "buyFrom": "Acheter chez {network}",
+    "inStock": "En stock • Expédition aujourd'hui",
+    "limitedStock": "Limité • Expédition sous 7–10 jours",
+    "savePercent": "Économisez {percent}%",
+    "reviews": "avis",
+    "verified": "VÉRIFIÉ PAR ALAYA",
+    "availability": "DISPONIBILITÉ",
+    "origin": "ORIGINE",
+    "shipping": "EXPÉDITION",
+    "guarantee": "GARANTIE",
+    "signatureDelivery": "Livraison signature • 2–5 jours",
+    "happinessGuarantee": "Garantie satisfaction 90 jours • Retours faciles",
+    "addToCompare": "Ajouter à la comparaison",
+    "saveToWishlist": "Ajouter aux favoris",
+    "madeIn": "Fabriqué en {country}",
+    "affiliateDisclosure": "Disponible via {network} • Nous pouvons percevoir une commission."
+  },
+  "search": {
+    "title": "Que cherchez-vous?",
+    "placeholder": "Essayez \"linge de lit luxueux pour une chambre sanctuaire\", \"fonte pour mijotage lent\", ou \"cadeaux sous 120€ pour elle\"",
+    "voiceSearch": "Recherche vocale",
+    "visualSearch": "Recherche visuelle",
+    "results": "résultats",
+    "for": "pour",
+    "noResults": "Nous n'avons rien trouvé pour \"{query}\"",
+    "tryDifferent": "Essayez une autre phrase, explorez un univers, ou laissez l'IA vous guider.",
+    "clearSearch": "Effacer la recherche",
+    "popular": "Populaire:",
+    "clearAll": "Tout effacer"
+  },
+  "footer": {
+    "tagline": "Un sanctuaire éditorial pour les exigeants. Curaté avec intention depuis 2023.",
+    "explore": "Explorer",
+    "thePlatform": "La Plateforme",
+    "supportLegal": "Support & Légal",
+    "newsletterTitle": "La Lettre Alaya",
+    "newsletterDescription": "Un bel objet. Un essai. Trois choses dont nous sommes secrètement amoureux. Distribué le dimanche.",
+    "subscribe": "S'abonner",
+    "emailPlaceholder": "votre@email.com",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "affiliates": "Affiliés"
+  },
+  "universes": {
+    "title": "Les Univers",
+    "description": "Chaque univers est un monde complet d'intention. Entrez dans n'importe lequel et découvrez des objets, des rituels et des histoires qui vont ensemble.",
+    "cta": "Ouvrir la Palette de Commandes",
+    "question": "Vous ne savez pas par où commencer?",
+    "guide": "Laissez notre IA vous guider"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "viewAll": "Voir tout",
+    "readMore": "Lire la suite",
+    "learnMore": "En savoir plus"
+  }
+}

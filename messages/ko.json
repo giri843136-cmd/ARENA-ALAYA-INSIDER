@@ -1,0 +1,11 @@
+{
+  "site": { "title": "ALAYA INSIDER", "tagline": "큐레이티드 에디토리얼 디스커버리", "description": "눈높이가 높은 여성을 위한 편집 공간입니다. 홈, 뷰티, 스타일, 라이프를 위한 세심하게 선별된 발견." },
+  "nav": { "universes": "유니버스", "discover": "발견하다", "collections": "컬렉션", "journal": "저널", "brands": "브랜드", "search": "검색", "saved": "저장됨", "cart": "장바구니", "account": "계정" },
+  "hero": { "headline": "눈높이가 높은<br />사람을 위한<br />성역", "subheadline": "홈, 뷰티, 스타일, 라이프를 위한 세심하게 선별된 오브제.", "cta": "탐험 시작하기", "readJournal": "저널 읽기" },
+  "trust": { "curatedByWomen": "여성이 여성을 위해 엄선", "editoriallyVerified": "편집진 확인 완료", "sustainablySourced": "지속 가능한 소싱", "planet1Percent": "지구를 위한 1%" },
+  "product": { "addToCart": "장바구니에 담기", "buyFrom": "{network}에서 구매", "inStock": "재고 있음 • 오늘 출발", "limitedStock": "한정 • 7~10일 내 배송", "savePercent": "{percent}% 할인", "reviews": "리뷰", "verified": "ALAYA 인증 완료", "availability": "재고 상태", "origin": "원산지", "shipping": "배송", "guarantee": "보증", "signatureDelivery": "시그니처 배송 • 2~5일", "happinessGuarantee": "90일 행복 보장 • 간편 반품", "addToCompare": "비교에 추가", "saveToWishlist": "위시리스트에 저장", "madeIn": "{country} 제조", "affiliateDisclosure": "{network}을 통해 구매 가능 • 수수료가 발생할 수 있습니다." },
+  "search": { "title": "무엇을 찾고 계신가요?", "placeholder": "\"침실을 위한 고요한 럭셔리 린넨\", \"천천히 요리하기 위한 주철 냄비\", \"그녀를 위한 $120 미만 선물\"", "voiceSearch": "음성 검색", "visualSearch": "이미지 검색", "results": "개의 결과", "for": "에 대한", "noResults": "\"{query}\"에 대한 결과를 찾을 수 없습니다", "tryDifferent": "다른 검색어를 시도하거나, 유니버스를 탐색하거나, AI 컨시어지의 안내를 받아보세요.", "clearSearch": "검색 지우기", "popular": "인기:", "clearAll": "모두 지우기" },
+  "footer": { "tagline": "눈높이가 높은 사람들을 위한 편집 공간. 2023년부터 의도를 가지고 큐레이션.", "explore": "탐험", "thePlatform": "플랫폼", "supportLegal": "지원 및 법적 고지", "newsletterTitle": "알라야 레터", "newsletterDescription": "아름다운 오브제 하나, 에세이 하나, 우리가 조용히 빠진 세 가지 것. 일요일에 배송.", "subscribe": "구독하기", "emailPlaceholder": "your@email.com", "privacy": "개인정보", "terms": "약관", "affiliates": "제휴" },
+  "universes": { "title": "유니버스", "description": "각 유니버스는 의도로 가득한 완전한 세계입니다. 들어가서 함께 속한 오브제, 의식, 이야기를 발견하세요.", "cta": "명령 팔레트 열기", "question": "어디서부터 시작해야 할지 모르시겠나요?", "guide": "AI 컨시어지의 안내를 받아보세요" },
+  "common": { "loading": "로딩 중...", "error": "오류가 발생했습니다", "retry": "다시 시도", "close": "닫기", "viewAll": "모두 보기", "readMore": "더 읽기", "learnMore": "자세히 알아보기" }
+}

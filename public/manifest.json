@@ -1,0 +1,27 @@
+{
+  "name": "Alaya Insider",
+  "short_name": "Alaya",
+  "description": "An editorial sanctuary for the discerning woman.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#8B5CF6",
+  "background_color": "#F5F0EA",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icons/icon-72x72.png", "sizes": "72x72", "type": "image/png" },
+    { "src": "/icons/icon-96x96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/icons/icon-128x128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/icons/icon-144x144.png", "sizes": "144x144", "type": "image/png" },
+    { "src": "/icons/icon-152x152.png", "sizes": "152x152", "type": "image/png" },
+    { "src": "/icons/icon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-384x384.png", "sizes": "384x384", "type": "image/png" },
+    { "src": "/icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["lifestyle", "shopping", "editorial"],
+  "screenshots": [],
+  "shortcuts": [
+    { "name": "Explore", "short_name": "Explore", "description": "Browse curated products", "url": "/", "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }] },
+    { "name": "Favorites", "short_name": "Favorites", "description": "Your saved items", "url": "/favorites", "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }] },
+    { "name": "Journal", "short_name": "Journal", "description": "Read articles", "url": "/journal", "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }] }
+  ]
+}

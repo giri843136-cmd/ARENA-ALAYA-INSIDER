@@ -1,0 +1,663 @@
+@import "tailwindcss";
+
+/* ========================================
+   ALAYA INSIDER — WORLD-CLASS PREMIUM EDITORIAL SYSTEM
+   Apple × Aesop × Kinfolk × Soho Home × Architectural Digest × Airbnb × Pinterest × Net-a-Porter × C-Style
+   Calm • Luxurious • Editorial • Timeless • Handcrafted
+   ======================================== */
+
+/* ========================================
+   TYPOGRAPHY — Editorial Hierarchy
+   ======================================== */
+:root {
+  /* Font Families */
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-inter);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Type Scale — Editorial & Generous */
+  --text-display: 5.5rem;      /* 88px */
+  --text-h1: 4rem;             /* 64px */
+  --text-h2: 3rem;             /* 48px */
+  --text-h3: 2.25rem;          /* 36px */
+  --text-h4: 1.875rem;         /* 30px */
+  --text-h5: 1.5rem;           /* 24px */
+  --text-h6: 1.25rem;          /* 20px */
+  --text-body-lg: 1.1875rem;   /* 19px */
+  --text-body: 1rem;           /* 16px */
+  --text-body-sm: 0.9375rem;   /* 15px */
+  --text-caption: 0.8125rem;   /* 13px */
+  --text-micro: 0.6875rem;     /* 11px */
+
+  /* Line Heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.015em;
+  --tracking-wider: 0.05em;
+
+  /* Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+}
+
+/* ========================================
+   COLOR SYSTEM — EXACT BRAND COLORS (Calm • Luxurious • Editorial)
+   ======================================== */
+:root {
+  --bg-primary: #F5F0EA;
+  --bg-secondary: #EFE7DE;
+  --bg-tertiary: #F1EDE6;
+  --bg-elevated: #FFFFFF;
+  --bg-dark: #111111;
+  --bg-dark-2: #1A1A1A;
+  --bg-overlay: rgba(245, 240, 234, 0.96);
+
+  --text-primary: #1C1917;      /* Headings — darker for better contrast */
+  --text-secondary: #5C5249;    /* Body text — WCAG AA 4.5:1 on #F5F0EA */
+  --text-tertiary: #6D655F;     /* Tertiary text — WCAG AA 4.5:1 on #F5F0EA */
+  --text-inverse: #F5F0EA;
+  --text-accent: #C5AA8A;
+
+  --accent-gold: #C5AA8A;
+  --accent-gold-dark: #B99B79;
+  --accent-warm: #D5C4AF;
+  --accent-sage: #8A9A7B;
+
+  --border-subtle: #E4DDD5;
+  --border-soft: #D9D0C3;
+  --border-strong: #B8AFA3;
+
+  --shadow-sm: 0 1px 2px rgba(38, 34, 30, 0.03);
+  --shadow: 0 4px 12px -4px rgba(38, 34, 30, 0.06);
+  --shadow-md: 0 10px 30px -10px rgba(38, 34, 30, 0.08);
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --success: #6B8E6B;
+  --warning: #C5A26F;
+  --error: #A36B6B;
+
+  --transition-fast: 120ms cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-base: 220ms cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-slow: 380ms cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-slower: 620ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  --opacity-subtle: 0.6;
+  --opacity-medium: 0.75;
+  --opacity-strong: 0.9;
+
+  --z-negative: -10;
+  --z-elevate: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-header: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+  --z-tooltip: 70;
+
+  /* Spec Type Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+  --text-4xl: 3.052rem;
+  --text-5xl: 3.815rem;
+
+  /* Spec Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  --leading-loose: 2;
+
+  /* Spec Font Weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Motion Tokens */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Dark Mode — Sophisticated Night Edition */
+.dark {
+  --bg-primary: #1F1A17;
+  --bg-secondary: #25201C;
+  --bg-tertiary: #2C2522;
+  --bg-elevated: #2F2925;
+  --bg-overlay: rgba(31, 26, 23, 0.96);
+
+  --text-primary: #EDE6DC;
+  --text-secondary: #B8AFA3;
+  --text-tertiary: #8A8178;
+  --text-inverse: #1F1A17;
+  --text-accent: #D4B88A;
+
+  --accent-gold: #D4B88A;
+  --accent-gold-dark: #B89A6E;
+  --accent-sage: #9BA98A;
+
+  --border-subtle: #3D3530;
+  --border-soft: #524A42;
+  --border-strong: #6B6156;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 10px 30px -8px rgba(0, 0, 0, 0.4), 0 4px 12px -2px rgba(0, 0, 0, 0.25);
+
+  /* Semantic Colors (Dark Mode) */
+  --color-background: #0F172A;
+  --color-background-surface: #1E293B;
+  --color-background-elevated: #334155;
+  --color-background-inverse: #F1F5F9;
+
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-text-tertiary: #64748B;
+  --color-text-inverse: #0F172A;
+  --color-text-link: #A78BFA;
+  --color-text-link-hover: #C4B5FD;
+
+  --color-border-primary: #334155;
+  --color-border-secondary: #475569;
+  --color-border-focus: #A78BFA;
+
+  --color-accent-primary: #A78BFA;
+  --color-accent-primary-hover: #C4B5FD;
+}
+
+/* ========================================
+   BASE TYPOGRAPHY — Beautiful & Considered
+   ======================================== */
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.68;
+  font-feature-settings: "kern" "tnum" "ss01" "cv01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: var(--text-secondary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-size: clamp(3.75rem, 8.2vw, 5.85rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.85rem, 5.8vw, 4.1rem); }
+h2 { font-size: clamp(2.35rem, 4.6vw, 3.35rem); }
+h3 { font-size: clamp(1.85rem, 3.6vw, 2.55rem); }
+
+.text-body-lg { font-size: 17px; line-height: 1.62; }
+.text-body { font-size: 15px; }
+.text-body-sm { font-size: 13px; letter-spacing: 0.008em; }
+.text-caption { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; }
+.text-micro { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* ========================================
+   LINKS — Editorial & Understated
+   ======================================== */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--text-accent);
+}
+
+/* ========================================
+   BUTTONS — Premium, Tactile, Considered (exact spec)
+   ======================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  transition: all 220ms cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--text-primary);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+  letter-spacing: 1px;
+}
+
+.btn-ghost:hover {
+  color: var(--accent-gold);
+}
+
+.btn-accent {
+  background-color: var(--accent-gold);
+  color: var(--text-primary);
+  border-color: var(--accent-gold);
+}
+
+.btn-accent:hover {
+  background-color: var(--accent-gold-dark);
+  border-color: var(--accent-gold-dark);
+  color: var(--text-primary);
+}
+
+.btn-sm {
+  padding: 10px 20px;
+  font-size: 11px;
+}
+
+.btn-lg {
+  padding: 18px 36px;
+  font-size: 14px;
+}
+
+/* ========================================
+   CARDS — Premium Editorial (hairline borders, minimal shadows)
+   ======================================== */
+.card {
+  background-color: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  transition: transform 280ms cubic-bezier(0.23, 1, 0.32, 1), 
+              border-color 200ms ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-gold);
+}
+
+.card-product {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.card-editorial {
+  position: relative;
+}
+
+.card-subtle {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ========================================
+   INPUTS — Refined & Minimal
+   ======================================== */
+.input {
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 4px rgba(197, 170, 138, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* ========================================
+   BADGES & TAGS
+   ======================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--text-micro);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.badge-gold {
+  background-color: var(--accent-gold);
+  color: var(--text-primary);
+}
+
+.badge-sage {
+  background-color: var(--accent-sage);
+  color: white;
+}
+
+.badge-neutral {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   UTILITIES & MICRO-DETAILS
+   ======================================== */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+}
+
+/* Global QA safeguards — prevent overflow, improve mobile */
+html, body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch targets (WCAG AAA) */
+button, a[role="button"], input, select, textarea {
+  min-height: 44px;
+}
+
+@media (min-width: 768px) {
+  button, a[role="button"], input, select, textarea {
+    min-height: auto;
+  }
+}
+
+/* Premium focus ring everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+/* Subtle motion reduction for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Final premium polish — consistent hairline and rhythm */
+.card, .admin-card, .widget {
+  border-color: #E4DDD5;
+}
+
+.dark .admin-card, .dark .widget {
+  border-color: #252525;
+}
+
+/* Ensure no clipping on very small screens for editorial content */
+.prose, .font-display {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Micro polish: better table header contrast in admin */
+.admin-table th {
+  color: #C5AA8A;
+}
+
+
+
+.section {
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-20);
+}
+
+.section-sm {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+/* Editorial Dividers */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-subtle), transparent);
+}
+
+.divider-thick {
+  height: 1px;
+  background: var(--border-soft);
+}
+
+/* Image Treatment — Soft Editorial */
+.img-editorial {
+  transition: transform var(--transition-slower);
+}
+
+.card:hover .img-editorial {
+  transform: scale(1.035);
+}
+
+/* Focus States — Accessible & Beautiful */
+:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+/* Scrollbar — Refined */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-gold);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   MOTION & ANIMATIONS — Deliberate & Elegant
+   ======================================== */
+.fade-in {
+  animation: fadeIn var(--transition-slow) var(--transition-base) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stagger-1 { animation-delay: 80ms; }
+.stagger-2 { animation-delay: 160ms; }
+.stagger-3 { animation-delay: 240ms; }
+
+/* Subtle Float for Hero Layers */
+.float-slow {
+  animation: float 18s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* ========================================
+   COMMAND PALETTE & OVERLAYS
+   ======================================== */
+.command-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(44, 37, 34, 0.6);
+  backdrop-filter: blur(20px);
+}
+
+.command-dialog {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 640px;
+  z-index: 10000;
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY TWEAKS
+   ======================================== */
+@media (max-width: 768px) {
+  :root {
+    --text-display: 3.5rem;
+    --text-h1: 2.75rem;
+    --text-h2: 2.25rem;
+    --text-h3: 1.875rem;
+  }
+}
+
+/* ========================================
+   ADMIN POLISH — Calm, Hairline, Editorial (preserves all CRUD)
+   ======================================== */
+.widget {
+  background: #111111;
+  border: 1px solid #252525;
+  border-radius: 16px;
+  padding: 24px;
+  color: #EDE6DC;
+}
+
+.widget-title {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #C5AA8A;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.btn-admin {
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #EDE6DC;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-admin:hover {
+  background: #C5AA8A;
+  color: #111111;
+  border-color: #C5AA8A;
+}

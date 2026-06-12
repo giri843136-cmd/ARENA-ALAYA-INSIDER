@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "ALAYA INSIDER",
+    "tagline": "Curated Editorial Discovery",
+    "description": "An editorial sanctuary for the discerning woman. Thoughtfully curated discoveries in home, beauty, style, and living."
+  },
+  "nav": {
+    "universes": "Universes",
+    "discover": "Discover",
+    "collections": "Collections",
+    "journal": "Journal",
+    "brands": "Brands",
+    "search": "Search",
+    "saved": "Saved",
+    "cart": "Cart",
+    "account": "Account"
+  },
+  "hero": {
+    "headline": "A sanctuary<br />for the<br />discerning.",
+    "subheadline": "Thoughtfully curated objects for home, beauty, style and living.",
+    "cta": "Begin Exploring",
+    "readJournal": "Read the Journal"
+  },
+  "trust": {
+    "curatedByWomen": "Hand Selected by Women, for Women",
+    "editoriallyVerified": "Editorially Verified",
+    "sustainablySourced": "Sustainably Sourced",
+    "planet1Percent": "1% for the Planet"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "buyFrom": "Buy from {network}",
+    "inStock": "In stock • Ships today",
+    "limitedStock": "Limited • Ships in 7–10 days",
+    "savePercent": "Save {percent}%",
+    "reviews": "reviews",
+    "verified": "VERIFIED BY ALAYA",
+    "availability": "AVAILABILITY",
+    "origin": "ORIGIN",
+    "shipping": "SHIPPING",
+    "guarantee": "GUARANTEE",
+    "signatureDelivery": "Signature delivery • 2–5 days",
+    "happinessGuarantee": "90-day happiness • Easy returns",
+    "addToCompare": "Add to Compare",
+    "saveToWishlist": "Save to Wishlist",
+    "madeIn": "Made in {country}",
+    "affiliateDisclosure": "Available via {network} • We may earn a commission."
+  },
+  "search": {
+    "title": "What are you seeking?",
+    "placeholder": "Try \"quiet luxury linen for a sanctuary bedroom\", \"cast iron for slow cooking\", or \"gifts under $120 for her\"",
+    "voiceSearch": "Voice search",
+    "visualSearch": "Visual search",
+    "results": "results",
+    "for": "for",
+    "noResults": "We couldn't find anything for \"{query}\"",
+    "tryDifferent": "Try a different phrase, browse a universe, or let the AI Concierge guide you.",
+    "clearSearch": "Clear search",
+    "popular": "Popular:",
+    "clearAll": "Clear all"
+  },
+  "footer": {
+    "tagline": "An editorial sanctuary for the discerning. Curated with intention since 2023.",
+    "explore": "Explore",
+    "thePlatform": "The Platform",
+    "supportLegal": "Support & Legal",
+    "newsletterTitle": "The Alaya Letter",
+    "newsletterDescription": "One beautiful object. One essay. Three things we're quietly obsessed with. Delivered Sunday.",
+    "subscribe": "Subscribe",
+    "emailPlaceholder": "your@email.com",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "affiliates": "Affiliates"
+  },
+  "universes": {
+    "title": "The Universes",
+    "description": "Each universe is a complete world of intention. Enter any one and discover objects, rituals, and stories that belong together.",
+    "cta": "Open Command Palette",
+    "question": "Not sure where to begin?",
+    "guide": "Let our AI Concierge guide you"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "close": "Close",
+    "viewAll": "View all",
+    "readMore": "Read more",
+    "learnMore": "Learn more"
+  }
+}
