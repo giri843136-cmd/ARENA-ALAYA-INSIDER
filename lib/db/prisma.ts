@@ -40,6 +40,7 @@ function createPrismaClient(): PrismaClient {
       brand: { findMany: async () => [], findUnique: async () => null, create: async () => ({}), count: async () => 0 },
       article: { findMany: async () => [], findUnique: async () => null, create: async () => ({}), count: async () => 0 },
       user: { findMany: async () => [], findUnique: async () => null, create: async () => ({}), count: async () => 0 },
+      userRole: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
       analyticsEvent: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
       aIHistory: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
       affiliateLink: { findMany: async () => [], create: async () => ({}), count: async () => 0 },

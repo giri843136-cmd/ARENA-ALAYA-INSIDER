@@ -63,8 +63,8 @@
   --bg-overlay: rgba(245, 240, 234, 0.96);
 
   --text-primary: #1C1917;      /* Headings — darker for better contrast */
-  --text-secondary: #5C5249;    /* Body text — WCAG AA 4.5:1 on #F5F0EA */
-  --text-tertiary: #6D655F;     /* Tertiary text — WCAG AA 4.5:1 on #F5F0EA */
+  --text-secondary: #4D443B;    /* Body text — WCAG AA 4.5:1 on #F5F0EA */
+  --text-tertiary: #5C5249;     /* Tertiary text — WCAG AA 4.5:1 on #F5F0EA */
   --text-inverse: #F5F0EA;
   --text-accent: #C5AA8A;
 

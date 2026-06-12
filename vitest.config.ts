@@ -28,8 +28,16 @@ export default defineConfig({
         '**/scripts/**',
       ],
     },
-    include: ['tests/unit/**/*.test.{ts,tsx}', 'lib/**/*.test.{ts,tsx}'],
-    exclude: ['tests/e2e/**', 'tests/performance/**'],
+    include: [
+      'tests/unit/**/*.test.{ts,tsx}',
+      'tests/api/**/*.test.{ts,tsx}',
+      'tests/security/**/*.test.{ts,tsx}',
+      'tests/chaos/**/*.test.{ts,tsx}',
+      'tests/disaster-recovery/**/*.test.{ts,tsx}',
+      'tests/integration/**/*.test.{ts,tsx}',
+      'lib/**/*.test.{ts,tsx}',
+    ],
+    exclude: ['tests/e2e/**', 'tests/performance/**', 'tests/accessibility/**'],
   },
   resolve: {
     alias: {

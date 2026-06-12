@@ -1,0 +1,877 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: ..\accessibility\homepage.a11y.test.ts >> homepage meets WCAG AAA
+- Location: tests\accessibility\homepage.a11y.test.ts:4:5
+
+# Error details
+
+```
+AssertionError: 2 accessibility violations were detected
+
+2 !== 0
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic "Trust indicators" [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - img [ref=e6]
+        - generic [ref=e11]:
+          - generic [ref=e12]: 50K+
+          - generic [ref=e13]: Monthly Readers
+      - generic [ref=e14]:
+        - img [ref=e15]
+        - generic [ref=e18]:
+          - generic [ref=e19]: 200+
+          - generic [ref=e20]: Products Tested
+      - generic [ref=e21]:
+        - img [ref=e22]
+        - generic [ref=e24]:
+          - generic [ref=e25]: "4.8"
+          - generic [ref=e26]: Avg. Rating
+      - generic [ref=e27]:
+        - img [ref=e28]
+        - generic [ref=e31]:
+          - generic [ref=e32]: 100+
+          - generic [ref=e33]: Editorial Essays
+      - generic [ref=e34]:
+        - img [ref=e35]
+        - generic [ref=e38]:
+          - generic [ref=e39]: 100%
+          - generic [ref=e40]: Independent
+  - link "Skip to main content" [ref=e41] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e42]:
+    - generic [ref=e43]: HAND-PICKED WITH INTENTION • EDITORIALLY VERIFIED • SUSTAINABLY SOURCED
+    - navigation [ref=e44]:
+      - generic [ref=e45]:
+        - link "A ALAYA INSIDER" [ref=e46] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e48]: A
+          - generic [ref=e49]:
+            - generic [ref=e50]: ALAYA
+            - generic [ref=e51]: INSIDER
+        - generic [ref=e52]:
+          - button "UNIVERSes ▾" [ref=e54]:
+            - text: UNIVERSes
+            - generic [ref=e55]: ▾
+          - link "DISCOVER" [ref=e56] [cursor=pointer]:
+            - /url: /search
+          - link "COLLECTIONS" [ref=e57] [cursor=pointer]:
+            - /url: /collections
+          - link "JOURNAL" [ref=e58] [cursor=pointer]:
+            - /url: /journal
+          - link "BRANDS" [ref=e59] [cursor=pointer]:
+            - /url: /brands
+        - generic [ref=e60]:
+          - 'button "Currency: USD. Click to change." [ref=e62]':
+            - generic [ref=e63]: $
+            - generic [ref=e64]: USD
+            - img [ref=e65]
+          - button "Open command palette (⌘K)" [ref=e67]:
+            - img [ref=e68]
+            - generic [ref=e71]: Search
+            - generic [ref=e72]: ⌘K
+          - link "Account" [ref=e73] [cursor=pointer]:
+            - /url: /account
+            - img [ref=e74]
+          - link "12" [ref=e77] [cursor=pointer]:
+            - /url: /saved
+            - img [ref=e78]
+            - generic [ref=e80]: "12"
+          - link "Cart" [ref=e81] [cursor=pointer]:
+            - /url: /cart
+            - img [ref=e82]
+  - main [ref=e85]:
+    - generic [ref=e86]:
+      - generic [ref=e91]:
+        - heading "A sanctuary for the discerning." [level=1] [ref=e92]:
+          - text: A sanctuary
+          - text: for the
+          - text: discerning.
+        - paragraph [ref=e93]:
+          - text: Thoughtfully curated objects for home, beauty, style and living.
+          - text: Each selected with intention. Each story told with care.
+        - generic [ref=e94]:
+          - button "Begin Exploring" [ref=e95] [cursor=pointer]:
+            - text: Begin Exploring
+            - img [ref=e96]
+          - link "Read the Journal" [ref=e98] [cursor=pointer]:
+            - /url: /journal
+            - button "Read the Journal" [ref=e99]
+      - generic [ref=e103]:
+        - generic [ref=e104]: HAND-PICKED WITH INTENTION
+        - generic [ref=e105]: EDITORIALLY VERIFIED
+        - generic [ref=e106]: SUSTAINABLY SOURCED
+      - generic [ref=e108]:
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - generic [ref=e111]: THIS WEEK’S CURATION
+            - heading "The Edit" [level=2] [ref=e112]
+          - link "View all discoveries" [ref=e113] [cursor=pointer]:
+            - /url: /search
+            - text: View all discoveries
+            - img [ref=e114]
+        - generic [ref=e116]:
+          - link "Linen Duvet Cover — Oat BESTSELLER Save to wishlist Quick view Compare Ferm Living ★ 4.9 (127) Linen Duvet Cover — Oat $248.00 Available via Impact" [ref=e118] [cursor=pointer]:
+            - /url: /products/linen-duvet-cover-oat
+            - generic [ref=e119]:
+              - generic [ref=e120]:
+                - img "Linen Duvet Cover — Oat" [ref=e121]
+                - generic [ref=e123]: BESTSELLER
+                - generic [ref=e124]:
+                  - button "Save to wishlist" [ref=e125]:
+                    - img [ref=e126]
+                  - button "Quick view" [ref=e128]:
+                    - img [ref=e129]
+                  - button "Compare" [ref=e132]:
+                    - img [ref=e133]
+              - generic [ref=e138]:
+                - generic [ref=e139]:
+                  - generic [ref=e140]: Ferm Living
+                  - generic [ref=e141]:
+                    - generic [ref=e142]: ★
+                    - text: "4.9"
+                    - generic [ref=e143]: (127)
+                - heading "Linen Duvet Cover — Oat" [level=3] [ref=e144]
+                - generic [ref=e146]: $248.00
+                - generic [ref=e147]: Available via Impact
+          - link "Wool Throw Blanket — Sage Save to wishlist Quick view Compare Skagerak ★ 4.8 (89) Wool Throw Blanket — Sage $165.00 Available via ShareASale" [ref=e149] [cursor=pointer]:
+            - /url: /products/wool-throw-blanket-sage
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - img "Wool Throw Blanket — Sage" [ref=e152]
+                - generic [ref=e153]:
+                  - button "Save to wishlist" [ref=e154]:
+                    - img [ref=e155]
+                  - button "Quick view" [ref=e157]:
+                    - img [ref=e158]
+                  - button "Compare" [ref=e161]:
+                    - img [ref=e162]
+              - generic [ref=e167]:
+                - generic [ref=e168]:
+                  - generic [ref=e169]: Skagerak
+                  - generic [ref=e170]:
+                    - generic [ref=e171]: ★
+                    - text: "4.8"
+                    - generic [ref=e172]: (89)
+                - heading "Wool Throw Blanket — Sage" [level=3] [ref=e173]
+                - generic [ref=e175]: $165.00
+                - generic [ref=e176]: Available via ShareASale
+          - link "Ceramic Vase — Matte Taupe NEW BESTSELLER Save to wishlist Quick view Compare HAY ★ 4.7 (64) Ceramic Vase — Matte Taupe $68.00 Available via CJ" [ref=e178] [cursor=pointer]:
+            - /url: /products/ceramic-vase-taupe
+            - generic [ref=e179]:
+              - generic [ref=e180]:
+                - img "Ceramic Vase — Matte Taupe" [ref=e181]
+                - generic [ref=e182]:
+                  - generic [ref=e183]: NEW
+                  - generic [ref=e184]: BESTSELLER
+                - generic [ref=e185]:
+                  - button "Save to wishlist" [ref=e186]:
+                    - img [ref=e187]
+                  - button "Quick view" [ref=e189]:
+                    - img [ref=e190]
+                  - button "Compare" [ref=e193]:
+                    - img [ref=e194]
+              - generic [ref=e199]:
+                - generic [ref=e200]:
+                  - generic [ref=e201]: HAY
+                  - generic [ref=e202]:
+                    - generic [ref=e203]: ★
+                    - text: "4.7"
+                    - generic [ref=e204]: (64)
+                - heading "Ceramic Vase — Matte Taupe" [level=3] [ref=e205]
+                - generic [ref=e207]: $68.00
+                - generic [ref=e208]: Available via CJ
+          - link "Seasoned Cast Iron Skillet — 10\" BESTSELLER Save to wishlist Quick view Compare Meraki ★ 4.9 (203) Seasoned Cast Iron Skillet — 10\" $78.00 Available via Amazon" [ref=e210] [cursor=pointer]:
+            - /url: /products/cast-iron-skillet-10
+            - generic [ref=e211]:
+              - generic [ref=e212]:
+                - img "Seasoned Cast Iron Skillet — 10\"" [ref=e213]
+                - generic [ref=e215]: BESTSELLER
+                - generic [ref=e216]:
+                  - button "Save to wishlist" [ref=e217]:
+                    - img [ref=e218]
+                  - button "Quick view" [ref=e220]:
+                    - img [ref=e221]
+                  - button "Compare" [ref=e224]:
+                    - img [ref=e225]
+              - generic [ref=e230]:
+                - generic [ref=e231]:
+                  - generic [ref=e232]: Meraki
+                  - generic [ref=e233]:
+                    - generic [ref=e234]: ★
+                    - text: "4.9"
+                    - generic [ref=e235]: (203)
+                - heading "Seasoned Cast Iron Skillet — 10\"" [level=3] [ref=e236]
+                - generic [ref=e238]: $78.00
+                - generic [ref=e239]: Available via Amazon
+          - link "Mulberry Silk Sleep Mask — Blush BESTSELLER Save to wishlist Quick view Compare August ★ 4.8 (156) Mulberry Silk Sleep Mask — Blush $42.00 Available via Impact" [ref=e241] [cursor=pointer]:
+            - /url: /products/silk-sleep-mask-blush
+            - generic [ref=e242]:
+              - generic [ref=e243]:
+                - img "Mulberry Silk Sleep Mask — Blush" [ref=e244]
+                - generic [ref=e246]: BESTSELLER
+                - generic [ref=e247]:
+                  - button "Save to wishlist" [ref=e248]:
+                    - img [ref=e249]
+                  - button "Quick view" [ref=e251]:
+                    - img [ref=e252]
+                  - button "Compare" [ref=e255]:
+                    - img [ref=e256]
+              - generic [ref=e261]:
+                - generic [ref=e262]:
+                  - generic [ref=e263]: August
+                  - generic [ref=e264]:
+                    - generic [ref=e265]: ★
+                    - text: "4.8"
+                    - generic [ref=e266]: (156)
+                - heading "Mulberry Silk Sleep Mask — Blush" [level=3] [ref=e267]
+                - generic [ref=e269]: $42.00
+                - generic [ref=e270]: Available via Impact
+          - link "Italian Cashmere Crewneck — Oat BESTSELLER Save to wishlist Quick view Compare The Citizen Ry ★ 4.9 (94) Italian Cashmere Crewneck — Oat $185.00 Available via Impact" [ref=e272] [cursor=pointer]:
+            - /url: /products/cashmere-crewneck-oat
+            - generic [ref=e273]:
+              - generic [ref=e274]:
+                - img "Italian Cashmere Crewneck — Oat" [ref=e275]
+                - generic [ref=e277]: BESTSELLER
+                - generic [ref=e278]:
+                  - button "Save to wishlist" [ref=e279]:
+                    - img [ref=e280]
+                  - button "Quick view" [ref=e282]:
+                    - img [ref=e283]
+                  - button "Compare" [ref=e286]:
+                    - img [ref=e287]
+              - generic [ref=e292]:
+                - generic [ref=e293]:
+                  - generic [ref=e294]: The Citizen Ry
+                  - generic [ref=e295]:
+                    - generic [ref=e296]: ★
+                    - text: "4.9"
+                    - generic [ref=e297]: (94)
+                - heading "Italian Cashmere Crewneck — Oat" [level=3] [ref=e298]
+                - generic [ref=e300]: $185.00
+                - generic [ref=e301]: Available via Impact
+          - link "Considered Object 7 Save to wishlist Quick view Compare Loeffler Randall ★ 4.3 (27) Considered Object 7 $52.00 Available via Amazon" [ref=e303] [cursor=pointer]:
+            - /url: /products/product-7-candle
+            - generic [ref=e304]:
+              - generic [ref=e305]:
+                - img "Considered Object 7" [ref=e306]
+                - generic [ref=e307]:
+                  - button "Save to wishlist" [ref=e308]:
+                    - img [ref=e309]
+                  - button "Quick view" [ref=e311]:
+                    - img [ref=e312]
+                  - button "Compare" [ref=e315]:
+                    - img [ref=e316]
+              - generic [ref=e321]:
+                - generic [ref=e322]:
+                  - generic [ref=e323]: Loeffler Randall
+                  - generic [ref=e324]:
+                    - generic [ref=e325]: ★
+                    - text: "4.3"
+                    - generic [ref=e326]: (27)
+                - heading "Considered Object 7" [level=3] [ref=e327]
+                - generic [ref=e329]: $52.00
+                - generic [ref=e330]: Available via Amazon
+          - link "Considered Object 11 BESTSELLER Save to wishlist Quick view Compare HAY ★ 4.7 (31) Considered Object 11 $56.00 Available via Amazon" [ref=e332] [cursor=pointer]:
+            - /url: /products/product-11-ceramic
+            - generic [ref=e333]:
+              - generic [ref=e334]:
+                - img "Considered Object 11" [ref=e335]
+                - generic [ref=e337]: BESTSELLER
+                - generic [ref=e338]:
+                  - button "Save to wishlist" [ref=e339]:
+                    - img [ref=e340]
+                  - button "Quick view" [ref=e342]:
+                    - img [ref=e343]
+                  - button "Compare" [ref=e346]:
+                    - img [ref=e347]
+              - generic [ref=e352]:
+                - generic [ref=e353]:
+                  - generic [ref=e354]: HAY
+                  - generic [ref=e355]:
+                    - generic [ref=e356]: ★
+                    - text: "4.7"
+                    - generic [ref=e357]: (31)
+                - heading "Considered Object 11" [level=3] [ref=e358]
+                - generic [ref=e360]: $56.00
+                - generic [ref=e361]: Available via Amazon
+      - generic [ref=e363]:
+        - generic [ref=e364]:
+          - generic [ref=e365]:
+            - generic [ref=e366]: EIGHT WORLDS OF INTENTION
+            - heading "Explore the Universes" [level=2] [ref=e367]
+          - link "See all universes" [ref=e368] [cursor=pointer]:
+            - /url: /universes
+            - text: See all universes
+            - img [ref=e369]
+        - generic [ref=e371]:
+          - link "Sanctuary Sanctuary The art of coming home to yourself 0 WORLDS" [ref=e372] [cursor=pointer]:
+            - /url: /universes/sanctuary
+            - generic [ref=e373]:
+              - img "Sanctuary" [ref=e374]
+              - generic [ref=e376]:
+                - generic [ref=e377]: Sanctuary
+                - paragraph [ref=e378]: The art of coming home to yourself
+              - generic [ref=e379]: 0 WORLDS
+          - link "Culinary Studio Culinary Studio Where nourishment becomes ritual 0 WORLDS" [ref=e380] [cursor=pointer]:
+            - /url: /universes/culinary-studio
+            - generic [ref=e381]:
+              - img "Culinary Studio" [ref=e382]
+              - generic [ref=e384]:
+                - generic [ref=e385]: Culinary Studio
+                - paragraph [ref=e386]: Where nourishment becomes ritual
+              - generic [ref=e387]: 0 WORLDS
+          - link "Glow Atelier Glow Atelier Beauty as daily devotion 0 WORLDS" [ref=e388] [cursor=pointer]:
+            - /url: /universes/glow-atelier
+            - generic [ref=e389]:
+              - img "Glow Atelier" [ref=e390]
+              - generic [ref=e392]:
+                - generic [ref=e393]: Glow Atelier
+                - paragraph [ref=e394]: Beauty as daily devotion
+              - generic [ref=e395]: 0 WORLDS
+          - link "Signature Style Signature Style Clothes that feel like coming home 0 WORLDS" [ref=e396] [cursor=pointer]:
+            - /url: /universes/signature-style
+            - generic [ref=e397]:
+              - img "Signature Style" [ref=e398]
+              - generic [ref=e400]:
+                - generic [ref=e401]: Signature Style
+                - paragraph [ref=e402]: Clothes that feel like coming home
+              - generic [ref=e403]: 0 WORLDS
+          - link "Connected Living Connected Living Technology that disappears into the day 0 WORLDS" [ref=e404] [cursor=pointer]:
+            - /url: /universes/connected-living
+            - generic [ref=e405]:
+              - img "Connected Living" [ref=e406]
+              - generic [ref=e408]:
+                - generic [ref=e409]: Connected Living
+                - paragraph [ref=e410]: Technology that disappears into the day
+              - generic [ref=e411]: 0 WORLDS
+          - link "Ritual Reset Ritual Reset The practice of returning to yourself 0 WORLDS" [ref=e412] [cursor=pointer]:
+            - /url: /universes/ritual-reset
+            - generic [ref=e413]:
+              - img "Ritual Reset" [ref=e414]
+              - generic [ref=e416]:
+                - generic [ref=e417]: Ritual Reset
+                - paragraph [ref=e418]: The practice of returning to yourself
+              - generic [ref=e419]: 0 WORLDS
+      - generic [ref=e422]:
+        - generic [ref=e424]:
+          - generic [ref=e425]: FROM THE EDITORS
+          - heading "Insider Picks" [level=2] [ref=e426]
+          - paragraph [ref=e427]: The objects we’re reaching for right now. Chosen not for trends, but for the way they quietly improve our days.
+          - link "Browse all Insider Picks" [ref=e428] [cursor=pointer]:
+            - /url: /search
+            - text: Browse all Insider Picks
+            - img [ref=e429]
+        - generic [ref=e432]:
+          - link "Linen Duvet Cover — Oat BESTSELLER Save to wishlist Quick view Compare Ferm Living ★ 4.9 (127) Linen Duvet Cover — Oat $248.00 Available via Impact" [ref=e433] [cursor=pointer]:
+            - /url: /products/linen-duvet-cover-oat
+            - generic [ref=e434]:
+              - generic [ref=e435]:
+                - img "Linen Duvet Cover — Oat" [ref=e436]
+                - generic [ref=e438]: BESTSELLER
+                - generic [ref=e439]:
+                  - button "Save to wishlist" [ref=e440]:
+                    - img [ref=e441]
+                  - button "Quick view" [ref=e443]:
+                    - img [ref=e444]
+                  - button "Compare" [ref=e447]:
+                    - img [ref=e448]
+              - generic [ref=e453]:
+                - generic [ref=e454]:
+                  - generic [ref=e455]: Ferm Living
+                  - generic [ref=e456]:
+                    - generic [ref=e457]: ★
+                    - text: "4.9"
+                    - generic [ref=e458]: (127)
+                - heading "Linen Duvet Cover — Oat" [level=3] [ref=e459]
+                - generic [ref=e461]: $248.00
+                - generic [ref=e462]: Available via Impact
+          - link "Ceramic Vase — Matte Taupe NEW BESTSELLER Save to wishlist Quick view Compare HAY ★ 4.7 (64) Ceramic Vase — Matte Taupe $68.00 Available via CJ" [ref=e463] [cursor=pointer]:
+            - /url: /products/ceramic-vase-taupe
+            - generic [ref=e464]:
+              - generic [ref=e465]:
+                - img "Ceramic Vase — Matte Taupe" [ref=e466]
+                - generic [ref=e467]:
+                  - generic [ref=e468]: NEW
+                  - generic [ref=e469]: BESTSELLER
+                - generic [ref=e470]:
+                  - button "Save to wishlist" [ref=e471]:
+                    - img [ref=e472]
+                  - button "Quick view" [ref=e474]:
+                    - img [ref=e475]
+                  - button "Compare" [ref=e478]:
+                    - img [ref=e479]
+              - generic [ref=e484]:
+                - generic [ref=e485]:
+                  - generic [ref=e486]: HAY
+                  - generic [ref=e487]:
+                    - generic [ref=e488]: ★
+                    - text: "4.7"
+                    - generic [ref=e489]: (64)
+                - heading "Ceramic Vase — Matte Taupe" [level=3] [ref=e490]
+                - generic [ref=e492]: $68.00
+                - generic [ref=e493]: Available via CJ
+          - link "Seasoned Cast Iron Skillet — 10\" BESTSELLER Save to wishlist Quick view Compare Meraki ★ 4.9 (203) Seasoned Cast Iron Skillet — 10\" $78.00 Available via Amazon" [ref=e494] [cursor=pointer]:
+            - /url: /products/cast-iron-skillet-10
+            - generic [ref=e495]:
+              - generic [ref=e496]:
+                - img "Seasoned Cast Iron Skillet — 10\"" [ref=e497]
+                - generic [ref=e499]: BESTSELLER
+                - generic [ref=e500]:
+                  - button "Save to wishlist" [ref=e501]:
+                    - img [ref=e502]
+                  - button "Quick view" [ref=e504]:
+                    - img [ref=e505]
+                  - button "Compare" [ref=e508]:
+                    - img [ref=e509]
+              - generic [ref=e514]:
+                - generic [ref=e515]:
+                  - generic [ref=e516]: Meraki
+                  - generic [ref=e517]:
+                    - generic [ref=e518]: ★
+                    - text: "4.9"
+                    - generic [ref=e519]: (203)
+                - heading "Seasoned Cast Iron Skillet — 10\"" [level=3] [ref=e520]
+                - generic [ref=e522]: $78.00
+                - generic [ref=e523]: Available via Amazon
+          - link "Mulberry Silk Sleep Mask — Blush BESTSELLER Save to wishlist Quick view Compare August ★ 4.8 (156) Mulberry Silk Sleep Mask — Blush $42.00 Available via Impact" [ref=e524] [cursor=pointer]:
+            - /url: /products/silk-sleep-mask-blush
+            - generic [ref=e525]:
+              - generic [ref=e526]:
+                - img "Mulberry Silk Sleep Mask — Blush" [ref=e527]
+                - generic [ref=e529]: BESTSELLER
+                - generic [ref=e530]:
+                  - button "Save to wishlist" [ref=e531]:
+                    - img [ref=e532]
+                  - button "Quick view" [ref=e534]:
+                    - img [ref=e535]
+                  - button "Compare" [ref=e538]:
+                    - img [ref=e539]
+              - generic [ref=e544]:
+                - generic [ref=e545]:
+                  - generic [ref=e546]: August
+                  - generic [ref=e547]:
+                    - generic [ref=e548]: ★
+                    - text: "4.8"
+                    - generic [ref=e549]: (156)
+                - heading "Mulberry Silk Sleep Mask — Blush" [level=3] [ref=e550]
+                - generic [ref=e552]: $42.00
+                - generic [ref=e553]: Available via Impact
+      - generic [ref=e556]:
+        - generic [ref=e557]:
+          - generic [ref=e558]: JUST ARRIVED
+          - heading "New Arrivals" [level=3] [ref=e559]
+          - generic [ref=e560]:
+            - link "Ceramic Vase — Matte Taupe NEW BESTSELLER Save to wishlist Quick view Compare HAY ★ 4.7 (64) Ceramic Vase — Matte Taupe $68.00 Available via CJ" [ref=e561] [cursor=pointer]:
+              - /url: /products/ceramic-vase-taupe
+              - generic [ref=e562]:
+                - generic [ref=e563]:
+                  - img "Ceramic Vase — Matte Taupe" [ref=e564]
+                  - generic [ref=e565]:
+                    - generic [ref=e566]: NEW
+                    - generic [ref=e567]: BESTSELLER
+                  - generic [ref=e568]:
+                    - button "Save to wishlist" [ref=e569]:
+                      - img [ref=e570]
+                    - button "Quick view" [ref=e572]:
+                      - img [ref=e573]
+                    - button "Compare" [ref=e576]:
+                      - img [ref=e577]
+                - generic [ref=e582]:
+                  - generic [ref=e583]:
+                    - generic [ref=e584]: HAY
+                    - generic [ref=e585]:
+                      - generic [ref=e586]: ★
+                      - text: "4.7"
+                      - generic [ref=e587]: (64)
+                  - heading "Ceramic Vase — Matte Taupe" [level=3] [ref=e588]
+                  - generic [ref=e590]: $68.00
+                  - generic [ref=e591]: Available via CJ
+            - link "Considered Object 13 NEW Save to wishlist Quick view Compare The Citizen Ry ★ 4.8999999999999995 (33) Considered Object 13 $58.00 Available via Amazon" [ref=e592] [cursor=pointer]:
+              - /url: /products/product-13-skillet
+              - generic [ref=e593]:
+                - generic [ref=e594]:
+                  - img "Considered Object 13" [ref=e595]
+                  - generic [ref=e597]: NEW
+                  - generic [ref=e598]:
+                    - button "Save to wishlist" [ref=e599]:
+                      - img [ref=e600]
+                    - button "Quick view" [ref=e602]:
+                      - img [ref=e603]
+                    - button "Compare" [ref=e606]:
+                      - img [ref=e607]
+                - generic [ref=e612]:
+                  - generic [ref=e613]:
+                    - generic [ref=e614]: The Citizen Ry
+                    - generic [ref=e615]:
+                      - generic [ref=e616]: ★
+                      - text: "4.8999999999999995"
+                      - generic [ref=e617]: (33)
+                  - heading "Considered Object 13" [level=3] [ref=e618]
+                  - generic [ref=e620]: $58.00
+                  - generic [ref=e621]: Available via Amazon
+            - link "Considered Object 26 NEW Save to wishlist Quick view Compare Oud Atelier ★ 4.8 (46) Considered Object 26 $71.00 Available via Amazon" [ref=e622] [cursor=pointer]:
+              - /url: /products/product-26-lamp
+              - generic [ref=e623]:
+                - generic [ref=e624]:
+                  - img "Considered Object 26" [ref=e625]
+                  - generic [ref=e627]: NEW
+                  - generic [ref=e628]:
+                    - button "Save to wishlist" [ref=e629]:
+                      - img [ref=e630]
+                    - button "Quick view" [ref=e632]:
+                      - img [ref=e633]
+                    - button "Compare" [ref=e636]:
+                      - img [ref=e637]
+                - generic [ref=e642]:
+                  - generic [ref=e643]:
+                    - generic [ref=e644]: Oud Atelier
+                    - generic [ref=e645]:
+                      - generic [ref=e646]: ★
+                      - text: "4.8"
+                      - generic [ref=e647]: (46)
+                  - heading "Considered Object 26" [level=3] [ref=e648]
+                  - generic [ref=e650]: $71.00
+                  - generic [ref=e651]: Available via Amazon
+        - generic [ref=e652]:
+          - generic [ref=e653]: WHAT PEOPLE ARE LOVING
+          - heading "Trending Now" [level=3] [ref=e654]
+          - generic [ref=e655]:
+            - link "Linen Duvet Cover — Oat BESTSELLER Save to wishlist Quick view Compare Ferm Living ★ 4.9 (127) Linen Duvet Cover — Oat $248.00 Available via Impact" [ref=e656] [cursor=pointer]:
+              - /url: /products/linen-duvet-cover-oat
+              - generic [ref=e657]:
+                - generic [ref=e658]:
+                  - img "Linen Duvet Cover — Oat" [ref=e659]
+                  - generic [ref=e661]: BESTSELLER
+                  - generic [ref=e662]:
+                    - button "Save to wishlist" [ref=e663]:
+                      - img [ref=e664]
+                    - button "Quick view" [ref=e666]:
+                      - img [ref=e667]
+                    - button "Compare" [ref=e670]:
+                      - img [ref=e671]
+                - generic [ref=e676]:
+                  - generic [ref=e677]:
+                    - generic [ref=e678]: Ferm Living
+                    - generic [ref=e679]:
+                      - generic [ref=e680]: ★
+                      - text: "4.9"
+                      - generic [ref=e681]: (127)
+                  - heading "Linen Duvet Cover — Oat" [level=3] [ref=e682]
+                  - generic [ref=e684]: $248.00
+                  - generic [ref=e685]: Available via Impact
+            - link "Ceramic Vase — Matte Taupe NEW BESTSELLER Save to wishlist Quick view Compare HAY ★ 4.7 (64) Ceramic Vase — Matte Taupe $68.00 Available via CJ" [ref=e686] [cursor=pointer]:
+              - /url: /products/ceramic-vase-taupe
+              - generic [ref=e687]:
+                - generic [ref=e688]:
+                  - img "Ceramic Vase — Matte Taupe" [ref=e689]
+                  - generic [ref=e690]:
+                    - generic [ref=e691]: NEW
+                    - generic [ref=e692]: BESTSELLER
+                  - generic [ref=e693]:
+                    - button "Save to wishlist" [ref=e694]:
+                      - img [ref=e695]
+                    - button "Quick view" [ref=e697]:
+                      - img [ref=e698]
+                    - button "Compare" [ref=e701]:
+                      - img [ref=e702]
+                - generic [ref=e707]:
+                  - generic [ref=e708]:
+                    - generic [ref=e709]: HAY
+                    - generic [ref=e710]:
+                      - generic [ref=e711]: ★
+                      - text: "4.7"
+                      - generic [ref=e712]: (64)
+                  - heading "Ceramic Vase — Matte Taupe" [level=3] [ref=e713]
+                  - generic [ref=e715]: $68.00
+                  - generic [ref=e716]: Available via CJ
+            - link "Seasoned Cast Iron Skillet — 10\" BESTSELLER Save to wishlist Quick view Compare Meraki ★ 4.9 (203) Seasoned Cast Iron Skillet — 10\" $78.00 Available via Amazon" [ref=e717] [cursor=pointer]:
+              - /url: /products/cast-iron-skillet-10
+              - generic [ref=e718]:
+                - generic [ref=e719]:
+                  - img "Seasoned Cast Iron Skillet — 10\"" [ref=e720]
+                  - generic [ref=e722]: BESTSELLER
+                  - generic [ref=e723]:
+                    - button "Save to wishlist" [ref=e724]:
+                      - img [ref=e725]
+                    - button "Quick view" [ref=e727]:
+                      - img [ref=e728]
+                    - button "Compare" [ref=e731]:
+                      - img [ref=e732]
+                - generic [ref=e737]:
+                  - generic [ref=e738]:
+                    - generic [ref=e739]: Meraki
+                    - generic [ref=e740]:
+                      - generic [ref=e741]: ★
+                      - text: "4.9"
+                      - generic [ref=e742]: (203)
+                  - heading "Seasoned Cast Iron Skillet — 10\"" [level=3] [ref=e743]
+                  - generic [ref=e745]: $78.00
+                  - generic [ref=e746]: Available via Amazon
+        - generic [ref=e747]:
+          - generic [ref=e748]: HAND SELECTED
+          - heading "Editor’s Picks" [level=3] [ref=e749]
+          - generic [ref=e750]:
+            - link "Linen Duvet Cover — Oat BESTSELLER Save to wishlist Quick view Compare Ferm Living ★ 4.9 (127) Linen Duvet Cover — Oat $248.00 Available via Impact" [ref=e751] [cursor=pointer]:
+              - /url: /products/linen-duvet-cover-oat
+              - generic [ref=e752]:
+                - generic [ref=e753]:
+                  - img "Linen Duvet Cover — Oat" [ref=e754]
+                  - generic [ref=e756]: BESTSELLER
+                  - generic [ref=e757]:
+                    - button "Save to wishlist" [ref=e758]:
+                      - img [ref=e759]
+                    - button "Quick view" [ref=e761]:
+                      - img [ref=e762]
+                    - button "Compare" [ref=e765]:
+                      - img [ref=e766]
+                - generic [ref=e771]:
+                  - generic [ref=e772]:
+                    - generic [ref=e773]: Ferm Living
+                    - generic [ref=e774]:
+                      - generic [ref=e775]: ★
+                      - text: "4.9"
+                      - generic [ref=e776]: (127)
+                  - heading "Linen Duvet Cover — Oat" [level=3] [ref=e777]
+                  - generic [ref=e779]: $248.00
+                  - generic [ref=e780]: Available via Impact
+            - link "Wool Throw Blanket — Sage Save to wishlist Quick view Compare Skagerak ★ 4.8 (89) Wool Throw Blanket — Sage $165.00 Available via ShareASale" [ref=e781] [cursor=pointer]:
+              - /url: /products/wool-throw-blanket-sage
+              - generic [ref=e782]:
+                - generic [ref=e783]:
+                  - img "Wool Throw Blanket — Sage" [ref=e784]
+                  - generic [ref=e785]:
+                    - button "Save to wishlist" [ref=e786]:
+                      - img [ref=e787]
+                    - button "Quick view" [ref=e789]:
+                      - img [ref=e790]
+                    - button "Compare" [ref=e793]:
+                      - img [ref=e794]
+                - generic [ref=e799]:
+                  - generic [ref=e800]:
+                    - generic [ref=e801]: Skagerak
+                    - generic [ref=e802]:
+                      - generic [ref=e803]: ★
+                      - text: "4.8"
+                      - generic [ref=e804]: (89)
+                  - heading "Wool Throw Blanket — Sage" [level=3] [ref=e805]
+                  - generic [ref=e807]: $165.00
+                  - generic [ref=e808]: Available via ShareASale
+            - link "Ceramic Vase — Matte Taupe NEW BESTSELLER Save to wishlist Quick view Compare HAY ★ 4.7 (64) Ceramic Vase — Matte Taupe $68.00 Available via CJ" [ref=e809] [cursor=pointer]:
+              - /url: /products/ceramic-vase-taupe
+              - generic [ref=e810]:
+                - generic [ref=e811]:
+                  - img "Ceramic Vase — Matte Taupe" [ref=e812]
+                  - generic [ref=e813]:
+                    - generic [ref=e814]: NEW
+                    - generic [ref=e815]: BESTSELLER
+                  - generic [ref=e816]:
+                    - button "Save to wishlist" [ref=e817]:
+                      - img [ref=e818]
+                    - button "Quick view" [ref=e820]:
+                      - img [ref=e821]
+                    - button "Compare" [ref=e824]:
+                      - img [ref=e825]
+                - generic [ref=e830]:
+                  - generic [ref=e831]:
+                    - generic [ref=e832]: HAY
+                    - generic [ref=e833]:
+                      - generic [ref=e834]: ★
+                      - text: "4.7"
+                      - generic [ref=e835]: (64)
+                  - heading "Ceramic Vase — Matte Taupe" [level=3] [ref=e836]
+                  - generic [ref=e838]: $68.00
+                  - generic [ref=e839]: Available via CJ
+      - generic [ref=e841]:
+        - generic [ref=e842]:
+          - generic [ref=e843]:
+            - generic [ref=e844]: PARTNERS IN CRAFT
+            - heading "Brand Collaborations" [level=2] [ref=e845]
+          - link "Meet all brands →" [ref=e846] [cursor=pointer]:
+            - /url: /brands
+        - generic [ref=e847]:
+          - link "Ferm Living Objects with presence Denmark • SINCE 2005" [ref=e848] [cursor=pointer]:
+            - /url: /brands/ferm-living
+            - generic [ref=e849]: Ferm Living
+            - generic [ref=e850]: Objects with presence
+            - generic [ref=e851]: Denmark • SINCE 2005
+          - link "HAY Everyday objects, elevated Denmark • SINCE 2002" [ref=e852] [cursor=pointer]:
+            - /url: /brands/hay
+            - generic [ref=e853]: HAY
+            - generic [ref=e854]: Everyday objects, elevated
+            - generic [ref=e855]: Denmark • SINCE 2002
+          - link "The Citizen Ry Slow fashion for real life United States • SINCE 2016" [ref=e856] [cursor=pointer]:
+            - /url: /brands/the-citizen-ry
+            - generic [ref=e857]: The Citizen Ry
+            - generic [ref=e858]: Slow fashion for real life
+            - generic [ref=e859]: United States • SINCE 2016
+          - link "Meraki The beauty of imperfection Greece • SINCE 2014" [ref=e860] [cursor=pointer]:
+            - /url: /brands/meraki
+            - generic [ref=e861]: Meraki
+            - generic [ref=e862]: The beauty of imperfection
+            - generic [ref=e863]: Greece • SINCE 2014
+          - link "August Skin that feels like skin United States • SINCE 2018" [ref=e864] [cursor=pointer]:
+            - /url: /brands/august
+            - generic [ref=e865]: August
+            - generic [ref=e866]: Skin that feels like skin
+            - generic [ref=e867]: United States • SINCE 2018
+      - generic [ref=e869]:
+        - generic [ref=e870]:
+          - generic [ref=e871]:
+            - generic [ref=e872]: FROM THE JOURNAL
+            - heading "INSIDER Journal" [level=2] [ref=e873]
+          - link "Read the full archive" [ref=e874] [cursor=pointer]:
+            - /url: /journal
+            - text: Read the full archive
+            - img [ref=e875]
+        - generic [ref=e877]:
+          - link "The Quiet Luxury of Linen sanctuary Elena Voss • 9 min read The Quiet Luxury of Linen Why the oldest fabric still feels like the most modern choice Linen has clothed and covered humans for thousands of years. In an age of performance fabrics and quick trends, it remains the most honest material we can sleep under. READ THE ESSAY →" [ref=e878] [cursor=pointer]:
+            - /url: /journal/the-quiet-luxury-of-linen
+            - generic [ref=e879]:
+              - generic [ref=e880]:
+                - img "The Quiet Luxury of Linen" [ref=e881]
+                - generic [ref=e882]: sanctuary
+              - generic [ref=e883]:
+                - generic [ref=e884]:
+                  - generic [ref=e885]: Elena Voss
+                  - generic [ref=e886]: •
+                  - generic [ref=e887]: 9 min read
+                - heading "The Quiet Luxury of Linen" [level=3] [ref=e888]
+                - paragraph [ref=e889]: Why the oldest fabric still feels like the most modern choice
+                - paragraph [ref=e890]: Linen has clothed and covered humans for thousands of years. In an age of performance fabrics and quick trends, it remains the most honest material we can sleep under.
+                - generic [ref=e891]: READ THE ESSAY →
+          - link "The Weight of a Good Pan culinary studio Margot Hale • 7 min read The Weight of a Good Pan On cast iron, patience, and the meals that become memories A proper skillet doesn’t just cook food. It becomes part of the story of your kitchen. READ THE ESSAY →" [ref=e892] [cursor=pointer]:
+            - /url: /journal/the-weight-of-a-good-pan
+            - generic [ref=e893]:
+              - generic [ref=e894]:
+                - img "The Weight of a Good Pan" [ref=e895]
+                - generic [ref=e896]: culinary studio
+              - generic [ref=e897]:
+                - generic [ref=e898]:
+                  - generic [ref=e899]: Margot Hale
+                  - generic [ref=e900]: •
+                  - generic [ref=e901]: 7 min read
+                - heading "The Weight of a Good Pan" [level=3] [ref=e902]
+                - paragraph [ref=e903]: On cast iron, patience, and the meals that become memories
+                - paragraph [ref=e904]: A proper skillet doesn’t just cook food. It becomes part of the story of your kitchen.
+                - generic [ref=e905]: READ THE ESSAY →
+          - link "On the Quiet Pleasure of Movement wander edit Sofia Laurent • 12 min read On the Quiet Pleasure of Movement A meditation on the things that shape how we feel Some objects don’t announce themselves. They simply make every day a little more beautiful. READ THE ESSAY →" [ref=e906] [cursor=pointer]:
+            - /url: /journal/editorial-piece-7
+            - generic [ref=e907]:
+              - generic [ref=e908]:
+                - img "On the Quiet Pleasure of Movement" [ref=e909]
+                - generic [ref=e910]: wander edit
+              - generic [ref=e911]:
+                - generic [ref=e912]:
+                  - generic [ref=e913]: Sofia Laurent
+                  - generic [ref=e914]: •
+                  - generic [ref=e915]: 12 min read
+                - heading "On the Quiet Pleasure of Movement" [level=3] [ref=e916]
+                - paragraph [ref=e917]: A meditation on the things that shape how we feel
+                - paragraph [ref=e918]: Some objects don’t announce themselves. They simply make every day a little more beautiful.
+                - generic [ref=e919]: READ THE ESSAY →
+      - generic [ref=e921]:
+        - generic [ref=e922]: A QUIET LETTER, ONCE A WEEK
+        - heading "The Alaya Letter" [level=2] [ref=e923]
+        - paragraph [ref=e924]: A carefully written note each Sunday featuring one beautiful object, one editorial essay, and three things we’re quietly obsessed with.
+        - generic [ref=e925]:
+          - textbox "your@email.com" [ref=e926]
+          - button "Subscribe" [ref=e927] [cursor=pointer]
+        - paragraph [ref=e928]: We respect your inbox. Unsubscribe with one click.
+      - generic [ref=e930]:
+        - generic [ref=e931]: HAND-PICKED WITH INTENTION
+        - generic [ref=e932]: EDITORIALLY VERIFIED
+        - generic [ref=e933]: SUSTAINABLY SOURCED
+  - contentinfo [ref=e934]:
+    - generic [ref=e935]:
+      - generic [ref=e936]:
+        - generic [ref=e937]:
+          - generic [ref=e938]:
+            - generic [ref=e940]: A
+            - generic [ref=e941]:
+              - generic [ref=e942]: ALAYA
+              - generic [ref=e943]: INSIDER
+          - paragraph [ref=e944]:
+            - text: An editorial sanctuary for the discerning. Curated with intention since 2023.
+            - text: New York • London • Sydney.
+          - generic [ref=e945]:
+            - link "INSTAGRAM" [ref=e946] [cursor=pointer]:
+              - /url: https://instagram.com
+            - link "PINTEREST" [ref=e947] [cursor=pointer]:
+              - /url: https://pinterest.com
+            - link "SUBSTACK" [ref=e948] [cursor=pointer]:
+              - /url: https://substack.com
+        - generic [ref=e949]:
+          - generic [ref=e950]: EXPLORE
+          - generic [ref=e951]:
+            - link "Universes" [ref=e952] [cursor=pointer]:
+              - /url: /universes
+            - link "Collections" [ref=e953] [cursor=pointer]:
+              - /url: /collections
+            - link "Discover" [ref=e954] [cursor=pointer]:
+              - /url: /search
+            - link "The Brand Vault" [ref=e955] [cursor=pointer]:
+              - /url: /brands
+            - link "The Journal" [ref=e956] [cursor=pointer]:
+              - /url: /journal
+        - generic [ref=e957]:
+          - generic [ref=e958]: THE PLATFORM
+          - generic [ref=e959]:
+            - link "Our Story" [ref=e960] [cursor=pointer]:
+              - /url: /about
+            - link "Contact" [ref=e961] [cursor=pointer]:
+              - /url: /contact
+            - link "The Alaya Letter" [ref=e962] [cursor=pointer]:
+              - /url: /newsletter
+            - link "Saved & Wishlist" [ref=e963] [cursor=pointer]:
+              - /url: /saved
+            - link "Account" [ref=e964] [cursor=pointer]:
+              - /url: /account
+        - generic [ref=e965]:
+          - generic [ref=e966]: SUPPORT & LEGAL
+          - generic [ref=e967]:
+            - link "Affiliate Disclosure" [ref=e968] [cursor=pointer]:
+              - /url: /affiliate-disclosure
+            - link "Privacy Policy" [ref=e969] [cursor=pointer]:
+              - /url: /privacy
+            - link "Terms of Service" [ref=e970] [cursor=pointer]:
+              - /url: /terms
+            - link "Help Center" [ref=e971] [cursor=pointer]:
+              - /url: /contact
+            - generic [ref=e972]: HAND-PICKED WITH INTENTION • EDITORIALLY VERIFIED
+      - generic [ref=e974]:
+        - generic [ref=e975]: A QUIET LETTER, ONCE A WEEK
+        - generic [ref=e976]: The Alaya Letter
+        - paragraph [ref=e977]: One beautiful object. One essay. Three things we’re quietly obsessed with. Delivered Sunday.
+        - generic [ref=e978]:
+          - textbox "your@email.com" [ref=e979]
+          - button "SUBSCRIBE" [ref=e980] [cursor=pointer]
+        - paragraph [ref=e981]: We respect your inbox. Unsubscribe instantly.
+      - generic [ref=e982]:
+        - generic [ref=e983]: © 2026 Alaya Insider. All rights reserved. Handcrafted with care in the quiet hours.
+        - generic [ref=e984]:
+          - link "Privacy" [ref=e985] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e986] [cursor=pointer]:
+            - /url: /terms
+          - link "Affiliates" [ref=e987] [cursor=pointer]:
+            - /url: /affiliate-disclosure
+  - button "Open AI Shopping Assistant" [ref=e988]:
+    - img [ref=e989]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e996] [cursor=pointer]:
+    - img [ref=e997]
+  - alert [ref=e1000]
+```

@@ -67,6 +67,7 @@ export function TrustBar({
   return (
     <div
       className={`border-y border-[#E4DDD5] bg-white/80 backdrop-blur-sm ${className}`}
+      role="region"
       aria-label="Trust indicators"
     >
       <div className="container">

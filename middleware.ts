@@ -41,7 +41,7 @@ export default function middleware(request: NextRequest) {
   const expires = new Date(Date.now() + 86400000).toUTCString();
 
   response.headers.set("x-currency-code", currency.code);
-  response.headers.set("x-currency-symbol", currency.symbol);
+  response.headers.set("x-currency-symbol", encodeURIComponent(currency.symbol));
   response.headers.set("x-currency-locale", currency.locale);
 
   response.headers.append(

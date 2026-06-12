@@ -13,7 +13,7 @@ export function Navigation() {
   const navUniverses = universes.slice(0, 8);
 
   return (
-    <>
+    <header>
       {/* Top Announcement Bar — Brand Essence */}
       <div className="bg-[#26221E] text-[#F5F0EA] text-center text-[11px] tracking-[2.5px] py-1.5 font-medium">
         HAND-PICKED WITH INTENTION • EDITORIALLY VERIFIED • SUSTAINABLY SOURCED
@@ -90,7 +90,7 @@ export function Navigation() {
               <kbd className="ml-1 rounded-md bg-[#EFE7DE] px-1.5 py-px text-[10px] font-mono text-[#6D655F]">⌘K</kbd>
             </button>
 
-            <Link href="/account" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#EFE7DE] text-[#6D655F] transition-colors">
+            <Link href="/account" aria-label="Account" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#EFE7DE] text-[#6D655F] transition-colors">
               <User className="h-4 w-4" />
             </Link>
 
@@ -99,7 +99,7 @@ export function Navigation() {
               <div className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-[#C5AA8A] text-[9px] flex items-center justify-center text-[#26221E] font-medium">12</div>
             </Link>
 
-            <Link href="/cart" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#EFE7DE] text-[#6D655F] transition-colors relative">
+            <Link href="/cart" aria-label="Cart" className="hidden md:flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#EFE7DE] text-[#6D655F] transition-colors relative">
               <ShoppingBag className="h-4 w-4" />
             </Link>
 
@@ -129,6 +129,6 @@ export function Navigation() {
           </div>
         )}
       </nav>
-    </>
+    </header>
   );
 }

@@ -42,6 +42,7 @@
     "@opentelemetry/sdk-node": "^0.218.0",
     "@prisma/client": "^7.8.0",
     "@sentry/nextjs": "^10.57.0",
+    "axe-playwright": "^2.2.2",
     "bullmq": "^5.78.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
