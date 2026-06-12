@@ -28,9 +28,7 @@ export default function AlayaHomepage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/35 to-black/75" />
 
         <div className="relative z-10 container text-center max-w-4xl px-6">
-          <div className="inline-block mb-5 rounded-full border border-white/25 px-5 py-1 text-xs tracking-[3.5px] text-white/60">
-            EST. 2023 • NEW YORK • LONDON • SYDNEY
-          </div>
+
           
           <h1 className="display text-[#F5F0EA] mb-6 tracking-[-3.8px] leading-[0.9]">
             A sanctuary<br />for the<br />discerning.

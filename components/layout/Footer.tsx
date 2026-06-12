@@ -107,8 +107,7 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
             <Link href="/affiliate-disclosure" className="hover:text-white transition-colors">Affiliates</Link>
-            <span className="hidden sm:inline text-[#333]">•</span>
-            <span className="text-[10px] tracking-[2px]">NEW YORK • LONDON • SYDNEY</span>
+
           </div>
         </div>
       </div>

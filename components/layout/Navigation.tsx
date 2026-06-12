@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Search, Menu, X, User, Heart, ShoppingBag } from "lucide-react";
 import { universes } from "@/lib/data/seed";
+import { CurrencySelector } from "@/components/ui/CurrencySelector";
 
 export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,6 +78,8 @@ export function Navigation() {
 
           {/* Right Actions — Calm & Functional */}
           <div className="flex items-center gap-2.5">
+            {/* Currency selector — shows symbol before search */}
+            <CurrencySelector />
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
               className="hidden sm:flex items-center gap-2.5 rounded-2xl border border-[#E4DDD5] bg-white px-5 h-9 text-sm text-[#6D655F] hover:border-[#C5AA8A] hover:text-[#26221E] transition-all active:scale-[0.985]"
