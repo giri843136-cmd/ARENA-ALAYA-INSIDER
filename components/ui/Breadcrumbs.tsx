@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { BreadcrumbSchema } from "./ProductSchema";
 
 interface BreadcrumbItem {
-  label: string;
-  href?: string;
+  name: string;
+  href: string;
 }
 
 interface BreadcrumbsProps {
@@ -12,32 +13,49 @@ interface BreadcrumbsProps {
 }
 
 /**
- * Breadcrumb navigation with dynamic segments.
- * Renders each segment as a link except the last (current page).
+ * Breadcrumbs — SEO-friendly breadcrumb navigation.
+ *
+ * Renders visual breadcrumb trail + JSON-LD BreadcrumbList schema.
+ * Place above page titles on product, universe, brand, and journal pages.
+ *
+ * Usage:
+ *   <Breadcrumbs items={[
+ *     { name: "Home", href: "/" },
+ *     { name: "Sanctuary", href: "/universes/sanctuary" },
+ *     { name: product.name, href: `/products/${product.slug}` },
+ *   ]} />
  */
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
+  if (!items.length) return null;
+
   return (
-    <nav aria-label="Breadcrumb" className={`flex items-center gap-1.5 text-xs ${className}`}>
-      {items.map((item, i) => {
-        const isLast = i === items.length - 1;
-        return (
-          <span key={i} className="flex items-center gap-1.5">
-            {i > 0 && <ChevronRight size={12} className="text-[#8A8178]" />}
-            {isLast ? (
-              <span className="text-[#8A8178] font-medium" aria-current="page">
-                {item.label}
-              </span>
-            ) : (
-              <Link
-                href={item.href || "#"}
-                className="text-[#C5AA8A] hover:text-[#B89A7A] transition-colors"
-              >
-                {item.label}
-              </Link>
-            )}
-          </span>
-        );
-      })}
-    </nav>
+    <>
+      <BreadcrumbSchema items={items} />
+      <nav
+        aria-label="Breadcrumb"
+        className={`flex items-center gap-1.5 text-xs tracking-wider text-[#8A8178] ${className}`}
+      >
+        {items.map((item, i) => {
+          const isLast = i === items.length - 1;
+          return (
+            <span key={item.href} className="flex items-center gap-1.5">
+              {i > 0 && <ChevronRight size={12} className="text-[#C5AA8A]/50" aria-hidden="true" />}
+              {isLast ? (
+                <span className="text-[#C5AA8A] font-medium" aria-current="page">
+                  {item.name}
+                </span>
+              ) : (
+                <Link
+                  href={item.href}
+                  className="hover:text-[#C5AA8A] transition-colors"
+                >
+                  {item.name}
+                </Link>
+              )}
+            </span>
+          );
+        })}
+      </nav>
+    </>
   );
 }

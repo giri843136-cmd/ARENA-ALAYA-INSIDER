@@ -61,7 +61,7 @@ export function Footer() {
               <Link href="/privacy" className="block hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="block hover:text-white transition-colors">Terms of Service</Link>
               <Link href="/contact" className="block hover:text-white transition-colors">Help Center</Link>
-              <div className="pt-3 text-xs text-[#8A8178]">EDITORIALLY VERIFIED • SUSTAINABLY SOURCED</div>
+              <div className="pt-3 text-xs text-[#8A8178]">HAND-PICKED WITH INTENTION • EDITORIALLY VERIFIED</div>
             </div>
           </div>
         </div>

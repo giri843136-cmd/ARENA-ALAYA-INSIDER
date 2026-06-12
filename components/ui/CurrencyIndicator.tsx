@@ -19,15 +19,13 @@ export function CurrencyIndicator({ className = "" }: { className?: string }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1 text-[10px] tracking-[1.5px] text-[#8A8178] ${
-        !ratesLoaded ? "animate-pulse" : ""
-      } ${className}`}
+      className={`inline-flex items-center gap-1 text-[10px] tracking-[1.5px] text-[#8A8178] ${className}`}
       title={`Prices shown in ${currency.name} (${currency.code})`}
       aria-label={`Currency: ${currency.code}`}
     >
       <span
         className={`inline-block h-1.5 w-1.5 rounded-full ${
-          ratesLoaded ? "bg-green-400" : "bg-yellow-400"
+          ratesLoaded ? "bg-green-400" : "bg-yellow-400 animate-pulse"
         }`}
         aria-hidden="true"
       />

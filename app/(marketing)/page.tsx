@@ -17,11 +17,6 @@ export default function AlayaHomepage() {
 
   return (
     <div className="bg-[#F5F0EA] min-h-screen">
-      {/* ANNOUNCEMENT BAR */}
-      <div className="bg-[#26221E] text-[#F5F0EA] text-center text-[11px] tracking-[2.5px] py-1.5 font-medium">
-        CURATED BY WOMEN, FOR WOMEN • EDITORIALLY VERIFIED • SUSTAINABLY SOURCED
-      </div>
-
       {/* CINEMATIC HERO — Apple + Aesop inspired */}
       <section className="relative h-[100dvh] min-h-[820px] flex items-center justify-center overflow-hidden bg-[#26221E] text-[#F5F0EA]">
         <div className="absolute inset-0 bg-[radial-gradient(#3D3530_0.6px,transparent_1px)] bg-[length:3.5px_3.5px] opacity-30" />
@@ -74,7 +69,7 @@ export default function AlayaHomepage() {
       {/* TRUST BAR — Quiet Confidence */}
       <div className="border-y border-[#E4DDD5] bg-[#EFE7DE] py-5">
         <div className="container flex flex-wrap justify-center gap-x-10 gap-y-2 text-center text-[11px] tracking-[2.5px] text-[#6D655F]">
-          <div>HAND SELECTED BY WOMEN, FOR WOMEN</div>
+          <div>HAND-PICKED WITH INTENTION</div>
           <div>EDITORIALLY VERIFIED</div>
           <div>SUSTAINABLY SOURCED</div>
         </div>
@@ -273,7 +268,7 @@ export default function AlayaHomepage() {
       {/* FINAL TRUST BAR */}
       <div className="border-t border-[#E8E2D9] py-8 bg-white">
         <div className="container flex flex-wrap justify-center gap-x-12 gap-y-2 text-center text-xs text-[#8A8178] tracking-widest">
-          <div>HAND SELECTED BY WOMEN, FOR WOMEN</div>
+          <div>HAND-PICKED WITH INTENTION</div>
           <div>EDITORIALLY VERIFIED</div>
           <div>SUSTAINABLY SOURCED</div>
         </div>

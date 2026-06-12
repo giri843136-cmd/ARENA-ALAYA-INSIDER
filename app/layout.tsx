@@ -6,6 +6,7 @@ import { CommandPaletteProvider } from "@/components/CommandPalette";
 import { OfflineBanner } from "@/components/ui/OfflineBanner";
 import { PWAInstallPrompt } from "@/components/ui/PWAInstallPrompt";
 import { ServiceWorkerRegister } from "@/components/providers/ServiceWorkerRegister";
+import { TrustBar } from "@/components/ui/TrustBar";
 import { CurrencyProvider } from "@/lib/currency/useCurrency";
 
 const playfair = Playfair_Display({
@@ -66,6 +67,7 @@ export default function RootLayout({
           <CommandPaletteProvider>
             <OfflineBanner />
             <ServiceWorkerRegister />
+            <TrustBar variant="bar" />
             {children}
             <PWAInstallPrompt />
           </CommandPaletteProvider>

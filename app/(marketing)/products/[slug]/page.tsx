@@ -4,6 +4,13 @@ import { allProducts, brands, reviews, faqs, articles } from "@/lib/data/seed";
 import { Button } from "@/components/ui/Button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductActions } from "@/components/product/ProductActions";
+import { ProductSchema, FAQSchema } from "@/components/ui/ProductSchema";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { EditorBadge } from "@/components/ui/EditorBadge";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
+import { PriceHistory } from "@/components/ui/PriceHistory";
+import { MultiRetailerPrice } from "@/components/ui/MultiRetailerPrice";
+import { MobileCompareBar } from "@/components/ui/MobileCompareBar";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -25,11 +32,28 @@ export default async function ProductPage({ params }: Props) {
   ).slice(0, 3);
 
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+  const reviewedDate = new Date(product.publishedAt);
+  const lastReviewed = reviewedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
   return (
     <div className="bg-[#F5F0EA]">
+      {/* JSON-LD Structured Data */}
+      <ProductSchema product={product} brand={brand} reviews={productReviews} />
+      <FAQSchema faqs={faqs.slice(0, 5)} />
+
+      {/* Breadcrumbs */}
+      <div className="container pt-6 px-6 md:px-0">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: (product.universe || "").replace("-", " ").replace(/\b\w/g, (l: string) => l.toUpperCase()), href: `/universes/${product.universe}` },
+            { name: product.name, href: `/products/${product.slug}` },
+          ]}
+        />
+      </div>
+
       {/* HERO + LUXURY GALLERY — Cinematic, Apple + C-Style inspired */}
-      <div className="container pt-10 pb-12 px-6 md:px-0">
+      <div className="container pt-6 pb-12 px-6 md:px-0">
         <div className="grid lg:grid-cols-2 gap-x-20 gap-y-12">
           {/* Left: Premium Gallery (masonry + cinematic) */}
           <div className="space-y-4">
@@ -86,21 +110,27 @@ export default async function ProductPage({ params }: Props) {
                 </Link>
               </div>
 
+              {/* Editor Badges */}
+              {product.bestseller && (
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <EditorBadge type="editors-pick" size="sm" />
+                  {product.bestseller && <EditorBadge type="bestseller" size="sm" />}
+                  {hasDiscount && <EditorBadge type="best-value" size="sm" />}
+                </div>
+              )}
+
               <h1 className="font-display text-[46px] leading-[0.92] tracking-[-2.4px] mb-4 text-[#26221E]">
                 {product.name}
               </h1>
 
               {/* Price + Discount */}
               <div className="flex items-baseline gap-4 mb-6">
-                <span className="text-[42px] font-medium tabular-nums tracking-[-1.5px] text-[#26221E]">
-                  ${product.price}
-                </span>
+                <PriceDisplay usdAmount={product.price} className="text-[42px] font-medium tabular-nums tracking-[-1.5px] text-[#26221E]" />
                 {hasDiscount && (
                   <span className="text-2xl text-[#8A8178] line-through tabular-nums">
                     ${product.originalPrice}
                   </span>
                 )}
-                <span className="ml-1 text-sm text-[#8A8178]">USD</span>
                 {hasDiscount && (
                   <div className="ml-auto badge badge-gold text-xs">SAVE {Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)}%</div>
                 )}
@@ -114,7 +144,12 @@ export default async function ProductPage({ params }: Props) {
                 <div className="text-[#6D655F]">
                   {product.rating || 4.8} — {product.reviewCount || 142} reviews
                 </div>
-                <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] ml-auto">VERIFIED BY ALAYA</div>
+                <EditorBadge type="editors-pick" size="sm" />
+              </div>
+
+              {/* Last reviewed date */}
+              <div className="text-[10px] tracking-[1.5px] text-[#8A8178] mb-6">
+                Last reviewed {lastReviewed} • Prices and availability may vary
               </div>
 
               <p className="text-[15px] leading-relaxed text-[#5C5249] mb-8">
@@ -145,6 +180,21 @@ export default async function ProductPage({ params }: Props) {
                   <div className="font-medium text-[#26221E] mt-0.5">90-day happiness • Easy returns</div>
                 </div>
               </div>
+
+              {/* Multi-Retailer Price Comparison */}
+              {product.affiliateLinks && product.affiliateLinks.length > 1 && (
+                <div className="mt-6">
+                  <MultiRetailerPrice
+                    productPrice={product.price}
+                    productName={product.name}
+                    retailers={product.affiliateLinks.map(l => ({
+                      network: l.network,
+                      url: l.url,
+                      label: l.label,
+                    }))}
+                  />
+                </div>
+              )}
 
               {/* Affiliate Trust Line */}
               {product.affiliateLinks?.length > 0 && (
@@ -223,31 +273,15 @@ export default async function ProductPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Price History — Simple elegant timeline */}
+          {/* Price History — Premium with alerts */}
           <div className="lg:col-span-7">
             <div className="uppercase tracking-[3px] text-xs text-[#C5AA8A] mb-3">PRICE INTELLIGENCE</div>
             <h3 className="font-display text-4xl tracking-[-1px] mb-6">Price History</h3>
-            <div className="bg-white border border-[#E4DDD5] rounded-3xl p-8">
-              <div className="flex justify-between text-xs text-[#8A8178] mb-6 tracking-widest">
-                <div>6 MONTHS AGO</div>
-                <div>NOW</div>
-              </div>
-              <div className="h-px bg-gradient-to-r from-[#E4DDD5] via-[#C5AA8A] to-[#E4DDD5] relative mb-4">
-                <div className="absolute -top-1.5 left-[15%] h-3 w-3 rounded-full bg-[#C5AA8A] border-2 border-white" />
-                <div className="absolute -top-1.5 right-0 h-3 w-3 rounded-full bg-[#C5AA8A] border-2 border-white" />
-              </div>
-              <div className="flex justify-between text-sm">
-                <div>
-                  <div className="font-medium tabular-nums">${Math.round(product.price * 1.12)}</div>
-                  <div className="text-[10px] text-[#8A8178]">Peak season</div>
-                </div>
-                <div className="text-right">
-                  <div className="font-medium tabular-nums">${product.price}</div>
-                  <div className="text-[10px] text-[#C5AA8A]">Current best price</div>
-                </div>
-              </div>
-              <div className="mt-5 text-[11px] text-[#8A8178]">Price has dropped 11% in the last 90 days. Excellent time to purchase.</div>
-            </div>
+            <PriceHistory
+              currentPrice={product.price}
+              originalPrice={product.originalPrice}
+              productName={product.name}
+            />
           </div>
         </div>
 
@@ -398,8 +432,16 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Mobile sticky compare bar */}
+      <MobileCompareBar
+        productName={product.name}
+        productPrice={product.price}
+        productSlug={product.slug}
+        primaryUrl={product.affiliateLinks?.[0]?.url}
+      />
+
       {/* FINAL TRUST + AI PROMPT */}
-      <div className="container py-12 text-center text-sm text-[#8A8178]">
+      <div className="container pb-16 pt-12 text-center text-sm text-[#8A8178]">
         Still deciding? Open the <span className="font-medium text-[#C5AA8A]">Alaya Concierge</span> (bottom right) for personalized styling advice, room visualizations, or gift recommendations.
       </div>
     </div>

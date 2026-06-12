@@ -19,8 +19,24 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Detect currency from request and set cookies for client-side detection
-  const currency = detectCurrencyFromRequest(request);
+  // Check for query param override first (for local testing: ?currency=EUR)
+  const queryCurrency = request.nextUrl.searchParams.get("currency");
+  const currency = queryCurrency
+    ? (() => {
+        const CURRENCIES: Record<string, { code: string; symbol: string; locale: string; name: string }> = {
+          USD: { code: "USD", symbol: "$", locale: "en-US", name: "US Dollar" },
+          EUR: { code: "EUR", symbol: "€", locale: "de-DE", name: "Euro" },
+          GBP: { code: "GBP", symbol: "£", locale: "en-GB", name: "British Pound" },
+          JPY: { code: "JPY", symbol: "¥", locale: "ja-JP", name: "Japanese Yen" },
+          AUD: { code: "AUD", symbol: "A$", locale: "en-AU", name: "Australian Dollar" },
+          CAD: { code: "CAD", symbol: "C$", locale: "en-CA", name: "Canadian Dollar" },
+          KRW: { code: "KRW", symbol: "₩", locale: "ko-KR", name: "South Korean Won" },
+          BRL: { code: "BRL", symbol: "R$", locale: "pt-BR", name: "Brazilian Real" },
+          INR: { code: "INR", symbol: "₹", locale: "en-IN", name: "Indian Rupee" },
+        };
+        return CURRENCIES[queryCurrency.toUpperCase()] || detectCurrencyFromRequest(request);
+      })()
+    : detectCurrencyFromRequest(request);
   const response = NextResponse.next();
   const expires = new Date(Date.now() + 86400000).toUTCString();
 

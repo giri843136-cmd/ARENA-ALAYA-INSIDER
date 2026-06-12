@@ -15,7 +15,7 @@ export function Navigation() {
     <>
       {/* Top Announcement Bar — Brand Essence */}
       <div className="bg-[#26221E] text-[#F5F0EA] text-center text-[11px] tracking-[2.5px] py-1.5 font-medium">
-        CURATED BY WOMEN, FOR WOMEN • EDITORIALLY VERIFIED • SUSTAINABLY SOURCED
+        HAND-PICKED WITH INTENTION • EDITORIALLY VERIFIED • SUSTAINABLY SOURCED
       </div>
 
       <nav className="sticky top-0 z-50 bg-[#F5F0EA]/95 backdrop-blur-2xl border-b border-[#E4DDD5]">

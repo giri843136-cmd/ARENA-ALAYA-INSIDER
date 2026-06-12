@@ -26,7 +26,7 @@ export function PriceDisplay({ usdAmount, className = "", as: Tag = "span" }: Pr
   if (!ratesLoaded) {
     return (
       <Tag
-        className={`inline-block h-5 w-20 animate-pulse rounded bg-[#E4DDD5] align-middle ${className}`}
+        className={`inline-block h-[1.2em] w-24 max-w-[160px] animate-pulse rounded bg-[#E4DDD5] align-middle ${className}`}
         aria-label="Loading price"
         aria-busy="true"
       >

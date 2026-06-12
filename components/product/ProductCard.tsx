@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Heart, Eye, GitCompare } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { motion } from "framer-motion";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 
 interface ProductCardProps {
   product: Product;
@@ -106,15 +107,12 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           </h3>
 
           <div className="flex items-baseline gap-2 mb-1">
-            <span className="text-[19px] font-medium tabular-nums tracking-tight text-[#26221E]">
-              ${product.price}
-            </span>
+            <PriceDisplay usdAmount={product.price} className="text-[19px] font-medium tabular-nums tracking-tight text-[#26221E]" />
             {hasDiscount && (
               <span className="text-sm text-[#6D655F] line-through tabular-nums">
                 ${product.originalPrice}
               </span>
             )}
-            <span className="ml-auto text-[10px] tracking-[1.5px] text-[#6D655F]">USD</span>
           </div>
 
           {/* Color Variants (premium touch) */}
