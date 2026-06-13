@@ -73,9 +73,9 @@ export default function SearchPage() {
       <div className="border-b border-[#E4DDD5] bg-white/70 backdrop-blur-xl sticky top-20 z-40">
         <div className="container py-8">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-3 text-xs tracking-[3px] text-[#C5AA8A] mb-2">
+            <div className="flex items-center gap-3 text-xs tracking-[3px] text-[#7A6848] mb-2">
               SEMANTIC DISCOVERY
-              <span className="text-[#8A8178]">•</span> 
+              <span className="text-[#5C5249]">•</span> 
               NATURAL LANGUAGE • VOICE • VISUAL • MULTIMODAL
             </div>
             <h1 className="font-display text-[52px] tracking-[-2.6px] leading-[0.92]">What are you seeking?</h1>
@@ -85,13 +85,13 @@ export default function SearchPage() {
           {/* Main Search Bar — Luxurious */}
           <div className="mt-8 relative max-w-3xl">
             <div className="relative">
-              <Search className="absolute left-6 top-5 h-5 w-5 text-[#8A8178]" />
+              <Search className="absolute left-6 top-5 h-5 w-5 text-[#5C5249]" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Try “quiet luxury linen for a sanctuary bedroom”, “cast iron for slow cooking”, or “gifts under $120 for her”"
-                className="input w-full pl-14 pr-32 text-[17px] py-5 shadow-sm border-[#D9D0C3] focus:border-[#C5AA8A] placeholder:text-[#8A8178]"
+                className="input w-full pl-14 pr-32 text-[17px] py-5 shadow-sm border-[#D9D0C3] focus:border-[#7A6848] placeholder:text-[#5C5249]"
               />
               <div className="absolute right-3 top-3 flex items-center gap-2">
                 <button 
@@ -111,12 +111,12 @@ export default function SearchPage() {
               </div>
             </div>
             
-            <div className="flex items-center gap-4 mt-3 text-xs text-[#8A8178]">
+            <div className="flex items-center gap-4 mt-3 text-xs text-[#5C5249]">
               <span>Popular:</span>
               {["linen bedding", "cast iron", "cashmere", "silk sleep mask", "ceramic vase"].map(t => (
-                <button key={t} onClick={() => setQuery(t)} className="hover:text-[#C5AA8A] transition-colors underline-offset-2 hover:underline">{t}</button>
+                <button key={t} onClick={() => setQuery(t)} className="hover:text-[#7A6848] transition-colors underline-offset-2 hover:underline">{t}</button>
               ))}
-              <button onClick={clearFilters} className="ml-auto text-[#C5AA8A] hover:underline">Clear all</button>
+              <button onClick={clearFilters} className="ml-auto text-[#7A6848] hover:underline">Clear all</button>
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function SearchPage() {
               <button 
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`pb-3 font-medium tracking-widest uppercase transition-all ${activeTab === tab ? "border-b-2 border-[#26221E] text-[#26221E]" : "text-[#8A8178]"}`}
+                className={`pb-3 font-medium tracking-widest uppercase transition-all ${activeTab === tab ? "border-b-2 border-[#26221E] text-[#26221E]" : "text-[#5C5249]"}`}
               >
                 {tab === "all" ? "Everything" : tab}
               </button>
@@ -165,7 +165,7 @@ export default function SearchPage() {
             <div className="space-y-8">
               {/* Universe Filter */}
               <div>
-                <div className="text-xs tracking-[2px] text-[#8A8178] mb-3">UNIVERSE</div>
+                <div className="text-xs tracking-[2px] text-[#5C5249] mb-3">UNIVERSE</div>
                 <div className="space-y-2">
                   {universes.map(u => (
                     <label key={u.slug} className="flex items-center gap-2.5 text-sm cursor-pointer">
@@ -178,24 +178,24 @@ export default function SearchPage() {
                       {u.title}
                     </label>
                   ))}
-                  <button onClick={() => setSelectedUniverse("")} className="text-xs text-[#C5AA8A] mt-1">Clear universe</button>
+                  <button onClick={() => setSelectedUniverse("")} className="text-xs text-[#7A6848] mt-1">Clear universe</button>
                 </div>
               </div>
 
               {/* Price Range */}
               <div>
-                <div className="text-xs tracking-[2px] text-[#8A8178] mb-3">PRICE RANGE (USD)</div>
+                <div className="text-xs tracking-[2px] text-[#5C5249] mb-3">PRICE RANGE (USD)</div>
                 <div className="flex items-center gap-3">
                   <input type="number" value={priceRange[0]} onChange={(e) => setPriceRange([+e.target.value, priceRange[1]])} className="input w-24 py-2 text-sm" />
-                  <span className="text-[#8A8178]">to</span>
+                  <span className="text-[#5C5249]">to</span>
                   <input type="number" value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], +e.target.value])} className="input w-24 py-2 text-sm" />
                 </div>
-                <input type="range" min="0" max="600" step="10" value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], +e.target.value])} className="w-full accent-[#C5AA8A] mt-4" />
+                <input type="range" min="0" max="600" step="10" value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], +e.target.value])} className="w-full accent-[#7A6848] mt-4" />
               </div>
 
               {/* Quick Presets */}
               <div>
-                <div className="text-xs tracking-[2px] text-[#8A8178] mb-3">QUICK PRESETS</div>
+                <div className="text-xs tracking-[2px] text-[#5C5249] mb-3">QUICK PRESETS</div>
                 <div className="flex flex-wrap gap-2">
                   {["Under $80", "$80–$150", "Quiet Luxury", "New Arrivals", "Bestsellers"].map(preset => (
                     <button key={preset} onClick={() => {
@@ -203,7 +203,7 @@ export default function SearchPage() {
                       if (preset === "$80–$150") setPriceRange([80, 150]);
                       if (preset === "New Arrivals") setQuery("new");
                       if (preset === "Bestsellers") setQuery("bestseller");
-                    }} className="text-xs border border-[#E4DDD5] px-4 py-1.5 rounded-full hover:border-[#C5AA8A]">
+                    }} className="text-xs border border-[#E4DDD5] px-4 py-1.5 rounded-full hover:border-[#7A6848]">
                       {preset}
                     </button>
                   ))}
@@ -214,7 +214,7 @@ export default function SearchPage() {
         )}
 
         {/* Results Count */}
-        <div className="mb-6 flex items-baseline gap-3 text-sm text-[#8A8178] px-6 md:px-0">
+        <div className="mb-6 flex items-baseline gap-3 text-sm text-[#5C5249] px-6 md:px-0">
           <span className="font-medium text-[#26221E]">{filteredProducts.length + filteredArticles.length + filteredBrands.length}</span> 
           results {q && `for “${query}”`}
           {selectedUniverse && ` in ${universes.find(u => u.slug === selectedUniverse)?.title}`}
@@ -227,15 +227,15 @@ export default function SearchPage() {
         {(activeTab === "all" || activeTab === "products") && (
           <div>
             <div className="flex justify-between mb-6 items-baseline border-b border-[#E4DDD5] pb-3">
-              <div className="font-medium tracking-widest text-xs text-[#C5AA8A]">PRODUCTS • {filteredProducts.length}</div>
-              <button onClick={() => setActiveTab("products")} className="text-xs text-[#C5AA8A]">View all →</button>
+              <div className="font-medium tracking-widest text-xs text-[#7A6848]">PRODUCTS • {filteredProducts.length}</div>
+              <button onClick={() => setActiveTab("products")} className="text-xs text-[#7A6848]">View all →</button>
             </div>
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-6">
                 {filteredProducts.map(p => <ProductCard key={p.id} product={p} />)}
               </div>
             ) : (
-              <div className="py-12 text-center text-[#8A8178] border border-[#E4DDD5] rounded-3xl">No products match your search. Try broadening your query or clearing filters.</div>
+              <div className="py-12 text-center text-[#5C5249] border border-[#E4DDD5] rounded-3xl">No products match your search. Try broadening your query or clearing filters.</div>
             )}
           </div>
         )}
@@ -244,7 +244,7 @@ export default function SearchPage() {
         {(activeTab === "all" || activeTab === "articles") && (
           <div>
             <div className="flex justify-between mb-6 items-baseline border-b border-[#E4DDD5] pb-3">
-              <div className="font-medium tracking-widest text-xs text-[#C5AA8A]">FROM THE JOURNAL • {filteredArticles.length}</div>
+              <div className="font-medium tracking-widest text-xs text-[#7A6848]">FROM THE JOURNAL • {filteredArticles.length}</div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
               {filteredArticles.map(a => <EditorialCard key={a.id} article={a} />)}
@@ -256,14 +256,14 @@ export default function SearchPage() {
         {(activeTab === "all" || activeTab === "brands") && (
           <div>
             <div className="flex justify-between mb-6 items-baseline border-b border-[#E4DDD5] pb-3">
-              <div className="font-medium tracking-widest text-xs text-[#C5AA8A]">BRANDS • {filteredBrands.length}</div>
+              <div className="font-medium tracking-widest text-xs text-[#7A6848]">BRANDS • {filteredBrands.length}</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {filteredBrands.map(b => (
                 <a key={b.id} href={`/brands/${b.slug}`} className="card p-8 group">
-                  <div className="font-display text-3xl tracking-tight group-hover:text-[#C5AA8A] transition-colors">{b.name}</div>
+                  <div className="font-display text-3xl tracking-tight group-hover:text-[#7A6848] transition-colors">{b.name}</div>
                   <p className="text-sm mt-1 text-[#5C5249]">{b.tagline}</p>
-                  <div className="mt-5 text-[10px] tracking-[2px] text-[#8A8178]">{b.country} • {b.productCount} OBJECTS</div>
+                  <div className="mt-5 text-[10px] tracking-[2px] text-[#5C5249]">{b.country} • {b.productCount} OBJECTS</div>
                 </a>
               ))}
             </div>
@@ -274,7 +274,7 @@ export default function SearchPage() {
         {q && filteredProducts.length === 0 && filteredArticles.length === 0 && filteredBrands.length === 0 && (
           <div className="text-center py-20">
             <div className="mx-auto mb-6 h-12 w-12 rounded-full bg-[#EFE7DE] flex items-center justify-center">
-              <Search className="h-5 w-5 text-[#C5AA8A]" />
+              <Search className="h-5 w-5 text-[#7A6848]" />
             </div>
             <div className="font-display text-2xl tracking-tight mb-2">We couldn’t find anything for “{query}”</div>
             <p className="text-[#6D655F] max-w-xs mx-auto">Try a different phrase, browse a universe, or let the AI Concierge guide you.</p>
@@ -285,8 +285,8 @@ export default function SearchPage() {
 
       {/* Bottom hint for AI + Multimodal */}
       <div className="border-t border-[#E4DDD5] py-8 bg-white">
-        <div className="container text-center text-xs text-[#8A8178]">
-          Pro tip: Open the <span className="text-[#C5AA8A]">Alaya Concierge</span> (bottom right) for natural language shopping, gift finding, or room styling.
+        <div className="container text-center text-xs text-[#5C5249]">
+          Pro tip: Open the <span className="text-[#7A6848]">Alaya Concierge</span> (bottom right) for natural language shopping, gift finding, or room styling.
         </div>
       </div>
     </div>

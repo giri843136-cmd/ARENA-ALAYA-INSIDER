@@ -44,7 +44,7 @@ export function Price({
           <span className={`${sizeClasses[size]} text-[#26221E] dark:text-[#EDE6DC] font-medium`}>
             {formatPrice(salePrice)}
           </span>
-          <span className={`text-[#8A8178] line-through ${size === "sm" ? "text-xs" : "text-sm"}`}>
+          <span className={`text-[#5C5249] line-through ${size === "sm" ? "text-xs" : "text-sm"}`}>
             {formatPrice(price)}
           </span>
           {showDiscount && (

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { allProducts, brands, reviews, faqs, articles } from "@/lib/data/seed";
-import { Button } from "@/components/ui/Button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductActions } from "@/components/product/ProductActions";
 import { ProductSchema, FAQSchema } from "@/components/ui/ProductSchema";
@@ -11,6 +10,13 @@ import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { PriceHistory } from "@/components/ui/PriceHistory";
 import { MultiRetailerPrice } from "@/components/ui/MultiRetailerPrice";
 import { MobileCompareBar } from "@/components/ui/MobileCompareBar";
+import { RecentlyViewed, trackProductView } from "@/components/product/RecentlyViewed";
+import { StickyPriceBar } from "@/components/product/StickyPriceBar";
+import { SocialProof } from "@/components/product/SocialProof";
+import { ProductGallery } from "@/components/product/ProductGallery";
+import { SaveToWishlistButton } from "@/components/product/SaveToWishlistButton";
+import { ProductKeyboardShortcuts } from "@/components/product/ProductKeyboardShortcuts";
+import { ProductPageClient } from "./ProductPageClient";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -55,49 +61,11 @@ export default async function ProductPage({ params }: Props) {
       {/* HERO + LUXURY GALLERY — Cinematic, Apple + C-Style inspired */}
       <div className="container pt-6 pb-12 px-6 md:px-0">
         <div className="grid lg:grid-cols-2 gap-x-20 gap-y-12">
-          {/* Left: Premium Gallery (masonry + cinematic) */}
-          <div className="space-y-4">
-            <div className="relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white aspect-[4/3]">
-              <img 
-                src={product.images[0]} 
-                alt={product.name}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
-              />
-              <div className="absolute top-6 right-6">
-                <div className="badge badge-gold text-[10px]">PRIMARY VIEW</div>
-              </div>
-            </div>
-
-            {/* Additional gallery images — elegant grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {product.images.slice(1, 4).map((img, i) => (
-                <div key={i} className="relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white aspect-[4/3]">
-                  <img 
-                    src={img} 
-                    alt={`${product.name} detail ${i + 2}`}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-[1.015]"
-                  />
-                </div>
-              ))}
-              {/* Lifestyle / detail shot placeholder (editorial) */}
-              <div className="relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-[#EFE7DE] aspect-[4/3] flex items-center justify-center">
-                <div className="text-center text-[#6D655F]">
-                  <div className="text-[10px] tracking-[2px] mb-1">LIFESTYLE</div>
-                  <div className="font-display text-xl tracking-tight">In situ</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-[10px] tracking-[2px] text-[#8A8178] pt-1 flex items-center gap-2">
-              <span>4K imagery • Zoom available on desktop</span>
-              <span className="text-[#C5AA8A]">•</span>
-              <span>AR view coming soon</span>
-            </div>
-          </div>
+          {/* Left: Premium Gallery — Lightbox with zoom + navigation */}
+          <ProductGallery images={product.images} productName={product.name} />
 
           {/* Right: Sticky Purchase Card — Luxurious & Functional */}
-          <div className="lg:sticky lg:top-8 lg:self-start">
+          <div id="purchase-card" className="lg:sticky lg:top-8 lg:self-start">
             <div className="bg-white border border-[#E4DDD5] rounded-3xl p-9">
               {/* Brand + Universe */}
               <div className="flex items-center gap-3 text-sm text-[#8A8178] mb-3 tracking-[1px]">
@@ -147,8 +115,11 @@ export default async function ProductPage({ params }: Props) {
                 <EditorBadge type="editors-pick" size="sm" />
               </div>
 
+              {/* Social Proof — Live viewer count */}
+              <SocialProof popularity={product.bestseller ? "trending" : product.rating && product.rating > 4.7 ? "high" : "medium"} />
+
               {/* Last reviewed date */}
-              <div className="text-[10px] tracking-[1.5px] text-[#8A8178] mb-6">
+              <div className="text-[10px] tracking-[1.5px] text-[#8A8178] mt-3 mb-6">
                 Last reviewed {lastReviewed} • Prices and availability may vary
               </div>
 
@@ -205,10 +176,21 @@ export default async function ProductPage({ params }: Props) {
               )}
             </div>
 
-            {/* Quick compare / wishlist actions above sticky */}
-            <div className="mt-4 flex gap-3 text-sm">
-              <button className="flex-1 btn btn-secondary text-xs py-3">Add to Compare</button>
-              <button className="flex-1 btn btn-ghost text-xs py-3">Save to Wishlist</button>
+            {/* Quick compare / wishlist actions */}
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <Link
+                href={`/compare?add=${product.slug}`}
+                className="flex items-center justify-center gap-2 rounded-xl border border-[#E4DDD5] bg-white px-4 py-3 text-xs font-medium text-[#5C5249] hover:border-[#7A6848] hover:text-[#7A6848] transition-all"
+              >
+                + Add to Compare
+              </Link>
+              <SaveToWishlistButton
+                slug={product.slug}
+                name={product.name}
+                price={product.price}
+                image={product.images[0]}
+                brandName={product.brandName}
+              />
             </div>
           </div>
         </div>
@@ -432,6 +414,9 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Recently Viewed — Horizontal carousel from localStorage */}
+      <RecentlyViewed currentProductSlug={product.slug} />
+
       {/* Mobile sticky compare bar */}
       <MobileCompareBar
         productName={product.name}
@@ -440,10 +425,27 @@ export default async function ProductPage({ params }: Props) {
         primaryUrl={product.affiliateLinks?.[0]?.url}
       />
 
+      {/* Sticky Price Bar — Appears on scroll past purchase section */}
+      <StickyPriceBar product={product} affiliateUrl={product.affiliateLinks?.[0]?.url} />
+
       {/* FINAL TRUST + AI PROMPT */}
       <div className="container pb-16 pt-12 text-center text-sm text-[#8A8178]">
         Still deciding? Open the <span className="font-medium text-[#C5AA8A]">Alaya Concierge</span> (bottom right) for personalized styling advice, room visualizations, or gift recommendations.
       </div>
+
+      {/* Keyboard shortcuts indicator */}
+      <ProductKeyboardShortcuts
+        slug={product.slug}
+        name={product.name}
+        price={product.price}
+        image={product.images[0]}
+        brandName={product.brandName}
+        affiliateUrl={product.affiliateLinks?.[0]?.url}
+        compareUrl={`/compare?add=${product.slug}`}
+      />
+
+      {/* Track product view for Recently Viewed */}
+      <ProductPageClient slug={product.slug} />
     </div>
   );
 }

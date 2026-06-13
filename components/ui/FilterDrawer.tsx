@@ -21,7 +21,7 @@ export function FilterDrawer({ isOpen, onClose, children, title = "Refine" }: Fi
       >
         <div className="flex items-center justify-between mb-6">
           <div className="font-display text-2xl tracking-tight">{title}</div>
-          <button onClick={onClose} className="text-[#8A8178] hover:text-[#26221E]"><X /></button>
+          <button onClick={onClose} className="text-[#5C5249] hover:text-[#26221E]"><X /></button>
         </div>
         
         {children}

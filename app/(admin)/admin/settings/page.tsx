@@ -72,22 +72,22 @@ export default function SystemSettings() {
   return (
     <div className="p-8 max-w-2xl">
       <div className="mb-8">
-        <div className="text-xs tracking-[2.5px] text-[#C5AA8A]">PLATFORM</div>
+        <div className="text-xs tracking-[2.5px] text-[var(--admin-accent)]">PLATFORM</div>
         <h1 className="text-[42px] font-semibold tracking-[-1.2px] mt-1">System Settings</h1>
       </div>
 
       <div className="space-y-8">
         <div>
-          <div className="text-xs tracking-[2px] text-[#C5AA8A] mb-3">SITE</div>
+          <div className="text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">SITE</div>
           <div className="admin-card p-6 space-y-4 text-sm">
             <div className="flex justify-between">Maintenance Mode <span className="text-[#4ADE80]">OFF</span></div>
             <div className="flex justify-between">Public Site Status <span className="text-[#4ADE80]">LIVE</span></div>
-            <div className="flex justify-between">CDN Cache <span className="text-[#C5AA8A]">99.8% hit rate</span></div>
+            <div className="flex justify-between">CDN Cache <span className="text-[var(--admin-accent)]">99.8% hit rate</span></div>
           </div>
         </div>
 
         <div>
-          <div className="text-xs tracking-[2px] text-[#C5AA8A] mb-3">AI &amp; PERSONALIZATION</div>
+          <div className="text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">AI &amp; PERSONALIZATION</div>
           <div className="admin-card p-6 text-sm space-y-3">
             <div>Default model: Claude 3.7 Sonnet (Opus priority enabled)</div>
             <div>Personal AI Concierge: Active • 1,847 generations today</div>
@@ -96,19 +96,19 @@ export default function SystemSettings() {
         </div>
 
         <div>
-          <div className="text-xs tracking-[2px] text-[#C5AA8A] mb-3">INTEGRATIONS</div>
+          <div className="text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">INTEGRATIONS</div>
           <div className="admin-card p-6 text-sm">Typesense, Upstash Redis, BullMQ queues, Stripe, all healthy.</div>
         </div>
 
         {/* Notification Preferences */}
         <div>
-          <div className="flex items-center gap-2 text-xs tracking-[2px] text-[#C5AA8A] mb-3">
+          <div className="flex items-center gap-2 text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">
             <Bell size={14} />
             NOTIFICATION PREFERENCES
           </div>
           <div className="admin-card p-6 space-y-4">
             {loading ? (
-              <div className="flex items-center gap-2 text-sm text-[#A1A1A1]">
+              <div className="flex items-center gap-2 text-sm text-[var(--admin-text-secondary)]">
                 <RefreshCw size={14} className="animate-spin" />
                 Loading preferences...
               </div>
@@ -138,7 +138,7 @@ export default function SystemSettings() {
                       <div className="text-sm font-medium text-[#EDEDED]">
                         Comment Status Notifications
                       </div>
-                      <div className="text-xs text-[#A1A1A1] mt-0.5">
+                      <div className="text-xs text-[var(--admin-text-secondary)] mt-0.5">
                         {commentNotifMuted
                           ? "You will not receive notifications when your comments are approved, flagged, or removed."
                           : "Receive in-app notifications and emails when your comment status changes."}
@@ -161,7 +161,7 @@ export default function SystemSettings() {
                 </div>
 
                 {/* Mute count info */}
-                <div className="text-xs text-[#666] border-t border-[#252525] pt-3">
+                <div className="text-xs text-[var(--admin-text-muted)] border-t border-[var(--admin-border)] pt-3">
                   {mutes.length > 0
                     ? `${mutes.length} notification mute${mutes.length === 1 ? " is" : "s are"} active`
                     : "No notification mutes configured."}
@@ -179,7 +179,8 @@ export default function SystemSettings() {
         </button>
       </div>
 
-      <div className="text-xs text-[#666] mt-10">All production readiness work (Docker, PM2, Nginx, workers, env validation, backups) remains frozen and untouched.</div>
+      <div className="text-xs text-[var(--admin-text-muted)] mt-10">All production readiness work (Docker, PM2, Nginx, workers, env validation, backups) remains frozen and untouched.</div>
     </div>
   );
 }
+

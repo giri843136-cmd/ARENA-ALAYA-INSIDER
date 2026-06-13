@@ -91,13 +91,13 @@ export default function ModerationLogs() {
     <div className="p-8 max-w-[1600px] mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[#C5AA8A]">
+        <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[var(--admin-accent)]">
           <Shield size={14} /> MODERATION
         </div>
         <div className="flex items-end justify-between mt-1">
           <div>
             <h1 className="text-[42px] font-semibold tracking-[-1.2px] leading-none">Moderation Logs</h1>
-            <p className="text-[#A1A1A1] mt-2 text-sm">Audit trail of all comment moderation actions.</p>
+            <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Audit trail of all comment moderation actions.</p>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={exportCSV} className="btn-admin text-xs"><Download size={14} /> Export CSV</button>
@@ -125,11 +125,11 @@ export default function ModerationLogs() {
 
       {/* Filters */}
       <div className="flex items-center gap-3 mb-6 flex-wrap">
-        <div className="flex items-center gap-1 text-xs text-[#666]"><Filter size={14} /> Filters</div>
+        <div className="flex items-center gap-1 text-xs text-[var(--admin-text-muted)]"><Filter size={14} /> Filters</div>
         <select
           value={actionFilter}
           onChange={(e) => { setActionFilter(e.target.value); setPage(1); }}
-          className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white"
+          className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white"
         >
           <option value="all">All Actions</option>
           <option value="approve">Approved</option>
@@ -139,21 +139,21 @@ export default function ModerationLogs() {
           <option value="edit">Edited</option>
         </select>
         <input type="date" value={searchDateStart} onChange={(e) => { setSearchDateStart(e.target.value); setPage(1); }}
-          className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white" />
-        <span className="text-xs text-[#666]">to</span>
+          className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white" />
+        <span className="text-xs text-[var(--admin-text-muted)]">to</span>
         <input type="date" value={searchDateEnd} onChange={(e) => { setSearchDateEnd(e.target.value); setPage(1); }}
-          className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white" />
+          className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white" />
       </div>
 
       {/* Table */}
-      <div className="admin-card overflow-hidden border border-[#252525] overflow-x-auto">
+      <div className="admin-card overflow-hidden border border-[var(--admin-border)] overflow-x-auto">
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <Clock size={18} className="animate-spin text-[#A1A1A1]" />
-            <span className="text-sm text-[#A1A1A1] ml-2">Loading logs...</span>
+            <Clock size={18} className="animate-spin text-[var(--admin-text-secondary)]" />
+            <span className="text-sm text-[var(--admin-text-secondary)] ml-2">Loading logs...</span>
           </div>
         ) : logs.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-[#666]">
+          <div className="flex flex-col items-center justify-center py-20 text-[var(--admin-text-muted)]">
             <Shield size={32} className="mb-3 opacity-50" />
             <p className="text-sm">No moderation logs found</p>
           </div>
@@ -174,24 +174,24 @@ export default function ModerationLogs() {
               {logs.map((log) => {
                 const info = ACTION_LABELS[log.action] || { label: log.action, icon: <Shield size={14} />, color: "badge-admin-neutral" };
                 return (
-                  <tr key={log.id} className="border-t border-[#252525] hover:bg-[#1A1A1A]">
-                    <td className="text-xs text-[#666] whitespace-nowrap">{formatDate(log.createdAt)}</td>
+                  <tr key={log.id} className="border-t border-[var(--admin-border)] hover:bg-[var(--admin-bg-hover)]">
+                    <td className="text-xs text-[var(--admin-text-muted)] whitespace-nowrap">{formatDate(log.createdAt)}</td>
                     <td>
                       <span className={`badge-admin ${info.color}`}>{info.icon} {info.label}</span>
                     </td>
                     <td>
                       {log.commentId ? (
-                        <Link href={`/admin/comments/${log.commentId}`} className="text-xs text-[#C5AA8A] hover:underline">
+                        <Link href={`/admin/comments/${log.commentId}`} className="text-xs text-[var(--admin-accent)] hover:underline">
                           {log.commentId.slice(0, 8)}...
                         </Link>
-                      ) : <span className="text-xs text-[#666]">—</span>}
+                      ) : <span className="text-xs text-[var(--admin-text-muted)]">—</span>}
                     </td>
-                    <td className="text-xs text-[#A1A1A1] max-w-[200px] truncate">
+                    <td className="text-xs text-[var(--admin-text-secondary)] max-w-[200px] truncate">
                       {log.comment?.article?.title || "—"}
                     </td>
-                    <td className="text-xs text-[#666] max-w-[150px] truncate">{log.oldValue || "—"}</td>
-                    <td className="text-xs text-[#A1A1A1] max-w-[150px] truncate">{log.newValue || "—"}</td>
-                    <td className="text-xs text-[#666]">{log.source}</td>
+                    <td className="text-xs text-[var(--admin-text-muted)] max-w-[150px] truncate">{log.oldValue || "—"}</td>
+                    <td className="text-xs text-[var(--admin-text-secondary)] max-w-[150px] truncate">{log.newValue || "—"}</td>
+                    <td className="text-xs text-[var(--admin-text-muted)]">{log.source}</td>
                   </tr>
                 );
               })}
@@ -203,7 +203,7 @@ export default function ModerationLogs() {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <div className="text-xs text-[#666]">Page {page} of {totalPages}</div>
+          <div className="text-xs text-[var(--admin-text-muted)]">Page {page} of {totalPages}</div>
           <div className="flex items-center gap-2">
             <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page <= 1}
               className="btn-admin btn-admin-ghost text-xs disabled:opacity-30"><ChevronLeft size={14} /> Previous</button>
@@ -213,7 +213,7 @@ export default function ModerationLogs() {
               if (pn > totalPages) return null;
               return (
                 <button key={pn} onClick={() => setPage(pn)}
-                  className={`w-8 h-8 rounded-lg text-xs font-medium ${page === pn ? "bg-[#C5AA8A] text-[#0A0A0A]" : "bg-[#1A1A1A] text-[#A1A1A1] hover:bg-[#252525]"}`}>
+                  className={`w-8 h-8 rounded-lg text-xs font-medium ${page === pn ? "bg-[var(--admin-accent)] text-[var(--admin-bg)]" : "bg-[var(--admin-bg-hover)] text-[var(--admin-text-secondary)] hover:bg-[var(--admin-border)]"}`}>
                   {pn}
                 </button>
               );
@@ -224,9 +224,10 @@ export default function ModerationLogs() {
         </div>
       )}
 
-      <div className="mt-8 text-xs text-[#666] border-t border-[#252525] pt-6 flex items-center gap-1">
+      <div className="mt-8 text-xs text-[var(--admin-text-muted)] border-t border-[var(--admin-border)] pt-6 flex items-center gap-1">
         <AlertTriangle size={12} /> All actions are logged immutably. Audit trail retained for compliance.
       </div>
     </div>
   );
 }
+

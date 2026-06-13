@@ -14,7 +14,6 @@ export interface CurrencyInfo {
 
 const COUNTRY_CURRENCY_MAP: Record<string, CurrencyInfo> = {
   US: { code: "USD", symbol: "$", locale: "en-US", name: "US Dollar" },
-  GB: { code: "GBP", symbol: "£", locale: "en-GB", name: "British Pound" },
   DE: { code: "EUR", symbol: "€", locale: "de-DE", name: "Euro" },
   FR: { code: "EUR", symbol: "€", locale: "fr-FR", name: "Euro" },
   IT: { code: "EUR", symbol: "€", locale: "it-IT", name: "Euro" },
@@ -29,7 +28,6 @@ const COUNTRY_CURRENCY_MAP: Record<string, CurrencyInfo> = {
   JP: { code: "JPY", symbol: "¥", locale: "ja-JP", name: "Japanese Yen" },
   CN: { code: "CNY", symbol: "¥", locale: "zh-CN", name: "Chinese Yuan" },
   IN: { code: "INR", symbol: "₹", locale: "en-IN", name: "Indian Rupee" },
-  BR: { code: "BRL", symbol: "R$", locale: "pt-BR", name: "Brazilian Real" },
   MX: { code: "MXN", symbol: "Mex$", locale: "es-MX", name: "Mexican Peso" },
   SE: { code: "SEK", symbol: "kr", locale: "sv-SE", name: "Swedish Krona" },
   NO: { code: "NOK", symbol: "kr", locale: "nb-NO", name: "Norwegian Krone" },
@@ -38,21 +36,19 @@ const COUNTRY_CURRENCY_MAP: Record<string, CurrencyInfo> = {
   NZ: { code: "NZD", symbol: "NZ$", locale: "en-NZ", name: "New Zealand Dollar" },
   SG: { code: "SGD", symbol: "S$", locale: "en-SG", name: "Singapore Dollar" },
   HK: { code: "HKD", symbol: "HK$", locale: "en-HK", name: "Hong Kong Dollar" },
-  KR: { code: "KRW", symbol: "₩", locale: "ko-KR", name: "South Korean Won" },
 };
 
 const DEFAULT_CURRENCY: CurrencyInfo = { code: "USD", symbol: "$", locale: "en-US", name: "US Dollar" };
 
 // Country code → locale mapping for i18n
 const COUNTRY_LOCALE_MAP: Record<string, string> = {
-  US: "en", GB: "en", AU: "en", NZ: "en", SG: "en", IN: "en",
+  US: "en", AU: "en", NZ: "en", SG: "en", IN: "en",
   FR: "fr", BE: "fr", CH: "de", CA: "en",
   DE: "de", AT: "de",
   ES: "es", MX: "es",
   JP: "ja",
-  KR: "ko",
   CN: "zh",
-  BR: "pt", PT: "pt",
+  PT: "pt",
   IT: "en",
   NL: "en", DK: "en", SE: "en", NO: "en", IE: "en",
 };

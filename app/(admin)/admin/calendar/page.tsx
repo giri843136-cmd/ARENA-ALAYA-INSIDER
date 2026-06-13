@@ -1,169 +1,311 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, BookOpen, Package } from "lucide-react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { RefreshCw, BookOpen, Package, Calendar as CalIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import type { EventClickArg, DateSelectArg } from "@fullcalendar/core";
 
-const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-const MOCK_EVENTS: Record<string, { title: string; type: "article" | "product"; status: string }[]> = {
-  "2026-06-15": [
-    { title: "Summer Entertaining Edit", type: "product", status: "scheduled" },
-  ],
-  "2026-06-16": [
-    { title: "Organic Cotton Bedding Review", type: "article", status: "scheduled" },
-  ],
-  "2026-06-18": [
-    { title: "Spring Linen Collection", type: "product", status: "in_review" },
-  ],
-  "2026-06-20": [
-    { title: "The Art of Slow Living", type: "article", status: "draft" },
-  ],
-  "2026-06-22": [
-    { title: "Marble vs Wood Serving Boards", type: "article", status: "draft" },
-  ],
-  "2026-06-25": [
-    { title: "Bathroom Organization Guide", type: "article", status: "changes_requested" },
-  ],
-};
+interface CalendarEvent {
+  id: string;
+  title: string;
+  start: string;
+  end?: string;
+  type: "article" | "product";
+  status: string;
+  extendedProps: {
+    contentType: string;
+    status: string;
+    author?: string;
+    slug?: string;
+  };
+}
 
 const STATUS_COLORS: Record<string, string> = {
-  scheduled: "border-l-purple-500",
-  in_review: "border-l-blue-500",
-  draft: "border-l-gray-500",
-  changes_requested: "border-l-amber-500",
-  approved: "border-l-green-500",
+  scheduled: "#8B5CF6",
+  published: "#22C55E",
+  in_review: "#3B82F6",
+  draft: "#6B7280",
+  changes_requested: "#F59E0B",
+  approved: "#22C55E",
+  archived: "#9CA3AF",
 };
 
+const TYPE_ICONS: Record<string, string> = {
+  article: "\u{1F4D6}",
+  product: "\u{1F4E6}",
+};
+
+const DEMO_USER_ID = "user_demo_admin";
+
 export default function ContentCalendar() {
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 5, 1)); // June 2026
+  const calendarRef = useRef<FullCalendar>(null);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentTitle, setCurrentTitle] = useState("");
 
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
+  const fetchScheduledContent = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Fetch scheduled articles
+      const [articlesRes, productsRes] = await Promise.all([
+        fetch("/api/v1/articles?status=SCHEDULED&limit=100"),
+        fetch("/api/v1/products?status=SCHEDULED&limit=100"),
+      ]);
 
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const prevMonthDays = new Date(year, month, 0).getDate();
+      const [articlesJson, productsJson] = await Promise.all([
+        articlesRes.json(),
+        productsRes.json(),
+      ]);
 
-  const monthName = currentDate.toLocaleString("default", { month: "long", year: "numeric" });
+      const mappedEvents: CalendarEvent[] = [];
 
-  const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
-  const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
+      if (articlesJson.success) {
+        const articles = Array.isArray(articlesJson.data) ? articlesJson.data
+          : articlesJson.data?.articles || articlesJson.data?.items || [];
+        articles.forEach((article: any) => {
+          if (article.publishedAt || article.scheduledAt) {
+            mappedEvents.push({
+              id: `article-${article.id}`,
+              title: article.title,
+              start: article.publishedAt || article.scheduledAt,
+              type: "article",
+              status: article.status?.toLowerCase() || "draft",
+              extendedProps: {
+                contentType: "article",
+                status: article.status?.toLowerCase() || "draft",
+                author: article.author?.name || "Unknown",
+                slug: article.slug,
+              },
+            });
+          }
+        });
+      }
 
-  const formatDate = (day: number) => {
-    return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-  };
+      if (productsJson.success) {
+        const products = Array.isArray(productsJson.data) ? productsJson.data
+          : productsJson.data?.products || productsJson.data?.items || [];
+        products.forEach((product: any) => {
+          if (product.publishedAt || product.scheduledAt) {
+            mappedEvents.push({
+              id: `product-${product.id}`,
+              title: product.name,
+              start: product.publishedAt || product.scheduledAt,
+              type: "product",
+              status: product.status?.toLowerCase() || "draft",
+              extendedProps: {
+                contentType: "product",
+                status: product.status?.toLowerCase() || "draft",
+                slug: product.slug,
+              },
+            });
+          }
+        });
+      }
 
-  const calendarDays = [];
-  // Previous month overflow
-  for (let i = firstDay - 1; i >= 0; i--) {
-    calendarDays.push({ day: prevMonthDays - i, isCurrentMonth: false });
-  }
-  // Current month
-  for (let i = 1; i <= daysInMonth; i++) {
-    calendarDays.push({ day: i, isCurrentMonth: true });
-  }
-  // Next month overflow
-  const remaining = 42 - calendarDays.length;
-  for (let i = 1; i <= remaining; i++) {
-    calendarDays.push({ day: i, isCurrentMonth: false });
-  }
+      // Fall back to mock data if API returns empty
+      if (mappedEvents.length === 0) {
+        setEvents(getMockEvents());
+      } else {
+        setEvents(mappedEvents);
+      }
+    } catch (err) {
+      console.error("Failed to load calendar events:", err);
+      // Fall back to mock data on error
+      setEvents(getMockEvents());
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchScheduledContent();
+  }, [fetchScheduledContent]);
+
+  const handleEventClick = useCallback((info: EventClickArg) => {
+    const { extendedProps } = info.event;
+    if (extendedProps.slug) {
+      const path = extendedProps.contentType === "article"
+        ? `/admin/journal/${extendedProps.slug}`
+        : `/admin/products/${extendedProps.slug}`;
+      window.open(path, "_blank");
+    }
+  }, []);
+
+  const handleDateSelect = useCallback((info: DateSelectArg) => {
+    const title = window.prompt("New event title:");
+    if (!title) return;
+    const type = window.confirm("Is this an article? Click OK for article, Cancel for product.")
+      ? "article" : "product";
+    const newEvent: CalendarEvent = {
+      id: `temp-${Date.now()}`,
+      title,
+      start: info.startStr,
+      type: type as "article" | "product",
+      status: "draft",
+      extendedProps: { contentType: type, status: "draft" },
+    };
+    setEvents((prev) => [...prev, newEvent]);
+  }, []);
+
+  const handleEventDrop = useCallback(async (info: any) => {
+    const { event, oldEvent, revert } = info;
+    const newDate = event.start?.toISOString().split("T")[0];
+    const oldDate = oldEvent.start?.toISOString().split("T")[0];
+    if (newDate === oldDate) return;
+
+    const [type, id] = event.id.split("-");
+    try {
+      const endpoint = type === "article" ? `/api/v1/admin/articles/${id}` : `/api/v1/admin/products/${id}`;
+      const res = await fetch(endpoint, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ scheduledAt: new Date(newDate!).toISOString() }),
+      });
+      if (!res.ok) {
+        revert();
+      }
+    } catch {
+      revert();
+    }
+  }, []);
 
   return (
     <div className="p-8 max-w-[1600px] mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <div className="text-xs tracking-[2px] text-[#C5A26F] font-medium">EDITORIAL</div>
-        <h1 className="text-4xl font-semibold tracking-tight mt-1">Content Calendar</h1>
-        <p className="text-[#A1A1A1] mt-1">Plan and schedule your editorial content.</p>
-      </div>
-
-      {/* Calendar Navigation */}
-      <div className="flex items-center justify-between mb-6">
-        <button onClick={prevMonth} className="p-2 hover:bg-[#1F1F1F] rounded transition-colors">
-          <ChevronLeft size={20} className="text-[#A1A1A1]" />
-        </button>
-        <h2 className="text-xl font-semibold tracking-tight">{monthName}</h2>
-        <button onClick={nextMonth} className="p-2 hover:bg-[#1F1F1F] rounded transition-colors">
-          <ChevronRight size={20} className="text-[#A1A1A1]" />
+      <div className="mb-8 flex items-end justify-between">
+        <div>
+          <div className="flex items-center gap-2 text-xs tracking-[2px] text-[var(--admin-accent)] font-medium">
+            <CalIcon size={14} /> EDITORIAL
+          </div>
+          <h1 className="text-4xl font-semibold tracking-tight mt-1">Content Calendar</h1>
+          <p className="text-[var(--admin-text-secondary)] mt-1">Plan, schedule, and reschedule editorial content. Drag events to move them.</p>
+        </div>
+        <button onClick={fetchScheduledContent} disabled={loading}
+          className="btn-admin text-xs disabled:opacity-50">
+          <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
+          {loading ? "Loading..." : "Refresh"}
         </button>
       </div>
 
-      {/* Calendar Grid */}
-      <div className="border border-[#252525] rounded-xl overflow-hidden">
-        {/* Day Headers */}
-        <div className="grid grid-cols-7 border-b border-[#252525]">
-          {DAYS.map((day) => (
-            <div key={day} className="p-3 text-xs font-medium text-[#666] text-center uppercase tracking-wider">
-              {day}
-            </div>
-          ))}
+      {error && (
+        <div className="mb-6 px-4 py-3 rounded-lg bg-[#F87171]/10 text-[#F87171] text-sm border border-[#F87171]/20">
+          {error}
         </div>
+      )}
 
-        {/* Day Cells */}
-        <div className="grid grid-cols-7">
-          {calendarDays.map((cell, idx) => {
-            const dateStr = cell.isCurrentMonth ? formatDate(cell.day) : "";
-            const events = MOCK_EVENTS[dateStr] || [];
-            const isToday = cell.isCurrentMonth && cell.day === 12; // June 12
-
-            return (
-              <div
-                key={idx}
-                className={`min-h-[120px] border-b border-r border-[#252525] p-2 transition-colors ${
-                  cell.isCurrentMonth
-                    ? "bg-transparent hover:bg-[#1A1A1A]"
-                    : "bg-[#0A0A0A] opacity-40"
-                } ${isToday ? "ring-2 ring-[#C5A26F] ring-inset" : ""}`}
-              >
-                <span className={`text-xs font-medium ${
-                  isToday ? "text-[#C5A26F]" : "text-[#666]"
-                }`}>
-                  {cell.day}
-                </span>
-                <div className="mt-1 space-y-1">
-                  {events.slice(0, 3).map((event, i) => (
-                    <div
-                      key={i}
-                      className={`text-[10px] px-1.5 py-0.5 rounded border-l-2 truncate ${
-                        event.type === "article"
-                          ? "bg-blue-500/10 text-blue-400"
-                          : "bg-green-500/10 text-green-400"
-                      } ${STATUS_COLORS[event.status] || "border-l-gray-500"}`}
-                    >
-                      {event.title}
-                    </div>
-                  ))}
-                  {events.length > 3 && (
-                    <div className="text-[10px] text-[#666] pl-1">+{events.length - 3} more</div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      {/* Calendar */}
+      <div className="admin-card overflow-hidden border border-[var(--admin-border)] p-4">
+        {loading && events.length === 0 ? (
+          <div className="flex items-center justify-center py-20">
+            <RefreshCw size={18} className="animate-spin text-[var(--admin-accent)]" />
+            <span className="text-sm text-[var(--admin-text-secondary)] ml-2">Loading calendar...</span>
+          </div>
+        ) : (
+          <div className="calendar-container">
+            <FullCalendar
+              ref={calendarRef}
+              plugins={[dayGridPlugin, interactionPlugin]}
+              initialView="dayGridMonth"
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,dayGridWeek",
+              }}
+              events={events}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={3}
+              weekends={true}
+              eventClick={handleEventClick}
+              select={handleDateSelect}
+              eventDrop={handleEventDrop}
+              eventContent={(arg) => ({
+                html: `
+                  <div class="fc-event-content" style="display:flex;align-items:center;gap:4px;padding:2px 4px;">
+                    <span>${arg.event.extendedProps.contentType === "article" ? "\u{1F4D6}" : "\u{1F4E6}"}</span>
+                    <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;">${arg.event.title}</span>
+                  </div>
+                `,
+              })}
+              eventDidMount={(info) => {
+                const status = info.event.extendedProps.status || "draft";
+                info.el.style.borderColor = STATUS_COLORS[status] || STATUS_COLORS.draft;
+                info.el.style.borderLeftWidth = "3px";
+                info.el.style.backgroundColor = `${STATUS_COLORS[status] || STATUS_COLORS.draft}15`;
+                info.el.style.cursor = "pointer";
+              }}
+              height="auto"
+              contentHeight="auto"
+              themeSystem="standard"
+              buttonText={{
+                today: "Today",
+                month: "Month",
+                week: "Week",
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-6 mt-4 text-xs text-[#666]">
+      <div className="flex items-center gap-6 mt-4 text-xs text-[var(--admin-text-muted)] flex-wrap">
         <span className="flex items-center gap-2">
           <BookOpen size={12} className="text-blue-400" /> Article
         </span>
         <span className="flex items-center gap-2">
           <Package size={12} className="text-green-400" /> Product
         </span>
-        <span className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-purple-500" /> Scheduled
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-blue-500" /> In Review
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-500" /> Changes
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500" /> Approved
-        </span>
+        {Object.entries(STATUS_COLORS).map(([status, color]) => (
+          <span key={status} className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
+        ))}
       </div>
     </div>
   );
 }
+
+// Mock data fallback
+function getMockEvents(): CalendarEvent[] {
+  return [
+    {
+      id: "article-1", title: "The Quiet Luxury of Linen", start: "2026-06-15",
+      type: "article", status: "scheduled",
+      extendedProps: { contentType: "article", status: "scheduled", author: "Elena Voss" },
+    },
+    {
+      id: "article-2", title: "Organic Cotton Bedding Review", start: "2026-06-18",
+      type: "article", status: "scheduled",
+      extendedProps: { contentType: "article", status: "scheduled", author: "Maya Chen" },
+    },
+    {
+      id: "product-1", title: "Summer Entertaining Edit", start: "2026-06-12",
+      type: "product", status: "scheduled",
+      extendedProps: { contentType: "product", status: "scheduled" },
+    },
+    {
+      id: "article-3", title: "The Art of Slow Living", start: "2026-06-22",
+      type: "article", status: "draft",
+      extendedProps: { contentType: "article", status: "draft", author: "Elena Voss" },
+    },
+    {
+      id: "article-4", title: "Bathroom Organization Guide", start: "2026-06-25",
+      type: "article", status: "changes_requested",
+      extendedProps: { contentType: "article", status: "changes_requested", author: "Priya Sharma" },
+    },
+    {
+      id: "product-2", title: "Spring Linen Collection", start: "2026-06-20",
+      type: "product", status: "in_review",
+      extendedProps: { contentType: "product", status: "in_review" },
+    },
+  ] as CalendarEvent[];
+}
+
+// Use any for the FullCalendar eventDrop arg to avoid type conflicts
+

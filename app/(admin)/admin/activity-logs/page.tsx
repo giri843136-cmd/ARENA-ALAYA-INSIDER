@@ -71,11 +71,11 @@ export default function ActivityLogs() {
   return (
     <div className="p-8 max-w-[1600px] mx-auto">
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[#C5AA8A]"><Activity size={14} /> AUDIT &amp; ACTIVITY</div>
+        <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[var(--admin-accent)]"><Activity size={14} /> AUDIT &amp; ACTIVITY</div>
         <div className="flex items-end justify-between mt-1">
           <div>
             <h1 className="text-[42px] font-semibold tracking-[-1.2px] leading-none">Activity Logs</h1>
-            <p className="text-[#A1A1A1] mt-2 text-sm">Full audit trail of all admin actions across the platform.</p>
+            <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Full audit trail of all admin actions across the platform.</p>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={exportCSV} className="btn-admin text-xs"><Download size={14} /> Export CSV</button>
@@ -90,7 +90,7 @@ export default function ActivityLogs() {
           {summary.slice(0, 12).map((s, i) => (
             <div key={i} className="admin-card p-3 text-center">
               <div className={`inline-flex px-2 py-0.5 rounded-full text-[10px] ${ACTION_COLORS[s.action] || "badge-admin-neutral"} mb-1`}>{s.action}</div>
-              <div className="text-xs text-[#666]">{s.entityType}</div>
+              <div className="text-xs text-[var(--admin-text-muted)]">{s.entityType}</div>
               <div className="text-xl font-semibold tabular-nums">{s.count}</div>
             </div>
           ))}
@@ -99,28 +99,28 @@ export default function ActivityLogs() {
 
       {/* Filters */}
       <div className="flex items-center gap-3 mb-6 flex-wrap">
-        <span className="flex items-center gap-1 text-xs text-[#666]"><Filter size={14} /> Filters</span>
-        <select value={actionFilter} onChange={(e) => { setActionFilter(e.target.value); setPage(1); }} className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white">
+        <span className="flex items-center gap-1 text-xs text-[var(--admin-text-muted)]"><Filter size={14} /> Filters</span>
+        <select value={actionFilter} onChange={(e) => { setActionFilter(e.target.value); setPage(1); }} className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white">
           <option value="all">All Actions</option>
           <option value="publish">Publish</option><option value="approve">Approve</option><option value="reject">Reject</option>
           <option value="delete">Delete</option><option value="update">Update</option><option value="create">Create</option><option value="edit">Edit</option>
         </select>
-        <select value={entityFilter} onChange={(e) => { setEntityFilter(e.target.value); setPage(1); }} className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white">
+        <select value={entityFilter} onChange={(e) => { setEntityFilter(e.target.value); setPage(1); }} className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white">
           <option value="all">All Types</option>
           <option value="product">Product</option><option value="article">Article</option><option value="comment">Comment</option>
           <option value="brand">Brand</option><option value="user">User</option><option value="category">Category</option>
         </select>
-        <input type="date" value={startDate} onChange={(e) => { setStartDate(e.target.value); setPage(1); }} className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white" />
-        <span className="text-xs text-[#666]">to</span>
-        <input type="date" value={endDate} onChange={(e) => { setEndDate(e.target.value); setPage(1); }} className="bg-[#111] border border-[#333] rounded px-2 py-1.5 text-xs text-white" />
+        <input type="date" value={startDate} onChange={(e) => { setStartDate(e.target.value); setPage(1); }} className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white" />
+        <span className="text-xs text-[var(--admin-text-muted)]">to</span>
+        <input type="date" value={endDate} onChange={(e) => { setEndDate(e.target.value); setPage(1); }} className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1.5 text-xs text-white" />
       </div>
 
       {/* Table */}
-      <div className="admin-card overflow-hidden border border-[#252525] overflow-x-auto">
+      <div className="admin-card overflow-hidden border border-[var(--admin-border)] overflow-x-auto">
         {loading ? (
-          <div className="flex items-center justify-center py-20"><Clock size={18} className="animate-spin text-[#A1A1A1]" /><span className="text-sm text-[#A1A1A1] ml-2">Loading logs...</span></div>
+          <div className="flex items-center justify-center py-20"><Clock size={18} className="animate-spin text-[var(--admin-text-secondary)]" /><span className="text-sm text-[var(--admin-text-secondary)] ml-2">Loading logs...</span></div>
         ) : logs.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-[#666]"><Activity size={32} className="mb-3 opacity-50" /><p className="text-sm">No activity logs found</p></div>
+          <div className="flex flex-col items-center justify-center py-20 text-[var(--admin-text-muted)]"><Activity size={32} className="mb-3 opacity-50" /><p className="text-sm">No activity logs found</p></div>
         ) : (
           <table className="admin-table w-full min-w-[800px]">
             <thead><tr>
@@ -128,13 +128,13 @@ export default function ActivityLogs() {
             </tr></thead>
             <tbody>
               {logs.map((log) => (
-                <tr key={log.id} className="border-t border-[#252525] hover:bg-[#1A1A1A]">
-                  <td className="text-xs text-[#666] whitespace-nowrap">{formatDate(log.createdAt)}</td>
+                <tr key={log.id} className="border-t border-[var(--admin-border)] hover:bg-[var(--admin-bg-hover)]">
+                  <td className="text-xs text-[var(--admin-text-muted)] whitespace-nowrap">{formatDate(log.createdAt)}</td>
                   <td><span className="text-sm font-medium">{log.user?.name || "System"}</span></td>
                   <td><span className={`badge-admin ${ACTION_COLORS[log.action] || "badge-admin-neutral"}`}>{log.action}</span></td>
-                  <td className="text-xs text-[#A1A1A1]">{log.entityType}</td>
-                  <td className="text-xs text-[#666]">{log.entityId ? `${log.entityType.slice(0, 3)}_${log.entityId.slice(0, 8)}...` : "—"}</td>
-                  <td className="text-xs text-[#666] font-mono">{log.ipAddress || "—"}</td>
+                  <td className="text-xs text-[var(--admin-text-secondary)]">{log.entityType}</td>
+                  <td className="text-xs text-[var(--admin-text-muted)]">{log.entityId ? `${log.entityType.slice(0, 3)}_${log.entityId.slice(0, 8)}...` : "—"}</td>
+                  <td className="text-xs text-[var(--admin-text-muted)] font-mono">{log.ipAddress || "—"}</td>
                 </tr>
               ))}
             </tbody>
@@ -145,21 +145,22 @@ export default function ActivityLogs() {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <div className="text-xs text-[#666]">Page {page} of {totalPages}</div>
+          <div className="text-xs text-[var(--admin-text-muted)]">Page {page} of {totalPages}</div>
           <div className="flex items-center gap-2">
             <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page <= 1} className="btn-admin btn-admin-ghost text-xs disabled:opacity-30"><ChevronLeft size={14} /> Previous</button>
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               const start = Math.max(1, Math.min(page - 2, totalPages - 4));
               const pn = start + i;
               if (pn > totalPages) return null;
-              return <button key={pn} onClick={() => setPage(pn)} className={`w-8 h-8 rounded-lg text-xs font-medium ${page === pn ? "bg-[#C5AA8A] text-[#0A0A0A]" : "bg-[#1A1A1A] text-[#A1A1A1] hover:bg-[#252525]"}`}>{pn}</button>;
+              return <button key={pn} onClick={() => setPage(pn)} className={`w-8 h-8 rounded-lg text-xs font-medium ${page === pn ? "bg-[var(--admin-accent)] text-[var(--admin-bg)]" : "bg-[var(--admin-bg-hover)] text-[var(--admin-text-secondary)] hover:bg-[var(--admin-border)]"}`}>{pn}</button>;
             })}
             <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page >= totalPages} className="btn-admin btn-admin-ghost text-xs disabled:opacity-30">Next <ChevronRight size={14} /></button>
           </div>
         </div>
       )}
 
-      <div className="mt-8 text-xs text-[#666] border-t border-[#252525] pt-6 flex items-center gap-1"><AlertTriangle size={12} /> All admin actions are logged immutably. Retained for compliance.</div>
+      <div className="mt-8 text-xs text-[var(--admin-text-muted)] border-t border-[var(--admin-border)] pt-6 flex items-center gap-1"><AlertTriangle size={12} /> All admin actions are logged immutably. Retained for compliance.</div>
     </div>
   );
 }
+

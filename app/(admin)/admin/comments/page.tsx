@@ -163,9 +163,9 @@ export default function AdminComments() {
     return (
       <>
         <div className="fixed inset-0 bg-black/60 z-[9999]" onClick={() => setShowBulkConfirm(false)} />
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#161616] border border-[#252525] rounded-xl p-6 z-[10000] w-full max-w-md shadow-2xl">
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#161616] border border-[var(--admin-border)] rounded-xl p-6 z-[10000] w-full max-w-md shadow-2xl">
           <h3 className="text-lg font-semibold text-white mb-2">Confirm Bulk Action</h3>
-          <p className="text-sm text-[#A1A1A1] mb-1">
+          <p className="text-sm text-[var(--admin-text-secondary)] mb-1">
             Are you sure you want to <strong className="text-white">{bulkAction}</strong> {selectedComments.size} comment{selectedComments.size !== 1 ? "s" : ""}?
           </p>
           <p className="text-xs text-[#F87171] mb-5">This action is immediate and irreversible.</p>
@@ -184,8 +184,8 @@ export default function AdminComments() {
     <div className="p-8 max-w-[1600px] mx-auto">
       {/* Bulk progress toast */}
       {bulkProgress && (
-        <div className="fixed top-4 right-4 z-[9999] bg-[#1F1F1F] border border-[#333] rounded-lg px-4 py-3 text-sm text-[#EDEDED] flex items-center gap-2 shadow-lg">
-          <Loader2 size={14} className="animate-spin text-[#C5AA8A]" /> {bulkProgress}
+        <div className="fixed top-4 right-4 z-[9999] bg-[var(--admin-bg-active)] border border-[var(--admin-border)] rounded-lg px-4 py-3 text-sm text-[var(--admin-text)] flex items-center gap-2 shadow-lg">
+          <Loader2 size={14} className="animate-spin text-[var(--admin-accent)]" /> {bulkProgress}
         </div>
       )}
 
@@ -194,11 +194,11 @@ export default function AdminComments() {
 
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[#C5AA8A]"><MessageSquare size={14} /> COMMUNITY</div>
+        <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[var(--admin-accent)]"><MessageSquare size={14} /> COMMUNITY</div>
         <div className="flex items-end justify-between mt-1">
           <div>
             <h1 className="text-[42px] font-semibold tracking-[-1.2px] leading-none">Comments</h1>
-            <p className="text-[#A1A1A1] mt-2 text-sm">
+            <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">
               Moderate, review, and manage all community comments.
               {counts.PENDING > 0 && <span className="text-[#FBBF24] ml-1">{counts.PENDING} awaiting review.</span>}
             </p>
@@ -214,8 +214,8 @@ export default function AdminComments() {
           const isActive = statusFilter === tab.key;
           return (
             <button key={tab.key} onClick={() => { setStatusFilter(tab.key); setPage(1); setSelectedComments(new Set()); }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all whitespace-nowrap ${isActive ? "bg-[#C5AA8A]/15 text-[#C5AA8A] border border-[#C5AA8A]/30" : "text-[#A1A1A1] hover:text-[#EDEDED] hover:bg-[#1A1A1A] border border-transparent"}`}>
-              {tab.label}{count > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full ${tab.color || "bg-[#1F1F1F] text-[#A1A1A1]"}`}>{count}</span>}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all whitespace-nowrap ${isActive ? "bg-[#C5AA8A]/15 text-[var(--admin-accent)] border border-[#C5AA8A]/30" : "text-[var(--admin-text-secondary)] hover:text-[#EDEDED] hover:bg-[var(--admin-bg-hover)] border border-transparent"}`}>
+              {tab.label}{count > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full ${tab.color || "bg-[var(--admin-bg-active)] text-[var(--admin-text-secondary)]"}`}>{count}</span>}
             </button>
           );
         })}
@@ -224,13 +224,13 @@ export default function AdminComments() {
       {/* Search + Bulk actions */}
       <div className="flex items-center gap-4 mb-6">
         <div className="relative flex-1 max-w-md">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#666]" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--admin-text-muted)]" />
           <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search by content or author..." className="input-admin w-full pl-10 pr-4" />
         </div>
         {selectedComments.size > 0 && (
-          <div className="flex items-center gap-3 bg-[#1A1A1A] px-4 py-2 rounded-lg border border-[#252525]">
-            <span className="text-xs text-[#A1A1A1]">{selectedComments.size} selected</span>
-            <select value={bulkAction} onChange={(e) => setBulkAction(e.target.value)} className="bg-[#111] border border-[#333] rounded px-2 py-1 text-xs text-[#EDEDED]">
+          <div className="flex items-center gap-3 bg-[#1A1A1A] px-4 py-2 rounded-lg border border-[var(--admin-border)]">
+            <span className="text-xs text-[var(--admin-text-secondary)]">{selectedComments.size} selected</span>
+            <select value={bulkAction} onChange={(e) => setBulkAction(e.target.value)} className="bg-[var(--admin-bg-elevated)] border border-[var(--admin-border)] rounded px-2 py-1 text-xs text-[var(--admin-text)]">
               <option value="">Bulk action...</option>
               <option value="approve">Approve</option>
               <option value="reject">Mark as Spam</option>
@@ -246,13 +246,13 @@ export default function AdminComments() {
       </div>
 
       {/* Comments table */}
-      <div className="admin-card overflow-hidden border border-[#252525] overflow-x-auto">
+      <div className="admin-card overflow-hidden border border-[var(--admin-border)] overflow-x-auto">
         {loading ? (
-          <div className="flex items-center justify-center py-20"><Loader2 size={18} className="animate-spin text-[#C5AA8A]" /><span className="text-sm text-[#A1A1A1] ml-2">Loading comments...</span></div>
+          <div className="flex items-center justify-center py-20"><Loader2 size={18} className="animate-spin text-[var(--admin-accent)]" /><span className="text-sm text-[var(--admin-text-secondary)] ml-2">Loading comments...</span></div>
         ) : comments.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-[#666]">
+          <div className="flex flex-col items-center justify-center py-20 text-[var(--admin-text-muted)]">
             <MessageSquare size={32} className="mb-3 opacity-50" /><p className="text-sm">No comments found</p>
-            {statusFilter !== "all" && <button onClick={() => setStatusFilter("all")} className="text-xs text-[#C5AA8A] hover:underline mt-1">View all comments</button>}
+            {statusFilter !== "all" && <button onClick={() => setStatusFilter("all")} className="text-xs text-[var(--admin-accent)] hover:underline mt-1">View all comments</button>}
           </div>
         ) : (
           <table className="admin-table w-full min-w-[960px]">
@@ -266,33 +266,33 @@ export default function AdminComments() {
                 const isDeleted = comment.status === "DELETED";
                 const isPending = comment.status === "PENDING";
                 return (
-                  <tr key={comment.id} className={`border-t border-[#252525] transition-colors cursor-pointer ${detailComment?.id === comment.id ? "bg-[#C5AA8A]/5" : "hover:bg-[#1A1A1A]"} ${isPending ? "bg-[#FBBF24]/[0.03]" : ""} ${isDeleted ? "opacity-50" : ""}`}>
+                  <tr key={comment.id} className={`border-t border-[var(--admin-border)] transition-colors cursor-pointer ${detailComment?.id === comment.id ? "bg-[#C5AA8A]/5" : "hover:bg-[var(--admin-bg-hover)]"} ${isPending ? "bg-[#FBBF24]/[0.03]" : ""} ${isDeleted ? "opacity-50" : ""}`}>
                     <td onClick={(e) => e.stopPropagation()}><input type="checkbox" checked={selectedComments.has(comment.id)} onChange={() => toggleSelect(comment.id)} className="accent-[#C5AA8A]" /></td>
                     <td onClick={() => setDetailComment(comment)}>
                       <div className="flex items-center gap-2">
-                        <div className="h-7 w-7 rounded-full bg-[#C5AA8A]/20 flex items-center justify-center text-[10px] font-medium text-[#C5AA8A] flex-shrink-0">
+                        <div className="h-7 w-7 rounded-full bg-[#C5AA8A]/20 flex items-center justify-center text-[10px] font-medium text-[var(--admin-accent)] flex-shrink-0">
                           {(comment.user?.name || comment.guestName || "A").charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
                           <div className="text-sm font-medium truncate">{comment.user?.name || comment.guestName || "Anonymous"}</div>
-                          {comment.parent && <div className="text-[10px] text-[#666] truncate">Replied to a comment</div>}
+                          {comment.parent && <div className="text-[10px] text-[var(--admin-text-muted)] truncate">Replied to a comment</div>}
                         </div>
                       </div>
                     </td>
                     <td onClick={() => setDetailComment(comment)}>
-                      <p className="text-sm text-[#A1A1A1] leading-relaxed line-clamp-2">{comment.content}</p>
+                      <p className="text-sm text-[var(--admin-text-secondary)] leading-relaxed line-clamp-2">{comment.content}</p>
                     </td>
                     <td onClick={() => setDetailComment(comment)}>
-                      <div className="text-sm text-[#A1A1A1] truncate max-w-[200px]">{comment.article?.title || "Unknown"}</div>
+                      <div className="text-sm text-[var(--admin-text-secondary)] truncate max-w-[200px]">{comment.article?.title || "Unknown"}</div>
                     </td>
                     <td onClick={() => setDetailComment(comment)}>{getStatusBadge(comment.status)}</td>
                     <td onClick={() => setDetailComment(comment)}>
-                      <div className="flex items-center gap-2 text-xs text-[#666]">
+                      <div className="flex items-center gap-2 text-xs text-[var(--admin-text-muted)]">
                         <span className="flex items-center gap-1"><ThumbsUp size={12} className="text-[#4ADE80]" />{comment.upvotes}</span>
                         <span className="flex items-center gap-1"><ThumbsDown size={12} className="text-[#F87171]" />{comment.downvotes}</span>
                       </div>
                     </td>
-                    <td onClick={() => setDetailComment(comment)} className="text-xs text-[#666] whitespace-nowrap">{formatDate(comment.createdAt)}</td>
+                    <td onClick={() => setDetailComment(comment)} className="text-xs text-[var(--admin-text-muted)] whitespace-nowrap">{formatDate(comment.createdAt)}</td>
                     <td>
                       <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                         {isPending && (<>
@@ -309,9 +309,9 @@ export default function AdminComments() {
                           <button onClick={() => handleSilentAction(comment.id, "delete")} disabled={actionLoading === comment.id} className="p-1.5 rounded hover:bg-[#F87171]/10 text-[#F87171] transition-colors disabled:opacity-30" title="Delete"><Trash2 size={14} /></button>
                         )}
                         {comment.article && (
-                          <a href={`/articles/${comment.article.slug}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-1.5 rounded hover:bg-[#C5AA8A]/10 text-[#666] hover:text-[#C5AA8A] transition-colors" title="View article"><ExternalLink size={14} /></a>
+                          <a href={`/articles/${comment.article.slug}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-1.5 rounded hover:bg-[#C5AA8A]/10 text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)] transition-colors" title="View article"><ExternalLink size={14} /></a>
                         )}
-                        <Link href={`/admin/comments/${comment.id}`} onClick={(e) => e.stopPropagation()} className="p-1.5 rounded hover:bg-[#C5AA8A]/10 text-[#666] hover:text-[#C5AA8A] transition-colors" title="View details"><Eye size={14} /></Link>
+                        <Link href={`/admin/comments/${comment.id}`} onClick={(e) => e.stopPropagation()} className="p-1.5 rounded hover:bg-[#C5AA8A]/10 text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)] transition-colors" title="View details"><Eye size={14} /></Link>
                       </div>
                     </td>
                   </tr>
@@ -325,21 +325,21 @@ export default function AdminComments() {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <div className="text-xs text-[#666]">Page {page} of {totalPages}</div>
+          <div className="text-xs text-[var(--admin-text-muted)]">Page {page} of {totalPages}</div>
           <div className="flex items-center gap-2">
             <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page <= 1} className="btn-admin btn-admin-ghost text-xs disabled:opacity-30"><ChevronLeft size={14} /> Previous</button>
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               const start = Math.max(1, Math.min(page - 2, totalPages - 4));
               const pn = start + i;
               if (pn > totalPages) return null;
-              return <button key={pn} onClick={() => setPage(pn)} className={`w-8 h-8 rounded-lg text-xs font-medium ${page === pn ? "bg-[#C5AA8A] text-[#0A0A0A]" : "bg-[#1A1A1A] text-[#A1A1A1] hover:bg-[#252525]"}`}>{pn}</button>;
+              return <button key={pn} onClick={() => setPage(pn)} className={`w-8 h-8 rounded-lg text-xs font-medium ${page === pn ? "bg-[var(--admin-accent)] text-[var(--admin-bg)]" : "bg-[var(--admin-bg-hover)] text-[var(--admin-text-secondary)] hover:bg-[var(--admin-border)]"}`}>{pn}</button>;
             })}
             <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page >= totalPages} className="btn-admin btn-admin-ghost text-xs disabled:opacity-30">Next <ChevronRight size={14} /></button>
           </div>
         </div>
       )}
 
-      <div className="mt-8 text-xs text-[#666] border-t border-[#252525] pt-6 flex items-center gap-1"><AlertTriangle size={12} /> Actions use silent optimistic updates. Use bulk actions with caution.</div>
+      <div className="mt-8 text-xs text-[var(--admin-text-muted)] border-t border-[var(--admin-border)] pt-6 flex items-center gap-1"><AlertTriangle size={12} /> Actions use silent optimistic updates. Use bulk actions with caution.</div>
 
       <CommentDetailDrawer comment={detailComment} open={!!detailComment} onClose={() => setDetailComment(null)}
         onAction={async (id, action, notify) => {
@@ -352,3 +352,4 @@ export default function AdminComments() {
     </div>
   );
 }
+

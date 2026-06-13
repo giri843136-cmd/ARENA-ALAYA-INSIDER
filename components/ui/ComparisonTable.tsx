@@ -2,6 +2,7 @@
 
 import { Check, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 
 interface ComparisonRow {
   label: string;
@@ -48,19 +49,19 @@ export function ComparisonTable({
         {/* Header */}
         <thead className="bg-[#F5F0EA] dark:bg-[#1F1A17] sticky top-0 z-10">
           <tr>
-            <th className="p-4 text-left text-xs tracking-[2px] text-[#8A8178] font-medium w-48">
+            <th className="p-4 text-left text-xs tracking-[2px] text-[#5C5249] font-medium w-48">
               Features
             </th>
             {products.map((p, i) => (
               <th key={i} className="p-4 text-center min-w-[160px]">
                 <div className="font-medium text-[#26221E] dark:text-[#EDE6DC]">{p.name}</div>
                 {p.price && (
-                  <div className="text-xs text-[#8A8178] mt-0.5">
-                    ${p.price.toLocaleString()}
+                  <div className="text-xs text-[#5C5249] mt-0.5">
+                    <PriceDisplay usdAmount={p.price} />
                   </div>
                 )}
                 {p.rating && (
-                  <div className="text-xs text-[#C5AA8A] mt-0.5">
+                  <div className="text-xs text-[#7A6848] mt-0.5">
                     ★ {p.rating.toFixed(1)}
                   </div>
                 )}
@@ -78,7 +79,7 @@ export function ComparisonTable({
                 <td colSpan={products.length + 1} className="p-0">
                   <button
                     onClick={() => toggleSection(sectionName)}
-                    className="w-full px-4 py-2 flex items-center gap-2 text-xs tracking-[2px] text-[#C5AA8A] bg-[#FAF7F4] dark:bg-[#26221E] hover:bg-[#F5F0EA] dark:hover:bg-[#333] transition-colors"
+                    className="w-full px-4 py-2 flex items-center gap-2 text-xs tracking-[2px] text-[#7A6848] bg-[#FAF7F4] dark:bg-[#26221E] hover:bg-[#F5F0EA] dark:hover:bg-[#333] transition-colors"
                   >
                     <ChevronDown
                       size={12}

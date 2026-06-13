@@ -60,7 +60,7 @@ export function NotificationBell() {
       >
         <Bell size={20} strokeWidth={1.5} className="text-[#6D655F] dark:text-[#B8AFA3]" />
         {unread > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-[#C5AA8A] text-[10px] font-medium text-white flex items-center justify-center">
+          <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-[#7A6848] text-[10px] font-medium text-white flex items-center justify-center">
             {unread}
           </span>
         )}
@@ -74,14 +74,14 @@ export function NotificationBell() {
             </span>
             <Link
               href="/notifications"
-              className="text-xs text-[#C5AA8A] hover:text-[#B99B79] transition-colors"
+              className="text-xs text-[#7A6848] hover:text-[#B99B79] transition-colors"
             >
               See all
             </Link>
           </div>
           <div className="max-h-72 overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="p-6 text-center text-sm text-[#8A8178]">
+              <div className="p-6 text-center text-sm text-[#5C5249]">
                 No notifications yet
               </div>
             ) : (
@@ -91,12 +91,12 @@ export function NotificationBell() {
                   href={n.link || "#"}
                   onClick={() => setOpen(false)}
                   className={`block p-3 border-b border-[#E4DDD5]/50 dark:border-[#3D3530]/50 hover:bg-[#F5F0EA]/50 dark:hover:bg-white/5 transition-colors ${
-                    !n.read ? "bg-[#C5AA8A]/5" : ""
+                    !n.read ? "bg-[#7A6848]/5" : ""
                   }`}
                 >
                   <div className="flex items-start gap-2.5">
                     {!n.read && (
-                      <span className="w-2 h-2 rounded-full bg-[#C5AA8A] mt-1.5 flex-shrink-0" />
+                      <span className="w-2 h-2 rounded-full bg-[#7A6848] mt-1.5 flex-shrink-0" />
                     )}
                     <div className={n.read ? "ml-4" : ""}>
                       <p className="text-sm font-medium text-[#26221E] dark:text-[#EDE6DC]">
@@ -105,7 +105,7 @@ export function NotificationBell() {
                       <p className="text-xs text-[#6D655F] dark:text-[#B8AFA3] mt-0.5">
                         {n.body}
                       </p>
-                      <p className="text-[10px] text-[#8A8178] mt-1">{n.createdAt}</p>
+                      <p className="text-[10px] text-[#5C5249] mt-1">{n.createdAt}</p>
                     </div>
                   </div>
                 </Link>

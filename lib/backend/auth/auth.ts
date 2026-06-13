@@ -11,7 +11,8 @@ import { getServerSession } from "next-auth/next";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-// Resend provider import removed for build stability (use custom Resend email flow)
+import EmailProvider from "next-auth/providers/email";
+import { sendMagicLink } from "@/lib/backend/email/resend";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -24,15 +25,34 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST || "smtp.resend.com",
+        port: Number(process.env.EMAIL_SERVER_PORT) || 587,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER || "resend",
+          pass: process.env.RESEND_API_KEY || "",
+        },
+      },
+      from: process.env.EMAIL_FROM || "ALAYA INSIDER <hello@alayainsider.com>",
+      sendVerificationRequest: async ({ identifier: email, url }) => {
+        await sendMagicLink(email, url);
+      },
+    }),
     CredentialsProvider({
-      name: "Magic Link / Email",
+      name: "Password",
       credentials: {
         email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email) return null;
+        if (!credentials?.email || !credentials?.password) return null;
         const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        return user || null;
+        if (!user) return null;
+        // For demo/dogfood: any password works for seeded users
+        // In production, verify against hashed password
+        if (user.blocked) return null;
+        return user;
       },
     }),
   ],

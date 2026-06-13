@@ -64,8 +64,8 @@ export function Tabs({ tabs, defaultTab, onChange, className = "" }: TabsProps) 
             onKeyDown={(e) => handleKeyDown(e, i)}
             className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
               activeTab === tab.id
-                ? "border-[#C5AA8A] text-[#26221E] dark:text-[#EDE6DC]"
-                : "border-transparent text-[#8A8178] hover:text-[#26221E] dark:hover:text-[#EDE6DC]"
+                ? "border-[#7A6848] text-[#26221E] dark:text-[#EDE6DC]"
+                : "border-transparent text-[#5C5249] hover:text-[#26221E] dark:hover:text-[#EDE6DC]"
             }`}
           >
             {tab.label}

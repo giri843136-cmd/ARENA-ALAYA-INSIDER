@@ -17,7 +17,7 @@ export function DisclosureBadge({ variant = "inline", className = "" }: Disclosu
 
   if (variant === "footer") {
     return (
-      <p className={`text-[10px] leading-relaxed text-[#8A8178] ${className}`}>
+      <p className={`text-[10px] leading-relaxed text-[#5C5249] ${className}`}>
         {content}
       </p>
     );
@@ -36,7 +36,7 @@ export function DisclosureBadge({ variant = "inline", className = "" }: Disclosu
 
   return (
     <Tooltip content={content} position="top">
-      <span className={`inline-flex items-center gap-1 text-xs text-[#8A8178] cursor-help hover:text-[#6D655F] transition-colors ${className}`}>
+      <span className={`inline-flex items-center gap-1 text-xs text-[#5C5249] cursor-help hover:text-[#6D655F] transition-colors ${className}`}>
         <Info size={12} />
         Affiliate disclosure
       </span>

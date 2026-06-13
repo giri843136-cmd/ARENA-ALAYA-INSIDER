@@ -134,7 +134,7 @@ export default function CommentDetailPage() {
 
   if (loading) return (
     <div className="p-8 flex items-center justify-center min-h-[60vh]">
-      <div className="flex items-center gap-3 text-[#A1A1A1]">
+      <div className="flex items-center gap-3 text-[var(--admin-text-secondary)]">
         <Clock size={18} className="animate-spin" />
         <span className="text-sm">Loading comment...</span>
       </div>
@@ -145,8 +145,8 @@ export default function CommentDetailPage() {
     <div className="p-8">
       <div className="admin-card p-8 text-center">
         <AlertTriangle size={32} className="mx-auto text-[#F87171] mb-3" />
-        <p className="text-[#A1A1A1]">{error || "Comment not found"}</p>
-        <Link href="/admin/comments" className="text-[#C5AA8A] text-sm hover:underline mt-2 inline-block">
+        <p className="text-[var(--admin-text-secondary)]">{error || "Comment not found"}</p>
+        <Link href="/admin/comments" className="text-[var(--admin-accent)] text-sm hover:underline mt-2 inline-block">
           ← Back to comments
         </Link>
       </div>
@@ -171,16 +171,16 @@ export default function CommentDetailPage() {
       )}
 
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-[#666] mb-6">
-        <Link href="/admin/comments" className="hover:text-[#C5AA8A]">Comments</Link>
+      <div className="flex items-center gap-2 text-xs text-[var(--admin-text-muted)] mb-6">
+        <Link href="/admin/comments" className="hover:text-[var(--admin-accent)]">Comments</Link>
         <ChevronRight size={12} />
-        <span className="text-[#A1A1A1]">{id.slice(0, 8)}...</span>
+        <span className="text-[var(--admin-text-secondary)]">{id.slice(0, 8)}...</span>
       </div>
 
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[#C5AA8A]">
+          <div className="flex items-center gap-2 text-xs tracking-[2.5px] text-[var(--admin-accent)]">
             <MessageSquare size={14} />
             COMMENT DETAIL
           </div>
@@ -188,16 +188,15 @@ export default function CommentDetailPage() {
             Comment by {displayName}
           </h1>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setNotifyAuthor(!notifyAuthor)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
-              notifyAuthor ? "bg-[#C5AA8A]/10 text-[#C5AA8A] border border-[#C5AA8A]/20" : "text-[#666] border border-transparent"
-            }`}
-          >
-            {notifyAuthor ? <Bell size={12} /> : <BellOff size={12} />}
-            {notifyAuthor ? "Notify author" : "Silent"}
-          </button>
+        <div className="flex items-center gap-2">            <button
+              onClick={() => setNotifyAuthor(!notifyAuthor)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                notifyAuthor ? "bg-[var(--admin-accent)]/10 text-[var(--admin-accent)] border border-[var(--admin-accent)]/20" : "text-[var(--admin-text-muted)] border border-transparent"
+              }`}
+            >
+              {notifyAuthor ? <Bell size={12} /> : <BellOff size={12} />}
+              {notifyAuthor ? "Notify author" : "Silent"}
+            </button>
           <Link href="/admin/comments" className="btn-admin text-xs">
             <ArrowLeft size={14} /> Back
           </Link>
@@ -208,23 +207,23 @@ export default function CommentDetailPage() {
         {/* Main Column */}
         <div className="xl:col-span-2 space-y-6">
           {/* Comment Content */}
-          <div className="admin-card p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">CONTENT</div>
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] text-[#666]">
-                  {comment.content.split(/\s+/).filter(Boolean).length} words
-                </span>
-                {!isDeleted && (
-                  <button
-                    onClick={() => setIsEditing(!isEditing)}
-                    className={`p-1.5 rounded-lg transition-colors ${isEditing ? "bg-[#C5AA8A]/15 text-[#C5AA8A]" : "hover:bg-[#1F1F1F] text-[#666] hover:text-white"}`}
-                  >
-                    {isEditing ? <X size={14} /> : <Edit3 size={14} />}
-                  </button>
-                )}
-              </div>
+        <div className="admin-card p-6 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">CONTENT</div>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-[var(--admin-text-muted)]">
+                {comment.content.split(' ').filter(Boolean).length} words
+              </span>
+              {!isDeleted && (
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className={`p-1.5 rounded-lg transition-colors ${isEditing ? "bg-[var(--admin-accent)]/15 text-[var(--admin-accent)]" : "hover:bg-[#1F1F1F] text-[var(--admin-text-muted)] hover:text-white"}`}
+                >
+                  {isEditing ? <X size={14} /> : <Edit3 size={14} />}
+                </button>
+              )}
             </div>
+          </div>
             {isEditing ? (
               <div className="space-y-3">
                 <textarea
@@ -240,7 +239,7 @@ export default function CommentDetailPage() {
                 </div>
               </div>
             ) : (
-              <div className="bg-[#0A0A0A] rounded-lg p-4 border border-[#252525]">
+              <div className="bg-[#0A0A0A] rounded-lg p-4 border border-[var(--admin-border)]">
                 <p className="text-sm text-white leading-relaxed whitespace-pre-wrap">{comment.content}</p>
               </div>
             )}
@@ -249,22 +248,22 @@ export default function CommentDetailPage() {
           {/* Edit History */}
           {comment.edits && comment.edits.length > 0 && (
             <div className="admin-card p-6 space-y-4">
-              <div className="flex items-center gap-2 text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">
+              <div className="flex items-center gap-2 text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">
                 <History size={12} /> EDIT HISTORY ({comment.edits.length})
               </div>
               <div className="space-y-3">
                 {comment.edits.map((edit) => (
-                  <div key={edit.id} className="bg-[#0A0A0A] rounded-lg p-4 border border-[#252525]">
-                    <div className="text-[10px] text-[#666] mb-2">{formatDateTime(edit.createdAt)} ({formatRelative(edit.createdAt)})</div>
+                  <div key={edit.id} className="bg-[#0A0A0A] rounded-lg p-4 border border-[var(--admin-border)]">
+                    <div className="text-[10px] text-[var(--admin-text-muted)] mb-2">{formatDateTime(edit.createdAt)} ({formatRelative(edit.createdAt)})</div>
                     <details className="group">
-                      <summary className="text-xs text-[#C5AA8A] cursor-pointer hover:text-[#D4B88A]">
+                      <summary className="text-xs text-[var(--admin-accent)] cursor-pointer hover:text-[var(--admin-accent-hover)]">
                         <span className="group-open:hidden">Show changes</span>
                         <span className="hidden group-open:inline">Hide changes</span>
                       </summary>
                       <div className="mt-3 grid grid-cols-1 gap-3">
                         <div>
                           <div className="text-[10px] text-[#F87171] mb-1">Original</div>
-                          <div className="text-xs text-[#A1A1A1] bg-[#F87171]/5 rounded p-2 border border-[#F87171]/10 line-clamp-4">{edit.originalText}</div>
+                          <div className="text-xs text-[var(--admin-text-secondary)] bg-[#F87171]/5 rounded p-2 border border-[#F87171]/10 line-clamp-4">{edit.originalText}</div>
                         </div>
                         <div>
                           <div className="text-[10px] text-[#4ADE80] mb-1">Edited</div>
@@ -281,7 +280,7 @@ export default function CommentDetailPage() {
           {/* Audit Logs */}
           {comment.auditLogs && comment.auditLogs.length > 0 && (
             <div className="admin-card p-6 space-y-4">
-              <div className="flex items-center gap-2 text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">
+              <div className="flex items-center gap-2 text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">
                 <Shield size={12} /> MODERATION HISTORY ({comment.auditLogs.length})
               </div>
               <table className="admin-table w-full text-sm">
@@ -296,8 +295,8 @@ export default function CommentDetailPage() {
                 </thead>
                 <tbody>
                   {comment.auditLogs.map((log) => (
-                    <tr key={log.id} className="border-t border-[#252525]">
-                      <td className="text-xs text-[#666] whitespace-nowrap">{formatRelative(log.createdAt)}</td>
+                    <tr key={log.id} className="border-t border-[var(--admin-border)]">
+                      <td className="text-xs text-[var(--admin-text-muted)] whitespace-nowrap">{formatRelative(log.createdAt)}</td>
                       <td>
                         <span className={`badge-admin ${
                           log.action === "approve" || log.action === "restore" ? "badge-admin-success" :
@@ -305,9 +304,9 @@ export default function CommentDetailPage() {
                           log.action === "delete" ? "badge-admin-error" : "badge-admin-neutral"
                         }`}>{log.action}</span>
                       </td>
-                      <td className="text-xs text-[#666]">{log.oldValue || "—"}</td>
-                      <td className="text-xs text-[#A1A1A1]">{log.newValue || "—"}</td>
-                      <td className="text-xs text-[#666]">{log.source}</td>
+                      <td className="text-xs text-[var(--admin-text-muted)]">{log.oldValue || "—"}</td>
+                      <td className="text-xs text-[var(--admin-text-secondary)]">{log.newValue || "—"}</td>
+                      <td className="text-xs text-[var(--admin-text-muted)]">{log.source}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -318,15 +317,15 @@ export default function CommentDetailPage() {
           {/* Replies */}
           {comment.replies && comment.replies.length > 0 && (
             <div className="admin-card p-6 space-y-4">
-              <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">REPLIES ({comment.replies.length})</div>
+              <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">REPLIES ({comment.replies.length})</div>
               <div className="space-y-3">
                 {comment.replies.map((reply) => (
-                  <div key={reply.id} className="bg-[#0A0A0A] rounded-lg p-3 border border-[#252525] ml-4">
+                  <div key={reply.id} className="bg-[#0A0A0A] rounded-lg p-3 border border-[var(--admin-border)] ml-4">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-medium text-white">{reply.user?.name || reply.guestName || "Anonymous"}</span>
-                      <span className="text-[10px] text-[#666]">{formatRelative(reply.createdAt)}</span>
+                      <span className="text-[10px] text-[var(--admin-text-muted)]">{formatRelative(reply.createdAt)}</span>
                     </div>
-                    <p className="text-xs text-[#A1A1A1]">{reply.content}</p>
+                    <p className="text-xs text-[var(--admin-text-secondary)]">{reply.content}</p>
                   </div>
                 ))}
               </div>
@@ -338,29 +337,29 @@ export default function CommentDetailPage() {
         <div className="space-y-6">
           {/* Author Info */}
           <div className="admin-card p-5 space-y-3">
-            <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">AUTHOR</div>
+            <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">AUTHOR</div>
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-[#C5AA8A]/20 flex items-center justify-center text-sm font-medium text-[#C5AA8A]">
+              <div className="h-10 w-10 rounded-full bg-[var(--admin-accent)]/20 flex items-center justify-center text-sm font-medium text-[var(--admin-accent)]">
                 {displayName.charAt(0)}
               </div>
               <div>
                 <div className="text-sm font-medium text-white">{displayName}</div>
-                <div className="text-xs text-[#666] flex items-center gap-1 mt-0.5">
+                <div className="text-xs text-[var(--admin-text-muted)] flex items-center gap-1 mt-0.5">
                   {comment.user ? <User size={11} /> : <Globe size={11} />}
                   {comment.user ? "Registered user" : "Guest"}
                 </div>
-                {comment.guestEmail && <div className="text-xs text-[#666] mt-1">{comment.guestEmail}</div>}
+                {comment.guestEmail && <div className="text-xs text-[var(--admin-text-muted)] mt-1">{comment.guestEmail}</div>}
               </div>
             </div>
           </div>
 
           {/* Article Info */}
           <div className="admin-card p-5 space-y-3">
-            <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">ARTICLE</div>
+            <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">ARTICLE</div>
             <div className="text-sm text-white">{comment.article?.title || "Unknown"}</div>
             {comment.article?.slug && (
               <a href={`/articles/${comment.article.slug}`} target="_blank" rel="noopener noreferrer"
-                 className="flex items-center gap-1 text-xs text-[#C5AA8A] hover:text-[#D4B88A]">
+                 className="flex items-center gap-1 text-xs text-[var(--admin-accent)] hover:text-[var(--admin-accent-hover)]">
                 View article <ExternalLink size={12} />
               </a>
             )}
@@ -369,27 +368,27 @@ export default function CommentDetailPage() {
           {/* Parent (if reply) */}
           {comment.parent && (
             <div className="admin-card p-5 space-y-3">
-              <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">REPLIED TO</div>
-              <div className="bg-[#0A0A0A] rounded p-3 border border-[#252525]">
-                <p className="text-xs text-[#A1A1A1] line-clamp-3">{comment.parent.content}</p>
+              <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">REPLIED TO</div>
+              <div className="bg-[#0A0A0A] rounded p-3 border border-[var(--admin-border)]">
+                <p className="text-xs text-[var(--admin-text-secondary)] line-clamp-3">{comment.parent.content}</p>
               </div>
             </div>
           )}
 
           {/* Stats */}
           <div className="admin-card p-5 space-y-3">
-            <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">STATS</div>
+            <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">STATS</div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center gap-1.5"><ThumbsUp size={14} className="text-[#4ADE80]" /> {comment.upvotes}</div>
               <div className="flex items-center gap-1.5"><ThumbsDown size={14} className="text-[#F87171]" /> {comment.downvotes}</div>
-              <div className="flex items-center gap-1.5"><MessageSquare size={14} className="text-[#C5AA8A]" /> {comment._count.replies} replies</div>
-              <div className="flex items-center gap-1.5"><Clock size={14} className="text-[#666]" /> {formatRelative(comment.createdAt)}</div>
+              <div className="flex items-center gap-1.5"><MessageSquare size={14} className="text-[var(--admin-accent)]" /> {comment._count.replies} replies</div>
+              <div className="flex items-center gap-1.5"><Clock size={14} className="text-[var(--admin-text-muted)]" /> {formatRelative(comment.createdAt)}</div>
             </div>
           </div>
 
           {/* Actions */}
           <div className="admin-card p-5 space-y-3">
-            <div className="text-[10px] tracking-[1.5px] text-[#C5AA8A] font-medium">ACTIONS</div>
+            <div className="text-[10px] tracking-[1.5px] text-[var(--admin-accent)] font-medium">ACTIONS</div>
             <div className="space-y-2">
               {isPending && (
                 <>

@@ -9,7 +9,7 @@ export default function JournalIndex() {
     <div className="bg-[#F5F0EA]">
       <div className="container py-16">
         <div className="max-w-2xl">
-          <div className="uppercase tracking-[4px] text-xs text-[#C5AA8A]">THE ALAYA INSIDER JOURNAL</div>
+          <div className="uppercase tracking-[4px] text-xs text-[#7A6848]">THE ALAYA INSIDER JOURNAL</div>
           <h1 className="font-display text-[52px] tracking-[-2.6px] leading-[0.92] mt-2">Stories that stay with you.</h1>
           <p className="mt-4 text-xl text-[#5C5249]">
             Long-form essays, quiet observations, and deep dives into the objects and rituals that shape a considered life.
@@ -29,7 +29,7 @@ export default function JournalIndex() {
         <div className="mt-20">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-display text-4xl tracking-tight">Recent Essays</h2>
-            <div className="text-sm text-[#8A8178]">{articles.length} pieces in the archive</div>
+            <div className="text-sm text-[#5C5249]">{articles.length} pieces in the archive</div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">

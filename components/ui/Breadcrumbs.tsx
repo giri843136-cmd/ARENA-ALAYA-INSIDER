@@ -33,21 +33,21 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
       <BreadcrumbSchema items={items} />
       <nav
         aria-label="Breadcrumb"
-        className={`flex items-center gap-1.5 text-xs tracking-wider text-[#8A8178] ${className}`}
+        className={`flex items-center gap-1.5 text-xs tracking-wider text-[#5C5249] ${className}`}
       >
         {items.map((item, i) => {
           const isLast = i === items.length - 1;
           return (
             <span key={item.href} className="flex items-center gap-1.5">
-              {i > 0 && <ChevronRight size={12} className="text-[#C5AA8A]/50" aria-hidden="true" />}
+              {i > 0 && <ChevronRight size={12} className="text-[#7A6848]/50" aria-hidden="true" />}
               {isLast ? (
-                <span className="text-[#C5AA8A] font-medium" aria-current="page">
+                <span className="text-[#7A6848] font-medium" aria-current="page">
                   {item.name}
                 </span>
               ) : (
                 <Link
                   href={item.href}
-                  className="hover:text-[#C5AA8A] transition-colors"
+                  className="hover:text-[#7A6848] transition-colors"
                 >
                   {item.name}
                 </Link>

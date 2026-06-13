@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="mt-16 pt-10 border-t border-[#E4DDD5]">
           <div className="grid md:grid-cols-2 gap-x-16 gap-y-10 text-sm">
             <div>
-              <div className="uppercase tracking-[2.5px] text-xs text-[#C5AA8A] mb-4">OUR PROMISE</div>
+              <div className="uppercase tracking-[2.5px] text-xs text-[#7A6848] mb-4">OUR PROMISE</div>
               <ul className="space-y-2.5 text-[#5C5249]">
                 <li>• Every object is personally tested</li>
                 <li>• We disclose every affiliate relationship</li>
@@ -24,9 +24,9 @@ export default function AboutPage() {
               </ul>
             </div>
             <div>
-              <div className="uppercase tracking-[2.5px] text-xs text-[#C5AA8A] mb-4">THE TEAM</div>
+              <div className="uppercase tracking-[2.5px] text-xs text-[#7A6848] mb-4">THE TEAM</div>
               <p className="text-[#5C5249]">A small group of women (and a few excellent men) who have spent their careers thinking about how objects shape the way we feel in our homes and in our bodies.</p>
-              <p className="mt-3 text-[#8A8178] text-xs">New York • London • Sydney</p>
+              <p className="mt-3 text-[#5C5249] text-xs">New York • London • Sydney</p>
             </div>
           </div>
         </div>

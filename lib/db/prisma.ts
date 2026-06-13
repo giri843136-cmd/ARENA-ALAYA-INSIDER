@@ -44,6 +44,12 @@ function createPrismaClient(): PrismaClient {
       analyticsEvent: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
       aIHistory: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
       affiliateLink: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
+      offlineClick: { findMany: async () => [], findUnique: async () => null, create: async () => ({}), count: async () => 0 },
+      commentEdit: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
+      moderationAuditLog: { findMany: async () => [], groupBy: async () => [], create: async () => ({}), count: async () => 0 },
+      userNotificationPreference: { findUnique: async () => null, upsert: async () => ({}), count: async () => 0 },
+      notificationMute: { findMany: async () => [], findUnique: async () => null, upsert: async () => ({}), deleteMany: async () => ({ count: 0 }), count: async () => 0 },
+      activityLog: { findMany: async () => [], groupBy: async () => [], create: async () => ({}), count: async () => 0 },
       // Add more models as needed for full coverage; they will be overridden by real when DB present.
       // For any other access, return empty array or null to keep build/API stable.
     } as unknown as PrismaClient;

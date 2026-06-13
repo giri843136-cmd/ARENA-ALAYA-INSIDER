@@ -15,12 +15,9 @@ interface CurrencyOption {
 const CURRENCIES: CurrencyOption[] = [
   { code: "USD", symbol: "$", locale: "en-US", name: "US Dollar", flag: "🇺🇸" },
   { code: "EUR", symbol: "€", locale: "de-DE", name: "Euro", flag: "🇪🇺" },
-  { code: "GBP", symbol: "£", locale: "en-GB", name: "British Pound", flag: "🇬🇧" },
   { code: "JPY", symbol: "¥", locale: "ja-JP", name: "Japanese Yen", flag: "🇯🇵" },
   { code: "AUD", symbol: "A$", locale: "en-AU", name: "Australian Dollar", flag: "🇦🇺" },
   { code: "CAD", symbol: "C$", locale: "en-CA", name: "Canadian Dollar", flag: "🇨🇦" },
-  { code: "KRW", symbol: "₩", locale: "ko-KR", name: "South Korean Won", flag: "🇰🇷" },
-  { code: "BRL", symbol: "R$", locale: "pt-BR", name: "Brazilian Real", flag: "🇧🇷" },
   { code: "INR", symbol: "₹", locale: "en-IN", name: "Indian Rupee", flag: "🇮🇳" },
   { code: "CNY", symbol: "¥", locale: "zh-CN", name: "Chinese Yuan", flag: "🇨🇳" },
   { code: "SEK", symbol: "kr", locale: "sv-SE", name: "Swedish Krona", flag: "🇸🇪" },
@@ -78,7 +75,7 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
     <div className={`relative ${className}`} ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1.5 h-9 px-3 rounded-xl border border-[#E4DDD5] bg-white text-xs text-[#6D655F] hover:border-[#C5AA8A] hover:text-[#26221E] transition-all active:scale-[0.985] ${
+        className={`flex items-center gap-1.5 h-9 px-3 rounded-xl border border-[#E4DDD5] bg-white text-xs text-[#6D655F] hover:border-[#7A6848] hover:text-[#26221E] transition-all active:scale-[0.985] ${
           !ratesLoaded ? "animate-pulse" : ""
         }`}
         aria-label={`Currency: ${currency.code}. Click to change.`}
@@ -95,7 +92,7 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
 
       {open && (
         <div className="absolute right-0 top-full mt-2 w-[220px] bg-white border border-[#E4DDD5] rounded-2xl shadow-xl z-50 max-h-[400px] overflow-y-auto py-2">
-          <div className="px-4 py-2 text-[9px] tracking-[2px] text-[#8A8178] uppercase border-b border-[#E4DDD5] mb-1">
+          <div className="px-4 py-2 text-[9px] tracking-[2px] text-[#5C5249] uppercase border-b border-[#E4DDD5] mb-1">
             Select Currency
           </div>
           {CURRENCIES.map((option) => {
@@ -106,16 +103,16 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
                 onClick={() => handleSelect(option)}
                 className={`w-full flex items-center gap-3 px-4 py-2 text-sm text-left transition-colors ${
                   isActive
-                    ? "bg-[#C5AA8A]/10 text-[#26221E] font-medium"
+                    ? "bg-[#7A6848]/10 text-[#26221E] font-medium"
                     : "text-[#6D655F] hover:bg-[#FAF7F4]"
                 }`}
               >
                 <span className="text-base" aria-hidden="true">{option.flag}</span>
                 <div className="flex-1">
                   <span className="tabular-nums">{option.code}</span>
-                  <span className="ml-1.5 text-xs text-[#8A8178]">{option.symbol}</span>
+                  <span className="ml-1.5 text-xs text-[#5C5249]">{option.symbol}</span>
                 </div>
-                <span className="text-[10px] text-[#8A8178] truncate max-w-[80px]">
+                <span className="text-[10px] text-[#5C5249] truncate max-w-[80px]">
                   {option.name}
                 </span>
               </button>

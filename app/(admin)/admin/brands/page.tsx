@@ -11,7 +11,7 @@ export default function BrandVault() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <div className="text-xs text-[#C5A26F]">BRAND VAULT</div>
+        <div className="text-xs text-[var(--admin-accent)]">BRAND VAULT</div>
         <h1 className="text-3xl font-semibold tracking-tight">52 brands • 18,420 products</h1>
       </div>
 
@@ -19,15 +19,16 @@ export default function BrandVault() {
         {brands.map((b, i) => (
           <div key={i} className="admin-card p-5" onClick={() => alert(`Opening brand profile for ${b.name} (demo)`)}>
             <div className="font-medium text-lg">{b.name}</div>
-            <div className="text-sm text-[#A1A1A1]">{b.country}</div>
+            <div className="text-sm text-[var(--admin-text-secondary)]">{b.country}</div>
             <div className="mt-4 flex justify-between text-sm">
               <div>{b.products} products</div>
               <div>★ {b.rating}</div>
             </div>
-            {b.featured && <div className="mt-3 text-xs text-[#C5A26F]">FEATURED</div>}
+            {b.featured && <div className="mt-3 text-xs text-[var(--admin-accent)]">FEATURED</div>}
           </div>
         ))}
       </div>
     </div>
   );
 }
+

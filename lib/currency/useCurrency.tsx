@@ -8,10 +8,10 @@ import type { ReactNode } from "react";
 const DEFAULT: CurrencyInfo = { code: "USD", symbol: "$", locale: "en-US", name: "US Dollar" };
 
 const FALLBACK_RATES: Record<string, number> = {
-  USD: 1, EUR: 0.92, GBP: 0.79, JPY: 157.28, CAD: 1.37,
-  AUD: 1.52, CNY: 7.24, INR: 83.47, BRL: 5.48, MXN: 18.23,
+  USD: 1, EUR: 0.92, JPY: 157.28, CAD: 1.37,
+  AUD: 1.52, CNY: 7.24, INR: 83.47, MXN: 18.23,
   SEK: 10.52, NOK: 10.88, DKK: 6.87, CHF: 0.88, NZD: 1.65,
-  SGD: 1.35, HKD: 7.82, KRW: 1380.50,
+  SGD: 1.35, HKD: 7.82,
 };
 
 interface CurrencyContextType {
@@ -40,8 +40,12 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   // Detect currency from cookies on mount
   useEffect(() => {
     const nameMap: Record<string, string> = {
-      USD: "US Dollar", EUR: "Euro", GBP: "British Pound",
-      JPY: "Japanese Yen", CAD: "Canadian Dollar", AUD: "Australian Dollar",
+      USD: "US Dollar", EUR: "Euro", JPY: "Japanese Yen",
+      CAD: "Canadian Dollar", AUD: "Australian Dollar",
+      CNY: "Chinese Yuan", INR: "Indian Rupee", MXN: "Mexican Peso",
+      SEK: "Swedish Krona", NOK: "Norwegian Krone", DKK: "Danish Krone",
+      CHF: "Swiss Franc", NZD: "New Zealand Dollar",
+      SGD: "Singapore Dollar", HKD: "Hong Kong Dollar",
     };
 
     const code = getCookie("x-currency-code") || "USD";

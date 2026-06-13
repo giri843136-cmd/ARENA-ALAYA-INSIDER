@@ -17,16 +17,16 @@ export default function ActivityTimeline() {
     <div className="p-8 max-w-[1400px]">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <div className="text-xs tracking-[2.5px] text-[#C5AA8A]">AUDIT &amp; ACTIVITY</div>
+          <div className="text-xs tracking-[2.5px] text-[var(--admin-accent)]">AUDIT &amp; ACTIVITY</div>
           <h1 className="text-[42px] font-semibold tracking-[-1.2px] mt-1">Activity Timeline</h1>
         </div>
         <button className="btn-admin text-xs">Export CSV</button>
       </div>
 
-      <div className="admin-card overflow-hidden border border-[#252525] overflow-x-auto">
+      <div className="admin-card overflow-hidden border border-[var(--admin-border)] overflow-x-auto">
         <table className="admin-table w-full text-sm min-w-[880px]">
           <thead>
-            <tr className="bg-[#111]">
+            <tr className="bg-[var(--admin-bg-elevated)]">
               <th>Time</th>
               <th>User</th>
               <th>Action</th>
@@ -36,19 +36,20 @@ export default function ActivityTimeline() {
           </thead>
           <tbody>
             {logs.map((log, i) => (
-              <tr key={i} className="border-t border-[#252525] hover:bg-[#1A1A1A]">
-                <td className="font-mono text-[#A1A1A1] text-xs">{log.time}</td>
+              <tr key={i} className="border-t border-[var(--admin-border)] hover:bg-[var(--admin-bg-hover)]">
+                <td className="font-mono text-[var(--admin-text-secondary)] text-xs">{log.time}</td>
                 <td className="font-medium">{log.user}</td>
                 <td>{log.action}</td>
-                <td className="text-[#A1A1A1]">{log.entity}</td>
-                <td className="text-right text-xs text-[#666]">View diff →</td>
+                <td className="text-[var(--admin-text-secondary)]">{log.entity}</td>
+                <td className="text-right text-xs text-[var(--admin-text-muted)]">View diff →</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="mt-6 text-xs text-[#666]">All actions are immutable. Full audit trail retained for 7 years. Backend logs &amp; queues untouched.</div>
+      <div className="mt-6 text-xs text-[var(--admin-text-muted)]">All actions are immutable. Full audit trail retained for 7 years. Backend logs &amp; queues untouched.</div>
     </div>
   );
 }
+

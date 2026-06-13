@@ -32,11 +32,11 @@ export default function AIWorkspace() {
       {/* Header */}
       <div className="flex justify-between items-start mb-10">
         <div>
-          <div className="uppercase text-xs tracking-[2.5px] text-[#C5AA8A] flex items-center gap-2">
+          <div className="uppercase text-xs tracking-[2.5px] text-[var(--admin-accent)] flex items-center gap-2">
             <Sparkles size={13} /> AI WORKSPACE
           </div>
           <h1 className="text-[42px] font-semibold tracking-[-1.5px] mt-1">Intelligent assistance, human oversight.</h1>
-          <p className="text-[#A1A1A1] mt-2 max-w-md">Every generation is reviewed by editors before publishing. Full audit trail preserved.</p>
+          <p className="text-[var(--admin-text-secondary)] mt-2 max-w-md">Every generation is reviewed by editors before publishing. Full audit trail preserved.</p>
         </div>
         <button className="btn-admin flex items-center gap-2 text-xs"><History size={15} /> View AI History</button>
       </div>
@@ -44,10 +44,10 @@ export default function AIWorkspace() {
       {/* Tool Grid — Calm Luxury Dark */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-10">
         {aiTools.map((tool) => (
-          <div key={tool.id} className="admin-card p-8 flex flex-col border border-[#252525] hover:border-[#C5AA8A] transition-colors">
+          <div key={tool.id} className="admin-card p-8 flex flex-col border border-[var(--admin-border)] hover:border-[#C5AA8A] transition-colors">
             <div className="flex-1">
               <div className="font-medium text-xl tracking-tight">{tool.title}</div>
-              <p className="text-[#A1A1A1] mt-3 text-[15px] leading-relaxed">{tool.desc}</p>
+              <p className="text-[var(--admin-text-secondary)] mt-3 text-[15px] leading-relaxed">{tool.desc}</p>
             </div>
             <button 
               onClick={() => runTool(tool.id)} 
@@ -61,18 +61,18 @@ export default function AIWorkspace() {
       </div>
 
       {/* Quick Prompt — Editorial */}
-      <div className="admin-card p-8 border border-[#252525]">
-        <div className="flex items-center gap-3 text-xs text-[#C5AA8A] mb-4">
+      <div className="admin-card p-8 border border-[var(--admin-border)]">
+        <div className="flex items-center gap-3 text-xs text-[var(--admin-accent)] mb-4">
           <Bot size={14} /> QUICK PROMPT TO PERSONAL AI CONCIERGE
         </div>
         <textarea 
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Ask anything about content strategy, product recommendations, styling guidance, or brand voice..."
-          className="input-admin w-full h-32 resize-y text-[15px] placeholder:text-[#666]"
+          className="input-admin w-full h-32 resize-y text-[15px] placeholder:text-[var(--admin-text-muted)]"
         />
         <div className="flex justify-between items-center mt-4">
-          <div className="text-[10px] text-[#666]">This prompt is sent to your Personal AI Concierge + existing AI Workspace APIs</div>
+          <div className="text-[10px] text-[var(--admin-text-muted)]">This prompt is sent to your Personal AI Concierge + existing AI Workspace APIs</div>
           <button 
             onClick={() => { if (prompt.trim()) { alert("Prompt sent to Content Architect and Personal AI Concierge (demo). Full backend preserved."); setPrompt(""); } }} 
             className="btn-admin-primary text-xs px-8"
@@ -82,7 +82,8 @@ export default function AIWorkspace() {
         </div>
       </div>
 
-      <div className="mt-8 text-xs text-[#666] text-center">All AI tasks, queues, analytics, and recommendation engine remain fully functional and untouched.</div>
+      <div className="mt-8 text-xs text-[var(--admin-text-muted)] text-center">All AI tasks, queues, analytics, and recommendation engine remain fully functional and untouched.</div>
     </div>
   );
 }
+

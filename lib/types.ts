@@ -70,7 +70,7 @@ export interface Product {
   description: string;
   longDescription: string;
   price: number;
-  currency: "USD" | "CAD" | "GBP" | "AUD";
+  currency: "USD" | "CAD" | "AUD";
   originalPrice?: number;
   images: string[];
   category: string;

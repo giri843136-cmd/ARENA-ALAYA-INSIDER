@@ -44,6 +44,11 @@
   --shadow: 0 4px 12px -2px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 10px 30px -8px rgb(0 0 0 / 0.5);
 
+  /* Interactive States */
+  --admin-bg-hover: #1A1A1A;
+  --admin-bg-elevated-hover: #1C1C1C;
+  --admin-bg-active: #1A1A1A;
+
   /* Transitions — Fast & Deliberate */
   --transition-fast: 80ms cubic-bezier(0.23, 1, 0.32, 1);
   --transition-base: 160ms cubic-bezier(0.23, 1, 0.32, 1);

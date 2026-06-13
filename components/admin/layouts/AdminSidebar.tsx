@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Package, Users, BookOpen, TrendingUp, Search, Bot, Zap,
   Shield, Activity, Settings, ChevronLeft, ChevronRight, BarChart3, Globe,
-  Image, Target, Link as LinkIcon, Database, MessageSquare
+  Image, Target, Link as LinkIcon, Database, MessageSquare, FlaskConical,
+  Key, WebhookIcon, Flag, SearchX, TrendingUp as TrendIcon,
+  DollarSign, Link2, FileText, Bell, Mail, Tag, Languages
 } from "lucide-react";
 
 const navGroups = [
@@ -14,7 +16,10 @@ const navGroups = [
     label: "Command",
     items: [
       { href: "/admin", label: "Command Center", icon: LayoutDashboard },
+      { href: "/admin/commission", label: "Commission & Earnings", icon: DollarSign },
       { href: "/admin/revenue", label: "Revenue Intelligence", icon: BarChart3 },
+      { href: "/admin/affiliates", label: "Affiliate Links", icon: Link2 },
+      { href: "/admin/link-health", label: "Link Health Monitor", icon: Activity },
     ]
   },
   {
@@ -34,8 +39,11 @@ const navGroups = [
     label: "Discovery",
     items: [
       { href: "/admin/seo", label: "SEO Command", icon: Target },
+      { href: "/admin/seo-audit", label: "SEO Audit", icon: Search },
       { href: "/admin/search", label: "Search Intelligence", icon: Search },
       { href: "/admin/recommendations", label: "Recommendation Engine", icon: TrendingUp },
+      { href: "/admin/feed-manager", label: "Feed Manager", icon: Database },
+      { href: "/admin/broken-links", label: "Broken Links", icon: SearchX },
     ]
   },
   {
@@ -43,23 +51,33 @@ const navGroups = [
     items: [
       { href: "/admin/ai", label: "AI Workspace", icon: Bot },
       { href: "/admin/automation", label: "Automation Center", icon: Zap },
-      { href: "/admin/trends", label: "Trend Radar", icon: TrendingUp },
+      { href: "/admin/trends", label: "Trend Radar", icon: TrendIcon },
+      { href: "/admin/ab-tests", label: "A/B Tests", icon: FlaskConical },
+      { href: "/admin/content-roi", label: "Content ROI", icon: FileText },
     ]
   },
   {
     label: "Audience & Revenue",
     items: [
       { href: "/admin/audience", label: "Audience Hub", icon: Users },
+      { href: "/admin/email-campaigns", label: "Email Campaigns", icon: Mail },
       { href: "/admin/campaigns", label: "Campaign Center", icon: Globe },
+      { href: "/admin/price-monitor", label: "Price Monitor", icon: Bell },
+      { href: "/admin/deals", label: "Deals & Coupons", icon: Tag },
     ]
   },
   {
     label: "System",
     items: [
       { href: "/admin/security", label: "Security Center", icon: Shield },
-      { href: "/admin/activity", label: "Activity & Audit", icon: Activity },
+      { href: "/admin/users", label: "Users", icon: Users },
+      { href: "/admin/activity-logs", label: "Activity & Audit", icon: Activity },
       { href: "/admin/moderation-logs", label: "Moderation Logs", icon: Shield },
+      { href: "/admin/api-keys", label: "API Keys", icon: Key },
+      { href: "/admin/webhooks", label: "Webhooks", icon: WebhookIcon },
+      { href: "/admin/feature-flags", label: "Feature Flags", icon: Flag },
       { href: "/admin/integrations", label: "Integrations", icon: LinkIcon },
+      { href: "/admin/i18n", label: "i18n & Localization", icon: Languages },
       { href: "/admin/settings", label: "System Settings", icon: Settings },
     ]
   }

@@ -52,7 +52,7 @@ test.describe('ALAYA INSIDER — Core User Flows', () => {
 
   test('collections page loads', async ({ page }) => {
     await page.goto('/collections');
-    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('h1').first()).toBeVisible();
   });
 
   test('footer has essential links', async ({ page }) => {
@@ -72,8 +72,9 @@ test.describe('ALAYA INSIDER — Core User Flows', () => {
     await expect(page.locator('h1')).toBeVisible({ timeout: 15000 });
   });
 
-  test('admin panel loads', async ({ page }) => {
+  test('admin panel redirects to sign-in when unauthenticated', async ({ page }) => {
+    // Auth middleware now protects /admin/* — unauthenticated users get redirected
     await page.goto('/admin');
-    await expect(page).toHaveURL(/\/admin/);
+    await expect(page).toHaveURL(/\/auth\/signin/);
   });
 });

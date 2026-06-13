@@ -19,7 +19,7 @@ afterEach(() => {
 describe("fetchExchangeRates", () => {
   it("returns live rates from the API on success", async () => {
     const mockResponse = {
-      rates: { EUR: 0.92, GBP: 0.79, JPY: 157.28 },
+      rates: { EUR: 0.92, JPY: 157.28, CAD: 1.37 },
     };
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -30,8 +30,8 @@ describe("fetchExchangeRates", () => {
 
     expect(rates.USD).toBe(1);
     expect(rates.EUR).toBe(0.92);
-    expect(rates.GBP).toBe(0.79);
     expect(rates.JPY).toBe(157.28);
+    expect(rates.CAD).toBe(1.37);
     expect(mockFetch).toHaveBeenCalledTimes(1);
   });
 
@@ -63,9 +63,9 @@ describe("fetchExchangeRates", () => {
     // Should contain fallback rates
     expect(rates.USD).toBe(1);
     expect(rates.EUR).toBe(0.92);
-    expect(rates.GBP).toBe(0.79);
+    expect(rates.CAD).toBe(1.37);
     expect(rates).toHaveProperty("JPY");
-    expect(rates).toHaveProperty("KRW");
+    expect(rates).toHaveProperty("AUD");
   });
 
   it("falls back when the API returns an HTTP error", async () => {

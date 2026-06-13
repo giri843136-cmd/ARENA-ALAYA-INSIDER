@@ -54,7 +54,7 @@ export function RatingStars({
               >
                 <Star
                   size={size}
-                  className="text-[#C5AA8A]"
+                  className="text-[#7A6848]"
                   fill="currentColor"
                 />
               </span>
@@ -63,7 +63,7 @@ export function RatingStars({
         ))}
       </div>
       {reviewCount !== undefined && (
-        <span className="text-xs text-[#8A8178] ml-1">
+        <span className="text-xs text-[#5C5249] ml-1">
           {rating.toFixed(1)} ({reviewCount.toLocaleString()})
         </span>
       )}

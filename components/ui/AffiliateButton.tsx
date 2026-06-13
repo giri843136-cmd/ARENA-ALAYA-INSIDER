@@ -31,9 +31,9 @@ export function AffiliateButton({
   };
 
   const variantClasses: Record<string, string> = {
-    primary: "bg-[#C5AA8A] text-white hover:bg-[#B89A7A]",
-    secondary: "bg-[#26221E] text-white hover:bg-[#3D3530] dark:bg-[#EDE6DC] dark:text-[#26221E] dark:hover:bg-[#D9D0C3]",
-    ghost: "bg-transparent border border-[#C5AA8A] text-[#C5AA8A] hover:bg-[#C5AA8A]/10",
+    primary: "bg-[var(--accent-gold,#C5AA8A)] text-white hover:bg-[var(--accent-gold-dark,#B89A7A)]",
+    secondary: "bg-[#26221E] text-white hover:bg-[#3D3530]",
+    ghost: "bg-transparent border border-[var(--accent-gold,#C5AA8A)] text-[var(--accent-gold,#C5AA8A)] hover:bg-[var(--accent-gold,#C5AA8A)]/10",
   };
 
   const handleClick = () => {

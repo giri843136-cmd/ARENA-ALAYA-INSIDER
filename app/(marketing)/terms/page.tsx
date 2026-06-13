@@ -3,7 +3,7 @@ export default function Terms() {
     <div className="bg-[#F5F0EA]">
       <div className="container max-w-2xl py-20">
         <div className="max-w-xl">
-          <div className="text-xs tracking-[3px] text-[#C5AA8A] mb-2">THE FINE PRINT</div>
+          <div className="text-xs tracking-[3px] text-[#7A6848] mb-2">THE FINE PRINT</div>
           <h1 className="font-display text-[52px] tracking-[-2.4px] leading-none">Terms of Service</h1>
         </div>
 
@@ -15,10 +15,10 @@ export default function Terms() {
             <li>Affiliate links may earn us a commission at no cost to you.</li>
             <li>We reserve the right to update these terms at any time. Continued use means you accept the updated version.</li>
           </ul>
-          <p>If you have questions about these terms, reach us at <a href="mailto:legal@alayainsider.com" className="underline hover:text-[#C5AA8A]">legal@alayainsider.com</a>.</p>
+          <p>If you have questions about these terms, reach us at <a href="mailto:legal@alayainsider.com" className="underline hover:text-[#7A6848]">legal@alayainsider.com</a>.</p>
         </div>
 
-        <div className="mt-12 text-xs tracking-widest text-[#8A8178] border-t border-[#E4DDD5] pt-6">Last updated: June 2026</div>
+        <div className="mt-12 text-xs tracking-widest text-[#5C5249] border-t border-[#E4DDD5] pt-6">Last updated: June 2026</div>
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import { Heart, Eye, GitCompare } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { motion } from "framer-motion";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
+import { isInWishlist, toggleWishlist } from "@/lib/wishlist/store";
+import { useState, useEffect } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +14,12 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, variant = "default" }: ProductCardProps) {
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    setSaved(isInWishlist(product.slug));
+  }, [product.slug]);
+
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
   const discount = hasDiscount 
     ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100) 
@@ -20,13 +28,25 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   const handleQuickAction = (e: React.MouseEvent, action: string) => {
     e.preventDefault();
     e.stopPropagation();
-    // TODO: Wire to real wishlist/compare/quick-view modals (existing architecture preserved)
-    console.log(`${action} for ${product.name}`);
+    if (action === "wishlist") {
+      const newState = toggleWishlist({
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        image: product.images?.[0] || "",
+        brandName: product.brandName,
+      });
+      setSaved(newState);
+    } else if (action === "compare") {
+      window.location.href = `/compare?add=${product.slug}`;
+    } else {
+      console.log(`${action} for ${product.name}`);
+    }
   };
 
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <div className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#C5AA8A]">
+      <div className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#7A6848]">
         {/* Premium Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE7DE]">
           <img
@@ -49,8 +69,13 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
               </div>
             )}
             {hasDiscount && (
-              <div className="inline-flex items-center rounded-full bg-[#C5AA8A] px-3 py-0.5 text-[10px] font-medium tracking-[2px] text-[#26221E]">
+              <div className="inline-flex items-center rounded-full bg-[#7A6848] px-3 py-0.5 text-[10px] font-medium tracking-[2px] text-white">
                 -{discount}%
+              </div>
+            )}
+            {product.availability === 'LOW_STOCK' && (
+              <div className="inline-flex items-center rounded-full bg-rose-600 px-3 py-0.5 text-[10px] font-medium tracking-[2px] text-white animate-pulse">
+                LOW STOCK
               </div>
             )}
           </div>
@@ -59,31 +84,36 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
             <button 
               onClick={(e) => handleQuickAction(e, 'wishlist')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#C5AA8A] transition-colors active:scale-[0.96]"
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#7A6848] transition-colors active:scale-[0.96]"
               aria-label="Save to wishlist"
             >
               <Heart className="h-4 w-4 text-[#26221E]" />
             </button>
             <button 
               onClick={(e) => handleQuickAction(e, 'quick-view')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#C5AA8A] transition-colors active:scale-[0.96]"
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#7A6848] transition-colors active:scale-[0.96]"
               aria-label="Quick view"
             >
               <Eye className="h-4 w-4 text-[#26221E]" />
             </button>
             <button 
               onClick={(e) => handleQuickAction(e, 'compare')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#C5AA8A] transition-colors active:scale-[0.96]"
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#7A6848] transition-colors active:scale-[0.96]"
               aria-label="Compare"
             >
               <GitCompare className="h-4 w-4 text-[#26221E]" />
             </button>
           </div>
 
-          {/* Subtle availability indicator */}
-          {(product as any).availability && (product as any).availability !== 'IN_STOCK' && (
+          {/* Urgency & Availability indicators */}
+          {!product.inStock && (
             <div className="absolute bottom-4 left-4 text-[10px] tracking-[1.5px] uppercase bg-white/90 px-2.5 py-0.5 rounded text-[#6D655F]">
-              {(product as any).availability.replace('_', ' ')}
+              OUT OF STOCK
+            </div>
+          )}
+          {product.availability === 'LOW_STOCK' && (
+            <div className="absolute bottom-4 left-4 text-[10px] tracking-[1.5px] uppercase bg-rose-600/90 backdrop-blur px-2.5 py-0.5 rounded text-white font-medium">
+              Only 2 left
             </div>
           )}
         </div>
@@ -96,13 +126,13 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
             </span>
             {product.rating && (
               <span className="flex items-center gap-1 text-xs text-[#6D655F]">
-                <span className="text-[#C5AA8A]">★</span> {product.rating}
-                <span className="text-[#8A8178]">({product.reviewCount})</span>
+                <span className="text-[#7A6848]">★</span> {product.rating}
+                <span className="text-[#5C5249]">({product.reviewCount})</span>
               </span>
             )}
           </div>
 
-          <h3 className="font-display text-[17px] leading-[1.15] tracking-[-0.25px] text-[#26221E] mb-3 line-clamp-2 group-hover:text-[#C5AA8A] transition-colors">
+          <h3 className="font-display text-[17px] leading-[1.15] tracking-[-0.25px] text-[#26221E] mb-3 line-clamp-2 group-hover:text-[#7A6848] transition-colors">
             {product.name}
           </h3>
 
@@ -110,7 +140,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
             <PriceDisplay usdAmount={product.price} className="text-[19px] font-medium tabular-nums tracking-tight text-[#26221E]" />
             {hasDiscount && (
               <span className="text-sm text-[#6D655F] line-through tabular-nums">
-                ${product.originalPrice}
+                <PriceDisplay usdAmount={product.originalPrice!} />
               </span>
             )}
           </div>
@@ -131,7 +161,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
 
           {/* Affiliate / Trust line */}
           {product.affiliateLinks?.length > 0 && (
-            <div className="mt-4 text-[10px] tracking-[1.5px] text-[#8A8178] uppercase">
+            <div className="mt-4 text-[10px] tracking-[1.5px] text-[#5C5249] uppercase">
               Available via {product.affiliateLinks[0].network}
             </div>
           )}

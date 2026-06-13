@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { collections, allProducts } from "@/lib/data/seed";
+import { CollectionProductPrice } from "./CollectionProductPrice";
 
 export default function CollectionsPage() {
   return (
     <div className="bg-[#F5F0EA]">
       <div className="container py-16">
         <div className="max-w-2xl mb-14">
-          <div className="uppercase tracking-[3px] text-xs text-[#C5A26F]">CURATED BY ALAYA</div>
+          <div className="uppercase tracking-[3px] text-xs text-[#7A6848]">CURATED BY ALAYA</div>
           <h1 className="font-display text-7xl tracking-[-2.6px]">Collections &amp; Gift Guides</h1>
           <p className="mt-4 text-xl text-[#5C5249]">Thoughtfully assembled groups of objects for seasons, occasions, and the people you love.</p>
         </div>
@@ -37,12 +38,12 @@ export default function CollectionsPage() {
                           <img src={p.images[0]} alt="" loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition-transform" />
                         </div>
                         <div className="text-sm font-medium">{p.name}</div>
-                        <div className="text-xs text-[#8A8178]">${p.price}</div>
+                        <div className="text-xs text-[#5C5249]"><CollectionProductPrice price={p.price} /></div>
                       </Link>
                     ))}
                   </div>
 
-                  <Link href={`/collections/${collection.slug}`} className="mt-8 block text-sm text-[#C5A26F] hover:underline">View full collection →</Link>
+                  <Link href={`/collections/${collection.slug}`} className="mt-8 block text-sm text-[#7A6848] hover:underline">View full collection →</Link>
                 </div>
               </div>
             );

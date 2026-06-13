@@ -9,7 +9,7 @@ export default function UniversesPage() {
     <div className="bg-[#F5F0EA]">
       {/* Hero */}
       <div className="container py-20 max-w-3xl">
-        <div className="uppercase tracking-[3px] text-xs text-[#C5AA8A] mb-3">EIGHT WORLDS OF INTENTION</div>
+        <div className="uppercase tracking-[3px] text-xs text-[#7A6848] mb-3">EIGHT WORLDS OF INTENTION</div>
         <h1 className="font-display text-7xl tracking-[-3px]">The Universes</h1>
         <p className="mt-4 text-xl text-[#5C5249] leading-relaxed">
           Each universe is a complete world of intention. Enter any one and discover objects, rituals, and stories that belong together. Thoughtfully grouped. Quietly powerful.
@@ -34,7 +34,7 @@ export default function UniversesPage() {
                   <div className="font-display text-6xl tracking-[-2.2px] mb-3">{universe.title}</div>
                   <p className="max-w-md text-lg text-white/85 leading-tight">{universe.subtitle}</p>
                   
-                  <div className="mt-8 inline-flex items-center gap-2 text-sm text-[#C5AA8A] group-hover:gap-3 transition-all tracking-widest">
+                  <div className="mt-8 inline-flex items-center gap-2 text-sm text-[#7A6848] group-hover:gap-3 transition-all tracking-widest">
                     ENTER THIS UNIVERSE <span>→</span>
                   </div>
                 </div>
@@ -51,7 +51,7 @@ export default function UniversesPage() {
       {/* Bottom CTA + Trust */}
       <div className="border-t border-[#E4DDD5] bg-white py-16">
         <div className="container text-center max-w-md">
-          <div className="text-xs tracking-[3px] text-[#C5AA8A]">NOT SURE WHERE TO BEGIN?</div>
+          <div className="text-xs tracking-[3px] text-[#7A6848]">NOT SURE WHERE TO BEGIN?</div>
           <div className="font-display text-3xl tracking-tight mt-2 mb-4">Let our AI Concierge guide you</div>
           <p className="text-[#6D655F]">Open the floating assistant in the bottom right for personalized universe recommendations based on your mood, season, or home.</p>
           <Button variant="accent" className="mt-8" onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}>

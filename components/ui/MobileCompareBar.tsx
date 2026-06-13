@@ -73,7 +73,7 @@ export function MobileCompareBar({
         <div className="flex items-center justify-between gap-3">
           {/* Product info */}
           <div className="flex-1 min-w-0">
-            <div className="text-[11px] text-[#8A8178] truncate tracking-wide">
+            <div className="text-[11px] text-[#5C5249] truncate tracking-wide">
               {productName}
             </div>
             <div className="font-medium text-[#26221E]">
@@ -95,7 +95,7 @@ export function MobileCompareBar({
             </button>
             <button
               onClick={handleBuy}
-              className="h-10 px-5 rounded-full bg-[#C5AA8A] text-white text-xs font-medium tracking-wider hover:bg-[#B89A7A] transition-colors flex items-center gap-2"
+              className="h-10 px-5 rounded-full bg-[#7A6848] text-white text-xs font-medium tracking-wider hover:bg-[#B89A7A] transition-colors flex items-center gap-2"
             >
               <ShoppingBag size={14} />
               View Deal
@@ -105,7 +105,7 @@ export function MobileCompareBar({
               className="h-10 w-10 rounded-full flex items-center justify-center hover:bg-[#FAF7F4] transition-colors"
               aria-label="Close"
             >
-              <ChevronDown size={16} className="text-[#8A8178]" />
+              <ChevronDown size={16} className="text-[#5C5249]" />
             </button>
           </div>
         </div>

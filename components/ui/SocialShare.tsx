@@ -60,7 +60,7 @@ export function SocialShare({
 
   return (
     <div className={`flex items-center gap-1.5 ${className}`}>
-      <span className="text-xs text-[#8A8178] mr-1">
+      <span className="text-xs text-[#5C5249] mr-1">
         <Share2 size={14} className="inline mr-1" />
         Share
       </span>

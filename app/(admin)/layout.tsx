@@ -26,7 +26,7 @@ export default function AdminLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} dark admin-theme`}>
-      <body className="min-h-screen bg-[#0A0A0A] text-[#EDEDED] font-sans antialiased selection:bg-[#C5A26F] selection:text-[#0A0A0A]">
+      <body className="min-h-screen bg-[var(--admin-bg)] text-[var(--admin-text-primary)] font-sans antialiased selection:bg-[var(--admin-accent)] selection:text-[var(--admin-bg)]">
         <AdminCommandPaletteProvider>
           <Toaster
             position="top-right"

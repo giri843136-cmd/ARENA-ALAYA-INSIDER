@@ -58,7 +58,7 @@ export function Pagination({
       {/* Page Numbers */}
       {pages.map((page, i) =>
         page === "..." ? (
-          <span key={`ellipsis-${i}`} className="px-2 text-[#8A8178] text-sm">
+          <span key={`ellipsis-${i}`} className="px-2 text-[#5C5249] text-sm">
             ...
           </span>
         ) : (
@@ -67,7 +67,7 @@ export function Pagination({
             onClick={() => onPageChange(page)}
             className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
               page === currentPage
-                ? "bg-[#C5AA8A] text-white"
+                ? "bg-[#7A6848] text-white"
                 : "hover:bg-[#EFE7DE] dark:hover:bg-[#3D3530] text-[#26221E] dark:text-[#EDE6DC]"
             }`}
             aria-label={`Page ${page}`}

@@ -53,7 +53,7 @@ export function MultiRetailerPrice({
 
   return (
     <div className={`${className}`}>
-      <div className="text-[10px] tracking-[2px] text-[#8A8178] uppercase mb-3">
+      <div className="text-[10px] tracking-[2px] text-[#5C5249] uppercase mb-3">
         Compare Prices
       </div>
       <div className="divide-y divide-[#E4DDD5] border border-[#E4DDD5] rounded-xl overflow-hidden">
@@ -77,7 +77,7 @@ export function MultiRetailerPrice({
                   <div className="text-sm font-medium text-[#26221E]">
                     {retailer.network}
                   </div>
-                  <div className="text-[10px] text-[#8A8178] tracking-wide">
+                  <div className="text-[10px] text-[#5C5249] tracking-wide">
                     {retailer.shipping} shipping • {retailer.inStock ? "In stock" : "Check availability"}
                   </div>
                 </div>
@@ -96,13 +96,13 @@ export function MultiRetailerPrice({
                     </div>
                   )}
                 </div>
-                <ExternalLink size={14} className="text-[#C5AA8A] flex-shrink-0" />
+                <ExternalLink size={14} className="text-[#7A6848] flex-shrink-0" />
               </div>
             </a>
           );
         })}
       </div>
-      <div className="mt-2 text-[9px] tracking-wide text-[#8A8178]">
+      <div className="mt-2 text-[9px] tracking-wide text-[#5C5249]">
         Prices may vary • We may earn a commission on purchases
       </div>
     </div>

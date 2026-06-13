@@ -4,12 +4,46 @@ import { prisma } from "@/lib/db/prisma";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/**
+ * Helper to log an activity when admin actions are performed.
+ */
+async function logActivity({
+  editorId,
+  action,
+  entityType,
+  entityId,
+  metadata,
+  ipAddress,
+}: {
+  editorId?: string | null;
+  action: string;
+  entityType: string;
+  entityId?: string | null;
+  metadata?: any;
+  ipAddress?: string | null;
+}) {
+  try {
+    await prisma.activityLog.create({
+      data: {
+        userId: editorId || null,
+        action,
+        entityType,
+        entityId: entityId || null,
+        metadata: metadata || null,
+        ipAddress: ipAddress || null,
+      },
+    });
+  } catch {
+    // Silently fail — activity logging should never block the main action
+  }
+}
+
 // POST /api/v1/admin/comments/bulk
 // Body: { ids: string[], action: "approve" | "reject" | "delete" | "block_users", notify?: boolean }
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { ids, action, notify } = body;
+    const { ids, action, notify, editorId } = body;
 
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return NextResponse.json(
@@ -25,6 +59,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const ipAddress = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || null;
     let updatedCount = 0;
     const results: { id: string; success: boolean; error?: string }[] = [];
 
@@ -36,10 +71,10 @@ export async function POST(request: NextRequest) {
               where: { id },
               data: { status: "APPROVED", deletedAt: null },
             });
-            // Log audit
             await prisma.moderationAuditLog.create({
               data: { commentId: id, action: "approve", oldValue: null, newValue: "APPROVED", source: "admin" },
             }).catch(() => {});
+            await logActivity({ editorId, action: "bulk_approve", entityType: "comment", entityId: id, ipAddress });
             break;
 
           case "reject":
@@ -50,6 +85,7 @@ export async function POST(request: NextRequest) {
             await prisma.moderationAuditLog.create({
               data: { commentId: id, action: "reject", oldValue: null, newValue: "SPAM", source: "admin" },
             }).catch(() => {});
+            await logActivity({ editorId, action: "bulk_reject", entityType: "comment", entityId: id, ipAddress });
             break;
 
           case "delete":
@@ -60,10 +96,10 @@ export async function POST(request: NextRequest) {
             await prisma.moderationAuditLog.create({
               data: { commentId: id, action: "delete", oldValue: null, newValue: "DELETED", source: "admin" },
             }).catch(() => {});
+            await logActivity({ editorId, action: "bulk_delete", entityType: "comment", entityId: id, ipAddress });
             break;
 
           case "block_users": {
-            // First find the comment's user
             const comment = await prisma.comment.findUnique({ where: { id }, select: { userId: true } });
             if (comment?.userId) {
               await prisma.user.update({
@@ -73,6 +109,7 @@ export async function POST(request: NextRequest) {
               await prisma.moderationAuditLog.create({
                 data: { commentId: id, action: "block_user", oldValue: null, newValue: "blocked", source: "admin" },
               }).catch(() => {});
+              await logActivity({ editorId, action: "bulk_block_user", entityType: "user", entityId: comment.userId, ipAddress });
             }
             break;
           }

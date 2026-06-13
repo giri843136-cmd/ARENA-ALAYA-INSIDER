@@ -1864,4 +1864,66 @@ model ModerationAuditLog {
   @@index([createdAt])
 }
 
+// =============================================
+// OFFLINE STORAGE — Background Sync for Affiliate Clicks
+// =============================================
+
+model OfflineClick {
+  id             String   @id @default(cuid())
+  affiliateUrl   String
+  productId      String?
+  productSlug    String?
+  userId         String?
+  sessionId      String?
+  userAgent      String?
+  referrer       String?
+  syncedAt       DateTime?
+  createdAt      DateTime @default(now())
+
+  @@index([syncedAt])
+  @@index([createdAt])
+}
+
+// =============================================
+// IMPORT PRESETS — User-saved column mappings
+// =============================================
+
+model ImportPreset {
+  id        String   @id @default(cuid())
+  name      String
+  network   String   // AffiliateNetwork name or "CUSTOM"
+  columns   Json     // { "name": "title", "price": "sale_price", ... }
+  defaultNetwork String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+}
+
+// =============================================
+// IMPORT HISTORY — Persisted import jobs
+// =============================================
+
+model ImportHistory {
+  id        String   @id @default(cuid())
+  fileName   String
+  totalRows  Int      @default(0)
+  newRows    Int      @default(0)
+  matchedRows Int     @default(0)
+  failedRows Int      @default(0)
+  status     String   @default("completed") // completed | failed | processing
+  errors     Json?    // Array of { row: number, message: string }
+  categoriesLinked Int  @default(0)
+  tagsLinked       Int  @default(0)
+  affiliateLinksCreated Int @default(0)
+  mediaCreated     Int  @default(0)
+  presetId         String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([status])
+}
+
 // End of schema — designed for horizontal scaling, read replicas, and graph queries.

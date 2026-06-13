@@ -6,10 +6,10 @@
  */
 
 const FALLBACK_RATES: Record<string, number> = {
-  USD: 1, EUR: 0.92, GBP: 0.79, JPY: 157.28, CAD: 1.37,
-  AUD: 1.52, CNY: 7.24, INR: 83.47, BRL: 5.48, MXN: 18.23,
+  USD: 1, EUR: 0.92, JPY: 157.28, CAD: 1.37,
+  AUD: 1.52, CNY: 7.24, INR: 83.47, MXN: 18.23,
   SEK: 10.52, NOK: 10.88, DKK: 6.87, CHF: 0.88, NZD: 1.65,
-  SGD: 1.35, HKD: 7.82, KRW: 1380.50,
+  SGD: 1.35, HKD: 7.82,
 };
 
 let cachedRates: Record<string, number> | null = null;

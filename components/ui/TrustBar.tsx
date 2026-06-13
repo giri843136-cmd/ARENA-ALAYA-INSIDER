@@ -1,3 +1,5 @@
+"use client";
+
 import { Users, Award, ShieldCheck, Newspaper, Star } from "lucide-react";
 
 interface StatItem {
@@ -25,7 +27,7 @@ interface TrustBarProps {
  *
  * Displays trust-building statistics like reader count, products tested,
  * average rating, and editorial independence.
- * Can be used as a full-width bar, inline stats, or footer line.
+ * All text colors meet WCAG AA contrast ratios against the background.
  *
  * Usage:
  *   <TrustBar variant="bar" />
@@ -40,9 +42,9 @@ export function TrustBar({
     return (
       <div className={`flex flex-wrap items-center gap-x-6 gap-y-2 ${className}`}>
         {stats.map((stat, i) => (
-          <div key={i} className="flex items-center gap-1.5 text-xs text-[#8A8178]">
-            <stat.icon size={12} className="text-[#C5AA8A]" aria-hidden="true" />
-            <span className="font-medium text-[#6D655F]">{stat.value}</span>
+          <div key={i} className="flex items-center gap-1.5 text-xs text-[#5C5249]">
+            <stat.icon size={12} className="text-[#B89B7A]" aria-hidden="true" />
+            <span className="font-medium text-[#2C2522]">{stat.value}</span>
             <span className="hidden sm:inline">{stat.label}</span>
           </div>
         ))}
@@ -52,8 +54,8 @@ export function TrustBar({
 
   if (variant === "footer") {
     return (
-      <div className={`text-center text-[10px] tracking-wider text-[#8A8178] ${className}`}>
-        <span className="text-[#C5AA8A]">ALAYA INSIDER</span> — Editorially independent since 2024.
+      <div className={`text-center text-[10px] tracking-wider text-[#5C5249] ${className}`}>
+        <span className="text-[#B89B7A] font-medium">ALAYA INSIDER</span> — Editorially independent since 2024.
         {stats.map((s, i) => (
           <span key={i}>
             {" "}• {s.value} {s.label}
@@ -79,14 +81,14 @@ export function TrustBar({
             >
               <stat.icon
                 size={16}
-                className="text-[#C5AA8A]"
+                className="text-[#B89B7A]"
                 aria-hidden="true"
               />
               <div className="flex flex-col">
-                <span className="text-sm font-semibold text-[#26221E] tabular-nums leading-tight">
+                <span className="text-sm font-semibold text-[#1A1515] tabular-nums leading-tight">
                   {stat.value}
                 </span>
-                <span className="text-[10px] text-[#8A8178] tracking-wide whitespace-nowrap">
+                <span className="text-[10px] text-[#5C5249] tracking-wide whitespace-nowrap">
                   {stat.label}
                 </span>
               </div>

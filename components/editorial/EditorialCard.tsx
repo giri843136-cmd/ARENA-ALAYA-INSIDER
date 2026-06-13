@@ -25,13 +25,13 @@ export function EditorialCard({ article }: EditorialCardProps) {
         </div>
 
         <div className="p-7">
-          <div className="flex items-center gap-3 text-xs text-[#8A8178] mb-3 tracking-wide">
+          <div className="flex items-center gap-3 text-xs text-[#5C5249] mb-3 tracking-wide">
             <span>{article.authorName}</span>
             <span>•</span>
             <span>{article.readTime} min read</span>
           </div>
 
-          <h3 className="font-display text-[21px] leading-[1.15] tracking-[-0.4px] text-[#2C2522] mb-3 group-hover:text-[#C5A26F] transition-colors">
+          <h3 className="font-display text-[21px] leading-[1.15] tracking-[-0.4px] text-[#2C2522] mb-3 group-hover:text-[#7A6848] transition-colors">
             {article.title}
           </h3>
           
@@ -41,11 +41,11 @@ export function EditorialCard({ article }: EditorialCardProps) {
             </p>
           )}
 
-          <p className="text-sm text-[#8A8178] line-clamp-3 leading-relaxed">
+          <p className="text-sm text-[#5C5249] line-clamp-3 leading-relaxed">
             {article.excerpt}
           </p>
 
-          <div className="mt-5 text-xs text-[#C5A26F] group-hover:underline tracking-widest font-medium">
+          <div className="mt-5 text-xs text-[#7A6848] group-hover:underline tracking-widest font-medium">
             READ THE ESSAY →
           </div>
         </div>
