@@ -6,9 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
-  const { text, image, voiceTranscript, userId, context } = await req.json();
-
+export async function POST(_req: NextRequest) {
   // 1. Process visual if present (embedding + similarity)
   // 2. Process voice/text intent via existing AI agents
   // 3. Fuse with user graph, recommendation graph, entity graph

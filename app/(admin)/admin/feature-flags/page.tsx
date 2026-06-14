@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Flag, Plus, RefreshCw, Loader2,
   AlertTriangle
@@ -25,18 +25,21 @@ export default function FeatureFlagsPage() {
   const [creating, setCreating] = useState(false);
   const [newFlag, setNewFlag] = useState({ key: "", description: "", enabled: false, percentage: 100 });
   const [savingId, setSavingId] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const fetchFlags = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/v1/admin/feature-flags");
-      const json = await res.json();
-      if (json.success) setFlags(json.data);
-    } catch { /* silent */ }
-    finally { setLoading(false); }
-  }, []);
-
-  useEffect(() => { fetchFlags(); }, [fetchFlags]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/v1/admin/feature-flags");
+        const json = await res.json();
+        if (json.success && !cancelled) setFlags(json.data);
+      } catch { /* silent */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [refreshKey]);
 
   const toggleFlag = async (flag: FeatureFlag) => {
     setSavingId(flag.id);
@@ -49,7 +52,7 @@ export default function FeatureFlagsPage() {
       const json = await res.json();
       if (json.success) {
         toast.success(`Flag "${flag.key}" ${!flag.enabled ? "enabled" : "disabled"}`);
-        fetchFlags();
+        setRefreshKey((k) => k + 1);
       } else {
         toast.error(json.error?.message || "Failed to toggle flag");
       }
@@ -68,7 +71,7 @@ export default function FeatureFlagsPage() {
       const json = await res.json();
       if (json.success) {
         toast.success(`Rollout set to ${percentage}%`);
-        fetchFlags();
+        setRefreshKey((k) => k + 1);
       }
     } catch { toast.error("Failed to update"); }
     finally { setSavingId(null); }
@@ -88,7 +91,7 @@ export default function FeatureFlagsPage() {
         toast.success("Feature flag created");
         setShowCreate(false);
         setNewFlag({ key: "", description: "", enabled: false, percentage: 100 });
-        fetchFlags();
+        setRefreshKey((k) => k + 1);
       } else {
         toast.error(json.error?.message || "Failed to create flag");
       }

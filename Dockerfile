@@ -57,7 +57,7 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=deps /app/node_modules ./node_modules
 
 # Copy production env template (will be overridden at runtime)
-COPY .env.production.example .env.production
+COPY .env.production.template .env.production
 
 # Set correct permissions
 RUN chown -R nextjs:nodejs /app

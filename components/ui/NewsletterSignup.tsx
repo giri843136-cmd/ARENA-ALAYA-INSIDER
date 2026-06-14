@@ -52,8 +52,7 @@ export function NewsletterSignup({ variant = "inline", className = "", source = 
         <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
           <Check size={18} className="text-green-600" />
         </div>
-        <div>
-          <div className="text-sm font-medium text-[#26221E]">You're subscribed!</div>
+        <div>            <div className="text-sm font-medium text-[#26221E]">You&apos;re subscribed!</div>
           <p className="text-xs text-[#6D655F] mt-0.5">{message}</p>
         </div>
       </div>

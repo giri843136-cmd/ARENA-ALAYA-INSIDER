@@ -38,20 +38,15 @@ export function SearchBar({
   const [productResults, setProductResults] = useState<AutocompleteProduct[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      return JSON.parse(localStorage.getItem("recentSearches") || "[]").slice(0, 5);
+    } catch { return []; }
+  });
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
-  // Load recent searches from localStorage
-  useEffect(() => {
-    if (showRecent) {
-      try {
-        const stored = JSON.parse(localStorage.getItem("recentSearches") || "[]");
-        setRecentSearches(stored.slice(0, 5));
-      } catch {}
-    }
-  }, [showRecent]);
 
   // Debounced suggestion + product lookup
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Link2, RefreshCw, Loader2, ExternalLink, AlertTriangle,
   Search
@@ -27,21 +27,24 @@ export default function AffiliatePerformance() {
   const [search, setSearch] = useState("");
   const [networkFilter, setNetworkFilter] = useState("all");
   const [healthFilter, setHealthFilter] = useState("all");
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const fetchLinks = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ limit: "100" });
-      if (networkFilter !== "all") params.set("network", networkFilter);
-      if (healthFilter !== "all") params.set("health", healthFilter);
-      const res = await fetch(`/api/v1/admin/affiliate-links?${params}`);
-      const json = await res.json();
-      if (json.success) setLinks(json.data.links || json.data);
-    } catch { /* silent */ }
-    finally { setLoading(false); }
-  }, [networkFilter, healthFilter]);
-
-  useEffect(() => { fetchLinks(); }, [fetchLinks]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({ limit: "100" });
+        if (networkFilter !== "all") params.set("network", networkFilter);
+        if (healthFilter !== "all") params.set("health", healthFilter);
+        const res = await fetch(`/api/v1/admin/affiliate-links?${params}`);
+        const json = await res.json();
+        if (json.success && !cancelled) setLinks(json.data.links || json.data);
+      } catch { /* silent */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [networkFilter, healthFilter, refreshKey]);
 
   const filtered = links.filter((l) =>
     (search === "" || l.label.toLowerCase().includes(search.toLowerCase()) || l.url.toLowerCase().includes(search.toLowerCase())) &&
@@ -69,7 +72,7 @@ export default function AffiliatePerformance() {
             <h1 className="text-[42px] font-semibold tracking-[-1.2px] leading-none">Affiliate Links</h1>
             <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Performance metrics for all affiliate links across networks.</p>
           </div>
-          <button onClick={fetchLinks} disabled={loading} className="btn-admin text-xs">
+          <button onClick={() => setRefreshKey((k) => k + 1)} disabled={loading} className="btn-admin text-xs">
             <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Refresh
           </button>
         </div>

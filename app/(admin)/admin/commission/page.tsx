@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   DollarSign, TrendingUp, BarChart3,
   RefreshCw, Loader2, AlertTriangle, CheckCircle,
@@ -60,18 +60,21 @@ export default function CommissionDashboard() {
   const [data, setData] = useState<CommissionData | null>(null);
   const [loading, setLoading] = useState(true);
   const [days, setDays] = useState(30);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/v1/admin/commission?days=${days}`);
-      const json = await res.json();
-      if (json.success) setData(json.data);
-    } catch { /* silent */ }
-    finally { setLoading(false); }
-  }, [days]);
-
-  useEffect(() => { fetchData(); }, [fetchData]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/v1/admin/commission?days=${days}`);
+        const json = await res.json();
+        if (json.success && !cancelled) setData(json.data);
+      } catch { /* silent */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [days, refreshKey]);
 
   if (loading && !data) {
     return (
@@ -123,7 +126,7 @@ export default function CommissionDashboard() {
               <option value={90}>Last 90 days</option>
               <option value={365}>Last 12 months</option>
             </select>
-            <button onClick={fetchData} disabled={loading} className="btn-admin text-xs">
+            <button onClick={() => setRefreshKey((k) => k + 1)} disabled={loading} className="btn-admin text-xs">
               <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Refresh
             </button>
           </div>

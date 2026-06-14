@@ -2,8 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import {
-  Link2, AlertTriangle, RefreshCw, Loader2, CheckCircle,
-  ExternalLink, FileText, Search
+  Link2, AlertTriangle, Loader2, Search
 } from "lucide-react";
 import { toast } from "sonner";
 

@@ -60,7 +60,7 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
   }, [open]);
 
   const handleSelect = (option: CurrencyOption) => {
-    const expires = new Date(Date.now() + 86400000).toUTCString();
+    const expires = new Date(Date.now() + 86_400_000).toUTCString();
     document.cookie = `x-currency-code=${option.code}; Path=/; Expires=${expires}; SameSite=Lax`;
     document.cookie = `x-currency-symbol=${encodeURIComponent(option.symbol)}; Path=/; Expires=${expires}; SameSite=Lax`;
     document.cookie = `x-currency-locale=${option.locale}; Path=/; Expires=${expires}; SameSite=Lax`;

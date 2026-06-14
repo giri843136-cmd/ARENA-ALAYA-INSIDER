@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlaskConical, Plus, ChevronLeft, ChevronRight, RefreshCw,
   Search, ToggleLeft, ToggleRight, BarChart3, Users, Eye, Loader2
@@ -27,24 +27,27 @@ export default function AbTestManager() {
   const [search, setSearch] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [creating, setCreating] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [newTest, setNewTest] = useState({ name: "", hypothesis: "", variants: "control,variant_a" });
 
-  const fetchTests = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ page: String(page), limit: "20" });
-      if (search.trim()) params.set("search", search.trim());
-      const res = await fetch(`/api/v1/admin/ab-tests?${params}`);
-      const json = await res.json();
-      if (json.success) {
-        setTests(json.data);
-        setTotalPages(Math.ceil((json.pagination?.total || 1) / 20));
-      }
-    } catch { /* silent */ }
-    finally { setLoading(false); }
-  }, [page, search]);
-
-  useEffect(() => { fetchTests(); }, [fetchTests]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({ page: String(page), limit: "20" });
+        if (search.trim()) params.set("search", search.trim());
+        const res = await fetch(`/api/v1/admin/ab-tests?${params}`);
+        const json = await res.json();
+        if (json.success && !cancelled) {
+          setTests(json.data);
+          setTotalPages(Math.ceil((json.pagination?.total || 1) / 20));
+        }
+      } catch { /* silent */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [page, search, refreshKey]);
 
   const createTest = async () => {
     if (!newTest.name.trim() || !newTest.variants.trim()) {
@@ -67,7 +70,7 @@ export default function AbTestManager() {
         toast.success("A/B test created");
         setShowCreateModal(false);
         setNewTest({ name: "", hypothesis: "", variants: "control,variant_a" });
-        fetchTests();
+        setRefreshKey((k) => k + 1);
       } else {
         toast.error(json.error?.message || "Failed to create test");
       }
@@ -88,7 +91,7 @@ export default function AbTestManager() {
             <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Run experiments on content, pricing, and layouts.</p>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => { setPage(1); fetchTests(); }} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
+            <button onClick={() => setRefreshKey((k) => k + 1)} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
             <button onClick={() => setShowCreateModal(true)} className="btn-admin-primary text-xs"><Plus size={14} /> New Test</button>
           </div>
         </div>

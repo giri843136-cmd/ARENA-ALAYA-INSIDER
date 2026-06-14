@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Key, Plus, X, Copy, RefreshCw, Loader2,
   AlertTriangle, Check, Clock
@@ -26,18 +26,21 @@ export default function ApiKeysPage() {
   const [newScopes, setNewScopes] = useState("products:read,products:write");
   const [newKeyValue, setNewKeyValue] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const fetchKeys = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/v1/admin/api-keys");
-      const json = await res.json();
-      if (json.success) setKeys(json.data);
-    } catch { /* silent */ }
-    finally { setLoading(false); }
-  }, []);
-
-  useEffect(() => { fetchKeys(); }, [fetchKeys]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/v1/admin/api-keys");
+        const json = await res.json();
+        if (json.success && !cancelled) setKeys(json.data);
+      } catch { /* silent */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [refreshKey]);
 
   const createKey = async () => {
     if (!newName.trim()) { toast.error("Key name is required"); return; }
@@ -56,7 +59,7 @@ export default function ApiKeysPage() {
         setNewKeyValue(json.data.rawKey);
         toast.success("API key created — copy it now, it won't be shown again");
         setNewName("");
-        fetchKeys();
+        setRefreshKey((k) => k + 1);
       } else {
         toast.error(json.error?.message || "Failed to create key");
       }
@@ -87,7 +90,7 @@ export default function ApiKeysPage() {
             <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Manage API keys for external integrations.</p>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={fetchKeys} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
+            <button onClick={() => setRefreshKey((k) => k + 1)} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
             <button onClick={() => { setShowCreate(true); setNewKeyValue(null); }} className="btn-admin-primary text-xs"><Plus size={14} /> New Key</button>
           </div>
         </div>

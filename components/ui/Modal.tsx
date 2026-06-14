@@ -18,11 +18,7 @@ interface ModalProps {
 export function Modal({ open, onClose, title, children, className = "" }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [mounted] = useState(() => typeof window !== 'undefined');
 
   // Focus trap & escape
   useEffect(() => {

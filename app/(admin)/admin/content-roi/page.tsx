@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FileText, TrendingUp, TrendingDown, BarChart3,
   RefreshCw, Loader2, Users, Eye, DollarSign,
@@ -34,21 +34,24 @@ export default function ContentROI() {
   const [authors, setAuthors] = useState<AuthorPerf[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<"revenue" | "views" | "clicks">("revenue");
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/v1/admin/analytics/content?sortBy=${sortBy}&limit=50`);
-      const json = await res.json();
-      if (json.success) {
-        setArticles(json.data.articles || []);
-        setAuthors(json.data.authors || []);
-      }
-    } catch { /* silent - fallback to demo */ }
-    finally { setLoading(false); }
-  }, [sortBy]);
-
-  useEffect(() => { fetchData(); }, [fetchData]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/v1/admin/analytics/content?sortBy=${sortBy}&limit=50`);
+        const json = await res.json();
+        if (json.success && !cancelled) {
+          setArticles(json.data.articles || []);
+          setAuthors(json.data.authors || []);
+        }
+      } catch { /* silent - fallback to demo */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [sortBy, refreshKey]);
 
   const totalRevenue = articles.reduce((s, a) => s + a.revenueGenerated, 0);
   const totalViews = articles.reduce((s, a) => s + a.pageViews, 0);
@@ -66,7 +69,7 @@ export default function ContentROI() {
             <h1 className="text-[42px] font-semibold tracking-[-1.2px] leading-none">Content ROI</h1>
             <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Revenue per article, author performance, and content decay tracking.</p>
           </div>
-          <button onClick={fetchData} disabled={loading} className="btn-admin text-xs">
+          <button onClick={() => setRefreshKey((k) => k + 1)} disabled={loading} className="btn-admin text-xs">
             <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Refresh
           </button>
         </div>

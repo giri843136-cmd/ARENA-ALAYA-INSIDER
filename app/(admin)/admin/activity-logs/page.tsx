@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Activity, RefreshCw, ChevronLeft, ChevronRight, Download,
-  Filter, AlertTriangle, Clock, Shield
+  Filter, AlertTriangle, Clock
 } from "lucide-react";
 
 interface LogEntry {
@@ -42,22 +42,25 @@ export default function ActivityLogs() {
   const [entityFilter, setEntityFilter] = useState("all");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const fetchLogs = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ page: String(page), limit: "50" });
-      if (actionFilter !== "all") params.set("action", actionFilter);
-      if (entityFilter !== "all") params.set("entityType", entityFilter);
-      if (startDate) params.set("startDate", startDate);
-      if (endDate) params.set("endDate", endDate);
-      const res = await fetch(`/api/v1/admin/activity-logs?${params}`);
-      const json = await res.json();
-      if (json.success) { setLogs(json.data.logs); setSummary(json.data.summary); setTotalPages(json.pagination.totalPages); }
-    } catch (err) { console.error(err); } finally { setLoading(false); }
-  }, [page, actionFilter, entityFilter, startDate, endDate]);
-
-  useEffect(() => { fetchLogs(); }, [fetchLogs]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({ page: String(page), limit: "50" });
+        if (actionFilter !== "all") params.set("action", actionFilter);
+        if (entityFilter !== "all") params.set("entityType", entityFilter);
+        if (startDate) params.set("startDate", startDate);
+        if (endDate) params.set("endDate", endDate);
+        const res = await fetch(`/api/v1/admin/activity-logs?${params}`);
+        const json = await res.json();
+        if (json.success && !cancelled) { setLogs(json.data.logs); setSummary(json.data.summary); setTotalPages(json.pagination.totalPages); }
+      } catch (err) { console.error(err); } finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [page, actionFilter, entityFilter, startDate, endDate, refreshKey]);
 
   const exportCSV = () => {
     const header = "Time,User,Action,Entity Type,Entity ID\n";
@@ -79,7 +82,7 @@ export default function ActivityLogs() {
           </div>
           <div className="flex items-center gap-2">
             <button onClick={exportCSV} className="btn-admin text-xs"><Download size={14} /> Export CSV</button>
-            <button onClick={() => { setPage(1); fetchLogs(); }} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
+            <button onClick={() => setRefreshKey((k) => k + 1)} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
           </div>
         </div>
       </div>

@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { ShoppingBag, Heart, ChevronUp, ChevronDown } from "lucide-react";
 import { PriceDisplay } from "./PriceDisplay";
+import { toggleWishlist, isInWishlist } from "@/lib/wishlist/store";
 
 interface MobileCompareBarProps {
   productName: string;
   productPrice: number;
   productSlug: string;
+  productImage?: string;
+  brandName?: string;
   primaryUrl?: string;
   className?: string;
 }
@@ -26,11 +29,14 @@ export function MobileCompareBar({
   productName,
   productPrice,
   productSlug,
+  productImage = "",
+  brandName = "",
   primaryUrl,
   className = "",
 }: MobileCompareBarProps) {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,6 +69,14 @@ export function MobileCompareBar({
     }
   };
 
+  // Sync saved state with wishlist on mount and on changes
+  useEffect(() => {
+    setSaved(isInWishlist(productSlug));
+    const handler = () => setSaved(isInWishlist(productSlug));
+    window.addEventListener("wishlist-updated", handler);
+    return () => window.removeEventListener("wishlist-updated", handler);
+  }, [productSlug]);
+
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 z-50 lg:hidden transition-transform duration-300 ${
@@ -87,11 +101,17 @@ export function MobileCompareBar({
               className="h-10 w-10 rounded-full border border-[#E4DDD5] flex items-center justify-center hover:bg-[#FAF7F4] transition-colors"
               aria-label="Save to wishlist"
               onClick={() => {
-                // TODO: Wire to wishlist
-                console.log("Wishlist toggle:", productSlug);
+                const nowSaved = toggleWishlist({
+                  slug: productSlug,
+                  name: productName,
+                  price: productPrice,
+                  image: productImage,
+                  brandName,
+                });
+                setSaved(nowSaved);
               }}
             >
-              <Heart size={16} className="text-[#6D655F]" />
+              <Heart size={16} className={`${saved ? "fill-rose-500 text-rose-500" : "text-[#6D655F]"} transition-colors`} />
             </button>
             <button
               onClick={handleBuy}

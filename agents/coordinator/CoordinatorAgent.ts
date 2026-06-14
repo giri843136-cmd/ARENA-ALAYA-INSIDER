@@ -9,6 +9,7 @@ export class CoordinatorAgent {
   constructor(private concierge: PersonalAIConcierge) {}
 
   async handle(message: string, context: any, modalities?: any) {
+    void context, modalities; // Suppress unused var warnings
     // 1. Classify intent and required agents
     // 2. Spawn parallel work where possible (Research + Trend + Price)
     // 3. Synthesize results

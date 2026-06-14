@@ -25,11 +25,7 @@ interface PriceDisplayProps {
  */
 export function PriceDisplay({ usdAmount, className = "", as: Tag = "span" }: PriceDisplayProps) {
   const { displayPrice, ratesLoaded, currency } = useCurrency();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [mounted] = useState(() => typeof window !== 'undefined');
 
   // Always render a placeholder during SSR to avoid text mismatch during hydration
   if (!mounted || !ratesLoaded) {

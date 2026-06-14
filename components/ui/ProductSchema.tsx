@@ -15,7 +15,11 @@ interface ProductSchemaProps {
   reviews?: Review[];
 }
 
+import { useMemo } from 'react';
+
 export function ProductSchema({ product, brand, reviews }: ProductSchemaProps) {
+  const defaultPriceDate = useMemo(() => new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0], []);
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -34,9 +38,7 @@ export function ProductSchema({ product, brand, reviews }: ProductSchemaProps) {
       url: `https://alayainsider.com/products/${product.slug}`,
       priceCurrency: "USD",
       price: product.price,
-      priceValidUntil: new Date(
-        Date.now() + 90 * 24 * 60 * 60 * 1000
-      ).toISOString().split("T")[0],
+      priceValidUntil: defaultPriceDate,
       availability: product.inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/LimitedAvailability",

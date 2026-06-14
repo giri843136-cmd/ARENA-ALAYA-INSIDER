@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { RefreshCw, BookOpen, Package, Calendar as CalIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { RefreshCw, BookOpen, Package, Calendar as CalIcon } from "lucide-react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -32,98 +32,94 @@ const STATUS_COLORS: Record<string, string> = {
   archived: "#9CA3AF",
 };
 
-const TYPE_ICONS: Record<string, string> = {
-  article: "\u{1F4D6}",
-  product: "\u{1F4E6}",
-};
 
-const DEMO_USER_ID = "user_demo_admin";
 
 export default function ContentCalendar() {
   const calendarRef = useRef<FullCalendar>(null);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentTitle, setCurrentTitle] = useState("");
-
-  const fetchScheduledContent = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      // Fetch scheduled articles
-      const [articlesRes, productsRes] = await Promise.all([
-        fetch("/api/v1/articles?status=SCHEDULED&limit=100"),
-        fetch("/api/v1/products?status=SCHEDULED&limit=100"),
-      ]);
-
-      const [articlesJson, productsJson] = await Promise.all([
-        articlesRes.json(),
-        productsRes.json(),
-      ]);
-
-      const mappedEvents: CalendarEvent[] = [];
-
-      if (articlesJson.success) {
-        const articles = Array.isArray(articlesJson.data) ? articlesJson.data
-          : articlesJson.data?.articles || articlesJson.data?.items || [];
-        articles.forEach((article: any) => {
-          if (article.publishedAt || article.scheduledAt) {
-            mappedEvents.push({
-              id: `article-${article.id}`,
-              title: article.title,
-              start: article.publishedAt || article.scheduledAt,
-              type: "article",
-              status: article.status?.toLowerCase() || "draft",
-              extendedProps: {
-                contentType: "article",
-                status: article.status?.toLowerCase() || "draft",
-                author: article.author?.name || "Unknown",
-                slug: article.slug,
-              },
-            });
-          }
-        });
-      }
-
-      if (productsJson.success) {
-        const products = Array.isArray(productsJson.data) ? productsJson.data
-          : productsJson.data?.products || productsJson.data?.items || [];
-        products.forEach((product: any) => {
-          if (product.publishedAt || product.scheduledAt) {
-            mappedEvents.push({
-              id: `product-${product.id}`,
-              title: product.name,
-              start: product.publishedAt || product.scheduledAt,
-              type: "product",
-              status: product.status?.toLowerCase() || "draft",
-              extendedProps: {
-                contentType: "product",
-                status: product.status?.toLowerCase() || "draft",
-                slug: product.slug,
-              },
-            });
-          }
-        });
-      }
-
-      // Fall back to mock data if API returns empty
-      if (mappedEvents.length === 0) {
-        setEvents(getMockEvents());
-      } else {
-        setEvents(mappedEvents);
-      }
-    } catch (err) {
-      console.error("Failed to load calendar events:", err);
-      // Fall back to mock data on error
-      setEvents(getMockEvents());
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    fetchScheduledContent();
-  }, [fetchScheduledContent]);
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const [articlesRes, productsRes] = await Promise.all([
+          fetch("/api/v1/articles?status=SCHEDULED&limit=100"),
+          fetch("/api/v1/products?status=SCHEDULED&limit=100"),
+        ]);
+
+        const [articlesJson, productsJson] = await Promise.all([
+          articlesRes.json(),
+          productsRes.json(),
+        ]);
+
+        const mappedEvents: CalendarEvent[] = [];
+
+        if (articlesJson.success) {
+          const articles = Array.isArray(articlesJson.data) ? articlesJson.data
+            : articlesJson.data?.articles || articlesJson.data?.items || [];
+          articles.forEach((article: any) => {
+            if (article.publishedAt || article.scheduledAt) {
+              mappedEvents.push({
+                id: `article-${article.id}`,
+                title: article.title,
+                start: article.publishedAt || article.scheduledAt,
+                type: "article",
+                status: article.status?.toLowerCase() || "draft",
+                extendedProps: {
+                  contentType: "article",
+                  status: article.status?.toLowerCase() || "draft",
+                  author: article.author?.name || "Unknown",
+                  slug: article.slug,
+                },
+              });
+            }
+          });
+        }
+
+        if (productsJson.success) {
+          const products = Array.isArray(productsJson.data) ? productsJson.data
+            : productsJson.data?.products || productsJson.data?.items || [];
+          products.forEach((product: any) => {
+            if (product.publishedAt || product.scheduledAt) {
+              mappedEvents.push({
+                id: `product-${product.id}`,
+                title: product.name,
+                start: product.publishedAt || product.scheduledAt,
+                type: "product",
+                status: product.status?.toLowerCase() || "draft",
+                extendedProps: {
+                  contentType: "product",
+                  status: product.status?.toLowerCase() || "draft",
+                  slug: product.slug,
+                },
+              });
+            }
+          });
+        }
+
+        if (!cancelled) {
+          if (mappedEvents.length === 0) {
+            setEvents(getMockEvents());
+          } else {
+            setEvents(mappedEvents);
+          }
+        }
+      } catch (err) {
+        if (!cancelled) {
+          console.error("Failed to load calendar events:", err);
+          setEvents(getMockEvents());
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [refreshKey]);
 
   const handleEventClick = useCallback((info: EventClickArg) => {
     const { extendedProps } = info.event;
@@ -184,7 +180,7 @@ export default function ContentCalendar() {
           <h1 className="text-4xl font-semibold tracking-tight mt-1">Content Calendar</h1>
           <p className="text-[var(--admin-text-secondary)] mt-1">Plan, schedule, and reschedule editorial content. Drag events to move them.</p>
         </div>
-        <button onClick={fetchScheduledContent} disabled={loading}
+        <button onClick={() => setRefreshKey((k) => k + 1)} disabled={loading}
           className="btn-admin text-xs disabled:opacity-50">
           <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
           {loading ? "Loading..." : "Refresh"}

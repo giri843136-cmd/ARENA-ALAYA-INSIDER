@@ -57,30 +57,28 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
   // Fetch live exchange rates on mount and poll every hour
   useEffect(() => {
-    let mounted = true;
+    let cancelled = false;
 
-    async function loadRates() {
+    const loadRates = async () => {
       try {
         const liveRates = await fetchExchangeRates();
-        if (mounted) {
+        if (!cancelled) {
           setRates(liveRates);
           setRatesLoaded(true);
         }
       } catch {
-        // Use fallback rates if fetch fails
-        if (mounted) {
+        if (!cancelled) {
           setRates(FALLBACK_RATES);
           setRatesLoaded(true);
         }
       }
-    }
+    };
 
     loadRates();
 
-    // Refresh rates every hour
     const interval = setInterval(loadRates, 3600000);
     return () => {
-      mounted = false;
+      cancelled = true;
       clearInterval(interval);
     };
   }, []);

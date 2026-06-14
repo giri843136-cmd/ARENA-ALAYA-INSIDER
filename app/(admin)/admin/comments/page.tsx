@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   MessageSquare, Check, X, Trash2, Search, RefreshCw,
   ChevronLeft, ChevronRight, ExternalLink, AlertTriangle,
-  ThumbsUp, ThumbsDown, RotateCcw, Eye, Loader2, Shield
+  ThumbsUp, ThumbsDown, RotateCcw, Eye, Loader2
 } from "lucide-react";
 import { toast } from "sonner";
 import { CommentDetailDrawer } from "@/components/admin/ui/CommentDetailDrawer";
@@ -64,6 +64,7 @@ export default function AdminComments() {
   const [detailComment, setDetailComment] = useState<CommentData | null>(null);
   const [showBulkConfirm, setShowBulkConfirm] = useState(false);
   const [bulkProgress, setBulkProgress] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Debounce search
   useEffect(() => {
@@ -71,23 +72,25 @@ export default function AdminComments() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const fetchComments = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ status: statusFilter, page: String(page), limit: "50", sort: "newest" });
-      if (debouncedSearch.trim()) params.set("search", debouncedSearch.trim());
-      const res = await fetch(`/api/v1/admin/comments?${params}`);
-      const json = await res.json();
-      if (json.success) {
-        setComments(json.data.comments);
-        setCounts(json.data.counts);
-        setTotalPages(json.pagination.totalPages);
-      }
-    } catch { console.error("Failed to fetch admin comments"); }
-    finally { setLoading(false); }
-  }, [statusFilter, page, debouncedSearch]);
-
-  useEffect(() => { fetchComments(); }, [fetchComments]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({ status: statusFilter, page: String(page), limit: "50", sort: "newest" });
+        if (debouncedSearch.trim()) params.set("search", debouncedSearch.trim());
+        const res = await fetch(`/api/v1/admin/comments?${params}`);
+        const json = await res.json();
+        if (json.success && !cancelled) {
+          setComments(json.data.comments);
+          setCounts(json.data.counts);
+          setTotalPages(json.pagination.totalPages);
+        }
+      } catch { console.error("Failed to fetch admin comments"); }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [statusFilter, page, debouncedSearch, refreshKey]);
 
   // Silent table action — optimistic update with toast
   const handleSilentAction = async (id: string, action: string) => {
@@ -105,7 +108,7 @@ export default function AdminComments() {
       toast.success(`Comment ${action}d`);
     } catch {
       toast.error(`Failed to ${action} comment`);
-      fetchComments(); // Revert on error
+      setRefreshKey((k) => k + 1); // Revert on error
     } finally { setActionLoading(null); }
   };
 
@@ -117,7 +120,7 @@ export default function AdminComments() {
       toast.success("Comment restored");
     } catch {
       toast.error("Failed to restore comment");
-      fetchComments();
+      setRefreshKey((k) => k + 1);
     } finally { setActionLoading(null); }
   };
 
@@ -141,7 +144,7 @@ export default function AdminComments() {
       }
       setSelectedComments(new Set());
       setBulkAction("");
-      await fetchComments();
+      setRefreshKey((k) => k + 1);
     } catch {
       toast.error("Bulk action failed");
     } finally {
@@ -203,7 +206,7 @@ export default function AdminComments() {
               {counts.PENDING > 0 && <span className="text-[#FBBF24] ml-1">{counts.PENDING} awaiting review.</span>}
             </p>
           </div>
-          <button onClick={() => { setPage(1); fetchComments(); }} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
+          <button onClick={() => setRefreshKey((k) => k + 1)} className="btn-admin text-xs"><RefreshCw size={14} /> Refresh</button>
         </div>
       </div>
 
@@ -344,10 +347,10 @@ export default function AdminComments() {
       <CommentDetailDrawer comment={detailComment} open={!!detailComment} onClose={() => setDetailComment(null)}
         onAction={async (id, action, notify) => {
           setActionLoading(id);
-          try { await fetch("/api/v1/comments", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, action, notify: notify ?? true }) }); await fetchComments(); }
+          try { await fetch("/api/v1/comments", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, action, notify: notify ?? true }) }); setRefreshKey((k) => k + 1); }
           catch (err) { console.error(err); } finally { setActionLoading(null); }
         }}
-        onRefresh={fetchComments}
+        onRefresh={() => setRefreshKey((k) => k + 1)}
       />
     </div>
   );
