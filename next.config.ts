@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Production optimizations
-  output: 'standalone',                    // Required for Docker multi-stage builds
-  poweredByHeader: false,                  // Security: hide Next.js header
+  // output: 'standalone',                // Disabled for direct server deployment (no Docker)
+  poweredByHeader: false,
 
   images: {
     remotePatterns: [
