@@ -8,7 +8,7 @@
     "start": "npx next start",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
-    "typecheck": "./node_modules/.bin/tsc --noEmit",
+    "typecheck": "npx tsc --noEmit",
     "preview": "npx next build && npx next start",
     "postinstall": "npx prisma generate || echo 'Prisma generate completed (or skipped if no DB for build)'",
     "db:generate": "npx prisma generate",
