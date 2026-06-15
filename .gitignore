@@ -54,7 +54,6 @@ coverage/
 tmp/
 logs/
 
-
 # Windows reserved device names (can't be tracked on Windows)
 nul
 nul-notes.txt
