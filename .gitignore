@@ -54,6 +54,9 @@ coverage/
 tmp/
 logs/
 
+# Deployment script (contains server credentials)
+scripts/deploy.py
+
 # Windows reserved device names (can't be tracked on Windows)
 nul
 nul-notes.txt
