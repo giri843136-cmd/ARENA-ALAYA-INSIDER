@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Skip TypeScript checking during build (handled separately via npm run typecheck)
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     if (config.resolve?.alias) {
       config.resolve.alias["@"] = __dirname;
     }
