@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  webpack(config) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    if (config.resolve?.alias) {
+      config.resolve.alias["@"] = __dirname;
+    }
+    return config;
+  },
   // Production optimizations
   // output: 'standalone',                // Disabled - using next start for production
   poweredByHeader: false,
