@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Production optimizations
-  // output: 'standalone',                // Disabled for direct server deployment (no Docker)
+  // output: 'standalone',                // Disabled - using next start for production
   poweredByHeader: false,
 
   images: {
