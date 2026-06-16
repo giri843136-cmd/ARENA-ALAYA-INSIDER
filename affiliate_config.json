@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "description": "Affiliate configuration for ALAYA INSIDER product platform",
+  "last_updated": "2026-06-16",
+  
+  "amazon": {
+    "tag": "alayainsider-20",
+    "domain": "amazon.com",
+    "link_template": "https://www.amazon.com/dp/{ASIN}?tag={tag}&th=1&psc=1",
+    "network": "Amazon Associates",
+    "default_commission": 0.03
+  },
+  
+  "walmart": {
+    "affiliate_id": "alayainsider",
+    "campaign_id": "123456",
+    "network": "Impact",
+    "link_template": "https://goto.walmart.com/c/{campaign_id}/{affiliate_id}/9383?veh=aff&sourceid=imp_{affiliate_id}&u={encoded_url}",
+    "default_commission": 0.04
+  },
+  
+  "target": {
+    "affiliate_id": "alayainsider",
+    "campaign_id": "123456",
+    "network": "Impact",
+    "link_template": "https://goto.target.com/c/{campaign_id}/{affiliate_id}/103176?afid={affiliate_id}&u={encoded_url}",
+    "default_commission": 0.05
+  },
+  
+  "nordstrom": {
+    "affiliate_id": "alayainsider",
+    "awinmid": 3380,
+    "network": "Rakuten",
+    "link_template": "https://www.awin1.com/cread.php?awinmid={awinmid}&awinaffid={affiliate_id}&ued={encoded_url}",
+    "default_commission": 0.05
+  },
+  
+  "wayfair": {
+    "affiliate_id": "alayainsider",
+    "merchant_id": 1234567,
+    "network": "ShareASale",
+    "link_template": "https://www.shareasale.com/r.cfm?b={merchant_id}&u={affiliate_id}&m={merchant_id}&urllink={encoded_url}",
+    "default_commission": 0.04
+  },
+  
+  "best_buy": {
+    "affiliate_id": "alayainsider",
+    "pid": 123456,
+    "network": "CJ Affiliate",
+    "link_template": "https://www.anrdoezrs.net/links/{pid}/type/dlg/{encoded_url}",
+    "default_commission": 0.03
+  },
+  
+  "sephora": {
+    "affiliate_id": "alayainsider",
+    "network": "Rakuten",
+    "link_template": "https://click.linksynergy.com/deeplink?id={affiliate_id}&mid=12345&murl={encoded_url}",
+    "default_commission": 0.05
+  },
+  
+  "anthropologie": {
+    "affiliate_id": "alayainsider",
+    "network": "Rakuten",
+    "link_template": "https://click.linksynergy.com/deeplink?id={affiliate_id}&mid=12345&murl={encoded_url}",
+    "default_commission": 0.06
+  },
+  
+  "cj_affiliate": {
+    "pid": "123456",
+    "aid": "alayainsider",
+    "link_template": "https://www.anrdoezrs.net/links/{pid}/type/dlg/{encoded_url}"
+  },
+  
+  "shareasale": {
+    "affiliate_id": "alayainsider",
+    "link_template": "https://www.shareasale.com/r.cfm?b={merchant_id}&u={affiliate_id}&m={merchant_id}&urllink={encoded_url}"
+  },
+  
+  "direct_brands": [
+    {
+      "name": "Parachute",
+      "network": "Rakuten",
+      "affiliate_id": "alayainsider",
+      "domain": "parachute.com"
+    },
+    {
+      "name": "Brooklinen",
+      "network": "ShareASale",
+      "affiliate_id": "alayainsider",
+      "domain": "brooklinen.com"
+    },
+    {
+      "name": "The Citizenry",
+      "network": "ShareASale",
+      "affiliate_id": "alayainsider",
+      "domain": "the-citizenry.com"
+    },
+    {
+      "name": "Article",
+      "network": "CJ Affiliate",
+      "affiliate_id": "alayainsider",
+      "domain": "article.com"
+    },
+    {
+      "name": "Pottery Barn",
+      "network": "ShareASale",
+      "affiliate_id": "alayainsider",
+      "domain": "potterybarn.com"
+    }
+  ],
+  
+  "best_merchant_selection": {
+    "method": "highest_commission_in_stock",
+    "fallback": "next_best_in_stock",
+    "default_primary": "Amazon"
+  }
+}

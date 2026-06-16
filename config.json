@@ -1,0 +1,92 @@
+{
+  "project": "ALAYA INSIDER",
+  "version": "1.0.0",
+  "description": "Premium US-based affiliate product platform targeting women aged 25-45",
+  
+  "affiliate_config_path": "affiliate_config.json",
+  "taxonomy_file_path": "",
+  "output_dir": "output",
+  
+  "processing": {
+    "max_batch_size": 20,
+    "request_delay_seconds": 2,
+    "max_retries": 3,
+    "image_min_width": 1200,
+    "user_agent_rotation": true
+  },
+  
+  "image": {
+    "min_width": 1200,
+    "prefer_webp": true,
+    "reject_placeholders": true,
+    "reject_watermarks": true,
+    "max_gallery_images": 10,
+    "min_gallery_images": 3
+  },
+  
+  "content": {
+    "short_desc_min_chars": 100,
+    "long_desc_min_chars": 500,
+    "seo_title_min_chars": 40,
+    "seo_title_max_chars": 65,
+    "seo_desc_min_chars": 140,
+    "seo_desc_max_chars": 160,
+    "features_min": 5,
+    "features_max": 15,
+    "pros_min": 3,
+    "pros_max": 7,
+    "cons_min": 2,
+    "cons_max": 5,
+    "faq_min": 3,
+    "faq_max": 5
+  },
+  
+  "user_agents": [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.2535.67",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+  ],
+  
+  "proxy_list": [],
+  
+  "merchants": {
+    "priority": ["Amazon", "Walmart", "Target", "Nordstrom", "Wayfair", "Best Buy", "Sephora", "Anthropologie"],
+    "default_commission_rates": {
+      "Amazon": 0.03,
+      "Walmart": 0.04,
+      "Target": 0.05,
+      "Nordstrom": 0.05,
+      "Wayfair": 0.04,
+      "Best Buy": 0.03,
+      "Sephora": 0.05,
+      "Anthropologie": 0.06
+    }
+  },
+  
+  "taxonomy": {
+    "main_categories": [
+      "Home & Living",
+      "Kitchen & Dining", 
+      "Beauty",
+      "Fashion",
+      "Tech",
+      "Wellness",
+      "Gifts",
+      "Pets",
+      "Travel"
+    ],
+    "collections": {
+      "Home & Living": ["Sanctuary", "Haven", "Nest & Nook", "Glow Theory", "Soft Layers"],
+      "Kitchen & Dining": ["Culinary Studio", "Daily Rituals", "Gather & Serve"],
+      "Beauty": ["Skin Atelier", "Fragrance & Candles", "Makeup Edit", "Bath Rituals"],
+      "Fashion": ["Elevated Basics", "Sole Society", "The Jewelry Box", "Handbag Edit"],
+      "Tech": ["Connected Living"],
+      "Wellness": ["Core & Flow", "The Recharge Club", "Wellness Edit"],
+      "Gifts": ["Thoughtfully Yours", "Under $50", "Luxury Gifts"],
+      "Pets": ["Paw Society", "Pet Essentials"],
+      "Travel": ["Carry On Club", "Weekend Getaway"]
+    }
+  }
+}
