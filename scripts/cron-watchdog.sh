@@ -16,18 +16,19 @@ APP_DIR="/home/u131951911/alaya-insider"
 NODE_BIN="/opt/alt/alt-nodejs22/root/usr/bin/node"
 NEXT_BIN="$APP_DIR/node_modules/.bin/next"
 LOG_FILE="/home/u131951911/app.log"
-CRON_JOB="*/5 * * * * cd $APP_DIR && curl -s -o /dev/null -w '%{http_code}' --max-time 10 http://127.0.0.1:3000/ | grep -q 200 || (pkill -f 'next' 2>/dev/null; sleep 2; NODE_ENV=production PORT=3000 nohup $NODE_BIN $NEXT_BIN start -p 3000 > $LOG_FILE 2>&1 &)"
+# Unique marker for easy removal: #alaya-watchdog
+CRON_JOB="*/5 * * * * cd $APP_DIR && curl -s -o /dev/null -w '%{http_code}' --max-time 10 http://127.0.0.1:3000/ | grep -E '^200$' || (pkill -f 'next' 2>/dev/null; sleep 2; NODE_ENV=production PORT=3000 nohup $NODE_BIN $NEXT_BIN start -p 3000 > $LOG_FILE 2>&1 &) #alaya-watchdog"
 
 install() {
     echo "Installing ALAYA INSIDER watchdog cron job..."
-    (crontab -l 2>/dev/null | grep -v "alaya-insider"; echo "$CRON_JOB") | crontab -
+    (crontab -l 2>/dev/null | grep -v "#alaya-watchdog"; echo "$CRON_JOB") | crontab -
     echo "Done. Watchdog will check every 5 minutes."
     crontab -l | grep alaya
 }
 
 remove() {
     echo "Removing watchdog cron job..."
-    crontab -l 2>/dev/null | grep -v "alaya-insider" | crontab -
+    crontab -l 2>/dev/null | grep -v "#alaya-watchdog" | crontab -
     echo "Done. Watchdog removed."
 }
 

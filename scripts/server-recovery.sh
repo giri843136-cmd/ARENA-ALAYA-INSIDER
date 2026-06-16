@@ -17,8 +17,15 @@ echo "=============================================="
 export PATH="/opt/alt/alt-nodejs22/root/usr/bin:/usr/bin:/bin"
 cd /home/u131951911/alaya-insider
 
-# Export DATABASE_URL so all commands can use it
-export DATABASE_URL="postgresql://neondb_owner:npg_iM9BdrvJwCN5@ep-bitter-boat-atdubjm7-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require"
+# Load DATABASE_URL from .env file (safer than hardcoding)
+if [ -f .env ]; then
+  set -a; source .env; set +a
+  echo "  Loaded .env file"
+else
+  # Fallback only if .env is missing
+  export DATABASE_URL="postgresql://neondb_owner:npg_iM9BdrvJwCN5@ep-bitter-boat-atdubjm7-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require"
+  echo "  WARNING: .env not found, using fallback DATABASE_URL"
+fi
 
 echo ""
 echo "[1/8] Kill any existing processes..."
@@ -45,15 +52,19 @@ echo "  Done"
 echo ""
 echo "[5/8] Verify database has data..."
 npx tsx -e "
-const { PrismaClient } = require('@prisma/client');
-const p = new PrismaClient();
-(async () => {
-  console.log('  Products:', await p.product.count());
-  console.log('  Brands:', await p.brand.count());
-  console.log('  Articles:', await p.article.count());
-  console.log('  Universes:', await p.universe.count());
-  await p.\$disconnect();
-})().catch(e => { console.log('  DB error:', e.message); process.exit(0); });
+import { PrismaClient } from '@prisma/client'
+const p = new PrismaClient()
+const [products, brands, articles, universes] = await Promise.all([
+  p.product.count(),
+  p.brand.count(),
+  p.article.count(),
+  p.universe.count()
+])
+console.log('  Products:', products)
+console.log('  Brands:', brands)
+console.log('  Articles:', articles)
+console.log('  Universes:', universes)
+await p.\$disconnect()
 " 2>&1
 echo "  Done"
 
