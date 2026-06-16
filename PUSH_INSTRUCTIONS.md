@@ -1,153 +1,150 @@
-# ALAYA INSIDER - Git Push Instructions & Verification
+# ALAYA INSIDER — Git Push Instructions (Updated 2026-06-16)
 
 **Target:** https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
 
-**Status (as of 2026-06-12 in sandbox):** 
-- Local repo fully prepared with COMPLETE content from all phases + production work.
-- Git initialized, remote configured correctly.
-- Clean working tree, on `main`.
-- All source, configs, scripts, docs, infra, mobile, SDK, tests, AI/Recommendation/Search/Analytics/Workers/BullMQ/Docker/Prisma/Next.js app etc. committed.
-- **NO** forbidden artifacts (node_modules, .next, .cache, .npm, dist, coverage, .turbo, .env) in the Git index (0 found).
-- **Push blocked** in this sandbox environment due to complete absence of GitHub authentication (no PAT, no GITHUB_TOKEN, no .netrc, no gh cli, no credential helpers, no SSH keys). All `git push` attempts fail with "Authentication failed" / "could not read Username for 'https://github.com': No such device or address" / "No anonymous write access".
+## Current Local State (Ready to Push)
 
-**Local verified state (ready to push):**
-- Branch: main
-- Latest commit: 927939d78bff76b8710020beaabfa7aa174e93dc
-- Message: "ALAYA INSIDER complete production platform"
-- Remote: https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
-- Tracked files: 362
-- Source files (.ts/.tsx/.js/.jsx): 204
-- Config/scripts/docs files: 132+
-- Scripts: 25 (incl. deploy-to-hostinger.sh, backup-*.sh, verify-*.sh, production-audit.sh etc.)
-- .github/workflows: 3 (ci.yml, deploy.yml, quality-gates.yml)
-- Key production files confirmed in commit (exact list):
-  - prisma/schema.prisma
-  - prisma/seed.ts
-  - scripts/deploy-to-hostinger.sh
-  - scripts/backup-*.sh, scripts/restore-*.sh, scripts/production-audit.sh, scripts/verify-production-services.sh, scripts/setup-real-db-and-seed.sh, scripts/final-production-verification.sh, scripts/search/*.ts, scripts/ai/*.ts, scripts/analytics/*.ts, scripts/db/*.sh, scripts/global/*.sh, scripts/infra/*.sh, scripts/mobile/*.sh, scripts/recommendations/*.ts, scripts/testing/*.sh
-  - lib/config/env.ts
-  - lib/backend/queues/bullmq.ts
-  - lib/search/typesense/client.ts + indexer.ts + schemas.ts
-  - lib/ai/providers/anthropic.ts + base.ts + mock.ts + agents/* + jobs/* + memory/* + prompts/*
-  - lib/recommendations/* (services, scoring, jobs, redis, types)
-  - lib/analytics/* (all services, dashboards, events, forecasting, observability, warehouse)
-  - lib/search/* (services, jobs, redis, analytics, typesense)
-  - nginx.conf
-  - ecosystem.config.js
-  - Dockerfile + docker-compose.yml (root + infra/docker/)
-  - workers/index.ts
-  - middleware.ts
-  - package.json + tsconfig.json + next.config.ts + eslint etc.
-  - .github/workflows/ci.yml + deploy.yml + quality-gates.yml
-  - Full app/ (marketing + admin routes, pages, api routes for ai/analytics/health/queues/recommendations/search etc.)
-  - components/ (admin, ui, layout, product, search, editorial)
-  - public/
-  - docs/ (full: ai/, analytics/, backend/, database/, deployment/, future/, infra/ (global too), mobile/, recommendations/, search/, testing/)
-  - infra/ (docker, global, terraform)
-  - sdk/typescript/ (package + client + marketplace)
-  - tests/ (unit, integration, e2e, accessibility, chaos, disaster-recovery, performance/k6, security)
-  - runbooks/ (disaster-recovery, global, mobile, production-incident)
-  - mobile/ (apps/mobile/ with src/services, navigation)
-  - agents/, api/, lib/future/*, lib/global etc.
-- Top-level folders in repo: .github/, .storybook/, agents/, api/, app/, apps/, components/, docs/, infra/, lib/, prisma/, public/, runbooks/, scripts/, sdk/, tests/, workers/
-- Unique folder paths: 166
-- No .env* committed (properly gitignored, though some .env* exist in FS for runtime)
-- .gitignore updated and respected.
-- Local file system has ~366 real files (excluding .git etc.), matches tracked.
+| Metric | Value |
+|--------|-------|
+| Branch | `main` |
+| Latest commit | `32241476f6953d136949c40d8e3dcde53ea3e66c` |
+| Commit message | `chore: add initial Prisma migration SQL` |
+| Commits ahead of origin | **3** (see below) |
+| Tracked files | **590** |
+| Source files (.ts/.tsx/.js/.jsx) | **406** |
+| Folders (unique paths) | **283** |
+| Remote URL | `https://giri843136-cmd@github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` |
 
-**GitHub current state (confirmed via web fetch + ls-remote):**
-- Only 1 commit: 5295d8339b70d7076c03cd96a37b14b95b67e69a ("Create README.md")
-- Only README.md present.
-- No other folders/files.
-- Public repo, 0 stars/forks/releases etc.
+**Recent commits (in order, oldest → newest):**
+1. `cd2c843` — Complete ALAYA INSIDER: Storybook fix, 85 new tests, WCAG AAA
+2. `7382c6f` — fix: typecheck script, add .env.example, fix .gitignore
+3. `eaaf28d` — fix: Prisma v7 adapter compatibility
+4. `086c762` — chore: add deploy.py to .gitignore
+5. `3224147` — chore: add initial Prisma migration SQL (2,132 lines)
 
-**To complete the push (MUST be done by user outside sandbox with valid GitHub PAT having 'repo' scope):**
+**No .env, node_modules, .next, or other forbidden files in the index** — all properly gitignored.
 
-1. On your **local development machine** (clone or copy the project dir if not already; the sandbox state above is the exact content to push):
-   ```bash
-   cd /path/to/your/alaya-insider-project   # the dir containing app/, lib/, prisma/ etc.
-   git status   # should be clean on main with the 362 files
-   ```
+**Note:** `.next.tar.gz` (852 MB build artifact) is untracked and gitignored — it will NOT be pushed.
 
-2. Ensure remote:
-   ```bash
-   git remote remove origin || true
-   git remote add origin https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
-   git remote -v
-   ```
+---
 
-3. Set up auth (generate PAT first at https://github.com/settings/tokens/new with 'repo' checkbox if you don't have one):
-   - Recommended: Use Git credential helper (it will prompt for username + PAT once):
-     ```bash
-     git config --global credential.helper store
-     ```
-   - Or for one-time HTTPS with token (replace placeholders):
-     ```bash
-     git remote set-url origin https://giri843136-cmd:<YOUR_PERSONAL_ACCESS_TOKEN>@github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
-     ```
+## Step-by-Step Push Instructions
 
-4. Prepare commit (if any drift; local in sandbox is already perfect):
-   ```bash
-   git branch -M main
-   git add .
-   git commit -m "ALAYA INSIDER complete production platform" --allow-empty   # or amend if needed
-   ```
+### Step 1: Get the project on your local machine
 
-5. Sync with remote safely (prefer local files):
-   ```bash
-   git fetch origin
-   git pull origin main --allow-unrelated-histories --strategy=recursive -X ours || true
-   # Resolve any weird conflicts by: git add . ; git commit -m "resolve: keep local complete version"
-   ```
+**Option A — Copy from this sandbox (recommended):**
+If you have direct filesystem access to this sandbox at `C:\Users\rocki\Downloads\workspace-019ebb86-c6f6-7e2b-bff6-e03ad83125ed`, copy the entire folder to your machine. It already has the full Git repo with all commits.
 
-6. **Push (force because remote is minimal README only):**
-   ```bash
-   git push -u origin main --force
-   ```
+**Option B — Use the source tarball:**
+The file `alaya-insider-source.tar.gz` in the workspace contains all source files. Extract and init git:
+```bash
+tar -xzf alaya-insider-source.tar.gz
+cd alaya-insider
+```
 
-7. **Immediate verification (run these after push succeeds):**
-   ```bash
-   echo "Branch: $(git branch --show-current)"
-   echo "Commit: $(git rev-parse HEAD)"
-   echo "Remote: $(git remote get-url origin)"
-   echo "Tracked files: $(git ls-files | wc -l)"
-   echo "Source files: $(git ls-files | grep -E '\.(ts|tsx|js|jsx)$' | wc -l)"
-   echo "Key production files count: $(git ls-files | grep -E 'prisma/schema.prisma|scripts/deploy-to-hostinger.sh|lib/config/env.ts|workers/index.ts|nginx.conf|ecosystem.config.js|Dockerfile|docker-compose.yml|lib/backend/queues/bullmq.ts|lib/search/typesense/client.ts|lib/ai/providers/anthropic.ts|\.github/workflows' | wc -l)"
-   git ls-files | grep -E 'prisma/schema.prisma|scripts/deploy-to-hostinger.sh|lib/config/env.ts|workers/index.ts|nginx.conf|ecosystem.config.js|Dockerfile|docker-compose.yml|lib/backend/queues/bullmq.ts|lib/search/typesense/client.ts|lib/ai/providers/anthropic.ts|\.github/workflows/ci.yml|\.github/workflows/deploy.yml' 
-   # Expect the 14+ key files listed.
-   echo "Folders: $(git ls-tree -r --name-only HEAD | grep -o '^[a-zA-Z0-9_.-]*/' | sort | uniq | wc -l)"
-   git ls-tree -r --name-only HEAD | grep -o '^[a-zA-Z0-9_.-]*/' | sort | uniq
-   echo "Forbidden in index (must be 0): $(git ls-files | grep -E '(\.next/|node_modules/|\.cache/|\.npm/|dist/|coverage/|\.turbo/|\.env[^.])' | wc -l)"
-   ```
+### Step 2: Open terminal in the project folder
+```bash
+cd /path/to/alaya-insider-project   # where app/, lib/, prisma/ etc. are
+```
 
-8. **Confirm on GitHub:**
-   - Visit: https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER
-   - Should show:
-     - ~362 files, 17 top-level folders (listed above), hundreds of subfolders.
-     - Latest commit matching your local hash + the full message.
-     - All the folders: app/, lib/ (with sub ai/analytics/recommendations/search/backend etc.), prisma/, scripts/ (25+), workers/, .github/workflows/ (3 ymls), docs/ (80+ md files across subdirs), infra/, sdk/, tests/ (multiple types), mobile/apps/, runbooks/, components/, public/, api/, agents/ etc.
-     - No .next, node_modules, caches, or .env files visible in the repo browser.
-     - Full history will now have the production commit.
-   - Optional (with gh cli or curl + token):
-     ```bash
-     gh repo view giri843136-cmd/ARENA-ALAYA-INSIDER --json name,object,refs
-     # or API: curl -H "Authorization: token $PAT" https://api.github.com/repos/giri843136-cmd/ARENA-ALAYA-INSIDER | jq '.size, .default_branch'
-     # To count files roughly: use GitHub web or clone and ls-files again.
-     ```
+### Step 3: Generate a GitHub Personal Access Token
+1. Go to https://github.com/settings/tokens/new
+2. Give it a name (e.g. "Alaya Insider Push")
+3. Select scopes: **`repo`** (full control) + **`workflow`**
+4. Click "Generate token"
+5. **Copy the token now** — you won't see it again
 
-**If push still fails after PAT:**
-- Double-check PAT has "repo" (full control) and "workflow" scopes.
-- Try SSH instead (add your SSH key to GitHub account, change remote to git@github.com:giri843136-cmd/ARENA-ALAYA-INSIDER.git then push).
-- Or use GitHub Desktop / web upload of zip (but not recommended for 362 files; better CLI).
-- The tarball ALAYA_INSIDER_COMPLETE.tar.gz is in the repo as a convenience snapshot (292k, tracked intentionally as production artifact).
+### Step 4: Configure the remote (copy-paste these one at a time)
 
-**Once pushed and verified on GitHub:**
-- The repo now contains the COMPLETE ALAYA INSIDER production platform (public site, admin dashboard, Prisma+seed, all APIs, search (Typesense), Recommendation Engine, AI Workspace (Anthropic+fallbacks), analytics, BullMQ workers/queues, Docker/PM2/Nginx, backup/restore, env validation, health endpoints, mobile app skeleton, SDKs (TS), future systems, full docs, tests, CI/CD, global infra, all scripts, every other artifact from phases 1-15 + today's work).
-- Nothing is missing except standard exclusions (.next etc. never committed).
-- You can now continue development, deploy, etc. from the GitHub remote.
+```bash
+# Remove any existing origin
+git remote remove origin 2>/dev/null || true
 
-This satisfies the goal autonomously as far as the sandbox allows. Run the push commands above on a machine with GitHub auth to finish.
+# Set the correct remote
+git remote add origin https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
 
-**Local commit hash at end of sandbox work:** 927939d78bff76b8710020beaabfa7aa174e93dc
+# Verify
+git remote -v
+```
 
-**Date:** 2026-06-12 (Asia/Calcutta)
+### Step 5: Authenticate with your PAT
+
+**Recommended — use credential helper (only prompted once):**
+```bash
+git config --global credential.helper store
+```
+Then when you push, use:
+- Username: `giri843136-cmd`
+- Password: **paste your PAT** (not your GitHub password)
+
+**Alternative — inline token URL (one-time):**
+```bash
+git remote set-url origin https://giri843136-cmd:YOUR_PAT_HERE@github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
+```
+
+### Step 6: Push to GitHub
+```bash
+# Ensure we're on main
+git branch -M main
+
+# Sync with remote (keep local version as authoritative)
+git fetch origin
+git pull origin main --allow-unrelated-histories --strategy=recursive -X ours 2>/dev/null || echo "No remote content to pull"
+
+# THE MAIN COMMAND — force push the complete repo
+git push -u origin main --force
+```
+
+### Step 7: Verify the push
+
+Run these commands to confirm everything was pushed correctly:
+
+```bash
+echo "=== VERIFICATION ==="
+echo "Branch: $(git branch --show-current)"
+echo "Commit: $(git rev-parse HEAD)"
+echo "Remote: $(git remote get-url origin)"
+echo ""
+echo "Tracked files: $(git ls-files | wc -l)"
+echo "Source files: $(git ls-files | grep -E '\.(ts|tsx|js|jsx)$' | wc -l)"
+echo "Folders: $(git ls-tree -r --name-only HEAD | grep -o '.*/' | sort -u | wc -l)"
+echo ""
+echo "Forbidden items (must be 0): $(git ls-files | grep -E '(\.next/|node_modules/|\.cache/|\.npm/|dist/|coverage/|\.turbo/|\.env[^.])' | wc -l)"
+echo ""
+echo "Key production files:"
+git ls-files | grep -E 'prisma/schema.prisma|scripts/deploy-to-hostinger.sh|lib/config/env.ts|workers/index.ts|nginx.conf|ecosystem.config.js|Dockerfile|docker-compose.yml|\.github/workflows' | sort
+echo ""
+echo "Top-level folders:"
+git ls-tree -r --name-only HEAD | grep -o '^[a-zA-Z0-9_.-]*/' | sort -u
+echo ""
+echo "Open: https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER"
+echo "Verify: 590 files, 283 folders, latest commit 3224147, all folders present"
+```
+
+### Step 8: Confirm on GitHub
+
+Visit **https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER** in your browser.
+
+You should see:
+- **590 files** across **283 folders**
+- **17 top-level folders**: .github/, .storybook/, agents/, api/, app/, apps/, components/, docs/, infra/, lib/, prisma/, public/, runbooks/, scripts/, sdk/, tests/, workers/
+- Latest commit: `3224147` — "chore: add initial Prisma migration SQL"
+- Full commit history (all 5 production commits)
+- **No** node_modules, .next, .env, or cache folders
+
+---
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| `Authentication failed` | PAT might have wrong scopes. Regenerate at https://github.com/settings/tokens with **repo** scope |
+| `Repository not found` | Double-check the remote URL is exactly `https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` — the repo must already exist |
+| `Push declined` | Use `--force` flag: `git push -u origin main --force` |
+| `Filename too long` on Windows | Run `git config --global core.longpaths true` and retry |
+| PAT doesn't work as password | Generate a new PAT. The token itself IS the password (not your GitHub password) |
+
+---
+
+After successful push, the entire ALAYA INSIDER production platform is on GitHub. You can then clone it anywhere, continue development, and deploy from the remote.
+
