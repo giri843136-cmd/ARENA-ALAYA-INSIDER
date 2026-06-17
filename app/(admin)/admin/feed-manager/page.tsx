@@ -86,16 +86,7 @@ export default function FeedManager() {
   const [customMapping, setCustomMapping] = useState<Record<string, string>>({});
   const [newPresetName, setNewPresetName] = useState("");
 
-  // Load presets + saved presets + import history on mount
-  useEffect(() => {
-    fetch("/api/v1/admin/products/import/presets")
-      .then((r) => r.json())
-      .then((j) => { if (j.success) setPresets(j.data); })
-      .catch(() => {});
-    loadSavedPresets();
-    loadImportHistory();
-  }, []);
-
+  // Move function declarations before useEffect to solve hoisting issue
   const loadImportHistory = async (search?: string, status?: string) => {
     setImportsLoading(true);
     try {
@@ -107,6 +98,14 @@ export default function FeedManager() {
       if (j.success) setImports(j.data);
     } catch {}
     finally { setImportsLoading(false); }
+  };
+
+  const loadSavedPresets = async () => {
+    try {
+      const res = await fetch("/api/v1/admin/import-presets");
+      const j = await res.json();
+      if (j.success) setSavedPresets(j.data);
+    } catch {}
   };
 
   const clearHistory = async () => {
@@ -126,13 +125,15 @@ export default function FeedManager() {
     }
   };
 
-  const loadSavedPresets = async () => {
-    try {
-      const res = await fetch("/api/v1/admin/import-presets");
-      const j = await res.json();
-      if (j.success) setSavedPresets(j.data);
-    } catch {}
-  };
+  // Load presets + saved presets + import history on mount
+  useEffect(() => {
+    fetch("/api/v1/admin/products/import/presets")
+      .then((r) => r.json())
+      .then((j) => { if (j.success) setPresets(j.data); })
+      .catch(() => {});
+    loadSavedPresets();
+    loadImportHistory();
+  }, []);
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
     e.preventDefault();

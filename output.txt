@@ -1,0 +1,58 @@
+
+> alaya-insider@0.1.0 build
+> npx next build --webpack
+
+▲ Next.js 16.2.9 (webpack)
+- Environments: .env
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Failed to compile.
+
+app/(admin)/layout.tsx
+An error occurred in `next/font`.
+
+Error: EAGAIN
+    at new Worker (node:internal/worker:290:19)
+    at new InternalWorker (node:internal/worker:484:5)
+    at new HooksProxy (node:internal/modules/esm/hooks:506:20)
+    at getHooksProxy (node:internal/modules/esm/loader:983:18)
+    at new CustomizedModuleLoader (node:internal/modules/esm/loader:875:5)
+    at ModuleLoader.register (node:internal/modules/esm/loader:665:30)
+    at Function.register (node:internal/modules/esm/loader:1040:35)
+    at Object.<anonymous> (/home/u131951911/alaya-insider/node_modules/@tailwindcss/node/dist/index.js:18:170)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1820:10)
+
+app/layout.tsx
+An error occurred in `next/font`.
+
+Error: EAGAIN
+    at new Worker (node:internal/worker:290:19)
+    at new InternalWorker (node:internal/worker:484:5)
+    at new HooksProxy (node:internal/modules/esm/hooks:506:20)
+    at getHooksProxy (node:internal/modules/esm/loader:983:18)
+    at new CustomizedModuleLoader (node:internal/modules/esm/loader:875:5)
+    at ModuleLoader.register (node:internal/modules/esm/loader:665:30)
+    at Function.register (node:internal/modules/esm/loader:1040:35)
+    at Object.<anonymous> (/home/u131951911/alaya-insider/node_modules/@tailwindcss/node/dist/index.js:18:170)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1820:10)
+
+app/layout.tsx
+An error occurred in `next/font`.
+
+Error: EAGAIN
+    at new Worker (node:internal/worker:290:19)
+    at new InternalWorker (node:internal/worker:484:5)
+    at new HooksProxy (node:internal/modules/esm/hooks:506:20)
+    at getHooksProxy (node:internal/modules/esm/loader:983:18)
+    at new CustomizedModuleLoader (node:internal/modules/esm/loader:875:5)
+    at ModuleLoader.register (node:internal/modules/esm/loader:665:30)
+    at Function.register (node:internal/modules/esm/loader:1040:35)
+    at Object.<anonymous> (/home/u131951911/alaya-insider/node_modules/@tailwindcss/node/dist/index.js:18:170)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1820:10)
+
+
+> Build failed because of webpack errors

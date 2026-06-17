@@ -1,4 +1,4 @@
-# ALAYA INSIDER — Git Push Instructions (Updated 2026-06-17)
+# ALAYA INSIDER — Git Push Instructions (Updated 2026-06-16)
 
 **Target:** https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
 
@@ -7,13 +7,13 @@
 | Metric | Value |
 |--------|-------|
 | Branch | `main` |
-| Latest commit | `ec7678a0ce8a6106e11f57748a0d51413f1c40f5` |
-| Commit message | `fix: skip TypeScript checking during build (storybook types in devDeps not installed)` |
-| Commits ahead of origin | **8** (see below) |
-| Tracked files | **592** |
+| Latest commit | `32241476f6953d136949c40d8e3dcde53ea3e66c` |
+| Commit message | `chore: add initial Prisma migration SQL` |
+| Commits ahead of origin | **3** (see below) |
+| Tracked files | **590** |
 | Source files (.ts/.tsx/.js/.jsx) | **406** |
 | Folders (unique paths) | **283** |
-| Remote URL | `https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` |
+| Remote URL | `https://giri843136-cmd@github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` |
 
 **Recent commits (in order, oldest → newest):**
 1. `cd2c843` — Complete ALAYA INSIDER: Storybook fix, 85 new tests, WCAG AAA
@@ -21,15 +21,10 @@
 3. `eaaf28d` — fix: Prisma v7 adapter compatibility
 4. `086c762` — chore: add deploy.py to .gitignore
 5. `3224147` — chore: add initial Prisma migration SQL (2,132 lines)
-6. `a63a3ab` — fix: add baseUrl to tsconfig for @/* path alias resolution
-7. `07a4157` — fix: add webpack alias for @ in next.config.ts to fix path resolution on Hostinger
-8. `ca6b31b` — fix: add react-is dependency (peer dep required by recharts)
-9. `ceb45fc` — fix: move typescript and @types packages to dependencies (NODE_ENV=production skips devDeps)
-10. `ec7678a` — fix: skip TypeScript checking during build (storybook types in devDeps not installed)
 
 **No .env, node_modules, .next, or other forbidden files in the index** — all properly gitignored.
 
-**Note:** Archived build artifacts (.tar.gz, .zip) are untracked and gitignored — they will NOT be pushed.
+**Note:** `.next.tar.gz` (852 MB build artifact) is untracked and gitignored — it will NOT be pushed.
 
 ---
 
@@ -123,7 +118,7 @@ echo "Top-level folders:"
 git ls-tree -r --name-only HEAD | grep -o '^[a-zA-Z0-9_.-]*/' | sort -u
 echo ""
 echo "Open: https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER"
-echo "Verify: 592 files, 283 folders, latest commit ec7678a, all folders present"
+echo "Verify: 590 files, 283 folders, latest commit 3224147, all folders present"
 ```
 
 ### Step 8: Confirm on GitHub
@@ -131,10 +126,10 @@ echo "Verify: 592 files, 283 folders, latest commit ec7678a, all folders present
 Visit **https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER** in your browser.
 
 You should see:
-- **592 files** across **283 folders**
+- **590 files** across **283 folders**
 - **17 top-level folders**: .github/, .storybook/, agents/, api/, app/, apps/, components/, docs/, infra/, lib/, prisma/, public/, runbooks/, scripts/, sdk/, tests/, workers/
-- Latest commit: `ec7678a` — "fix: skip TypeScript checking during build"
-- Full commit history (all 10 production commits)
+- Latest commit: `3224147` — "chore: add initial Prisma migration SQL"
+- Full commit history (all 5 production commits)
 - **No** node_modules, .next, .env, or cache folders
 
 ---

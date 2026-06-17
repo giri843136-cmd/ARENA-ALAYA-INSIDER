@@ -132,7 +132,7 @@ export default function PriceMonitor() {
           <div className="flex justify-between text-xs text-[var(--admin-text-muted)] mt-3">
             <span>Tracked products: 18,420</span>
             <span>Active price alerts: {alerts.length}</span>
-            <span>Deals ending soon: {deals.filter((d) => new Date(d.endsAt).getTime() - Date.now() < 7 * 86400000).length}</span>
+            <span>Deals ending soon: {deals.filter((d) => new Date(d.endsAt).getTime() - new Date().getTime() < 7 * 86400000).length}</span>
           </div>
         </div>
       </div>

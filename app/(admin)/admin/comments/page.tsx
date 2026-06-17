@@ -10,6 +10,32 @@ import {
 import { toast } from "sonner";
 import { CommentDetailDrawer } from "@/components/admin/ui/CommentDetailDrawer";
 
+// Standalone bulk confirmation modal (not defined inside a component to avoid react-hooks/static-components)
+function BulkConfirmModal({ show, onClose, onConfirm, bulkActionLabel, selectedCount, isLoading }: {
+  show: boolean; onClose: () => void; onConfirm: () => void;
+  bulkActionLabel: string; selectedCount: number; isLoading: boolean;
+}) {
+  if (!show) return null;
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/60 z-[9999]" onClick={onClose} />
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#161616] border border-[var(--admin-border)] rounded-xl p-6 z-[10000] w-full max-w-md shadow-2xl">
+        <h3 className="text-lg font-semibold text-white mb-2">Confirm Bulk Action</h3>
+        <p className="text-sm text-[var(--admin-text-secondary)] mb-1">
+          Are you sure you want to <strong className="text-white">{bulkActionLabel}</strong> {selectedCount} comment{selectedCount !== 1 ? "s" : ""}?
+        </p>
+        <p className="text-xs text-[#F87171] mb-5">This action is immediate and irreversible.</p>
+        <div className="flex gap-3 justify-end">
+          <button onClick={onClose} className="btn-admin btn-admin-ghost text-xs">Cancel</button>
+          <button onClick={onConfirm} disabled={isLoading} className="btn-admin text-xs bg-[#C5AA8A] text-[#0A0A0A] hover:bg-[#D4B88A] disabled:opacity-50">
+            {isLoading ? <><Loader2 size={14} className="animate-spin" /> Processing...</> : <>Confirm {bulkActionLabel}</>}
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
 interface CommentUser { id: string; name: string | null; avatar: string | null; }
 interface ArticleRef { id: string; slug: string; title: string; }
 interface CommentData {
@@ -160,29 +186,6 @@ export default function AdminComments() {
     selectedComments.size === comments.length ? setSelectedComments(new Set()) : setSelectedComments(new Set(comments.map((c) => c.id)));
   };
 
-  // Bulk confirmation modal
-  const BulkConfirmModal = () => {
-    if (!showBulkConfirm) return null;
-    return (
-      <>
-        <div className="fixed inset-0 bg-black/60 z-[9999]" onClick={() => setShowBulkConfirm(false)} />
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#161616] border border-[var(--admin-border)] rounded-xl p-6 z-[10000] w-full max-w-md shadow-2xl">
-          <h3 className="text-lg font-semibold text-white mb-2">Confirm Bulk Action</h3>
-          <p className="text-sm text-[var(--admin-text-secondary)] mb-1">
-            Are you sure you want to <strong className="text-white">{bulkAction}</strong> {selectedComments.size} comment{selectedComments.size !== 1 ? "s" : ""}?
-          </p>
-          <p className="text-xs text-[#F87171] mb-5">This action is immediate and irreversible.</p>
-          <div className="flex gap-3 justify-end">
-            <button onClick={() => setShowBulkConfirm(false)} className="btn-admin btn-admin-ghost text-xs">Cancel</button>
-            <button onClick={handleBulkAction} disabled={actionLoading === "bulk"} className="btn-admin text-xs bg-[#C5AA8A] text-[#0A0A0A] hover:bg-[#D4B88A] disabled:opacity-50">
-              {actionLoading === "bulk" ? <><Loader2 size={14} className="animate-spin" /> Processing...</> : <>Confirm {bulkAction}</>}
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  };
-
   return (
     <div className="p-8 max-w-[1600px] mx-auto">
       {/* Bulk progress toast */}
@@ -193,7 +196,14 @@ export default function AdminComments() {
       )}
 
       {/* Bulk confirmation modal */}
-      <BulkConfirmModal />
+      <BulkConfirmModal
+        show={showBulkConfirm}
+        onClose={() => setShowBulkConfirm(false)}
+        onConfirm={handleBulkAction}
+        bulkActionLabel={bulkAction}
+        selectedCount={selectedComments.size}
+        isLoading={actionLoading === "bulk"}
+      />
 
       {/* Header */}
       <div className="mb-8">
