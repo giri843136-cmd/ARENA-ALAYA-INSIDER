@@ -7,9 +7,9 @@
 | Metric | Value |
 |--------|-------|
 | Branch | `main` |
-| Latest commit | `ec7678a0ce8a6106e11f57748a0d51413f1c40f5` |
-| Commit message | `fix: skip TypeScript checking during build (storybook types in devDeps not installed)` |
-| Commits ahead of origin | **8** (see below) |
+| Latest commit | `debe7a3a974d08f47f80ac8e8231e4a49e149cf8` |
+| Commit message | `fix: move BulkConfirmModal outside component, fix hoisting bug, update push docs` |
+| Commits ahead of origin | **11** (see below) |
 | Tracked files | **592** |
 | Source files (.ts/.tsx/.js/.jsx) | **406** |
 | Folders (unique paths) | **283** |
@@ -26,6 +26,7 @@
 8. `ca6b31b` — fix: add react-is dependency (peer dep required by recharts)
 9. `ceb45fc` — fix: move typescript and @types packages to dependencies (NODE_ENV=production skips devDeps)
 10. `ec7678a` — fix: skip TypeScript checking during build (storybook types in devDeps not installed)
+11. `debe7a3` — fix: move BulkConfirmModal outside component, fix hoisting bug, update push docs
 
 **No .env, node_modules, .next, or other forbidden files in the index** — all properly gitignored.
 
@@ -123,7 +124,7 @@ echo "Top-level folders:"
 git ls-tree -r --name-only HEAD | grep -o '^[a-zA-Z0-9_.-]*/' | sort -u
 echo ""
 echo "Open: https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER"
-echo "Verify: 592 files, 283 folders, latest commit ec7678a, all folders present"
+echo "Verify: 592 files, 283 folders, latest commit debe7a3, all folders present"
 ```
 
 ### Step 8: Confirm on GitHub
@@ -133,8 +134,8 @@ Visit **https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER** in your browser.
 You should see:
 - **592 files** across **283 folders**
 - **17 top-level folders**: .github/, .storybook/, agents/, api/, app/, apps/, components/, docs/, infra/, lib/, prisma/, public/, runbooks/, scripts/, sdk/, tests/, workers/
-- Latest commit: `ec7678a` — "fix: skip TypeScript checking during build"
-- Full commit history (all 10 production commits)
+- Latest commit: `debe7a3` — "fix: move BulkConfirmModal outside component, fix hoisting bug, update push docs"
+- Full commit history (all 11 production commits)
 - **No** node_modules, .next, .env, or cache folders
 
 ---
