@@ -3,7 +3,7 @@
 set -e
 echo "=== POST-PUSH VERIFICATION (must match local exactly) ==="
 echo "Branch: $(git branch --show-current)   # main"
-echo "Commit: $(git rev-parse HEAD)   # debe7a3a974d08f47f80ac8e8231e4a49e149cf8"
+echo "Commit: $(git rev-parse HEAD)   # 29103ea (doc-update commit)"
 echo "Remote: $(git remote get-url origin)"
 echo "Tracked files: $(git ls-files | wc -l)   # 592"
 echo "Folders: $(git ls-tree -r --name-only HEAD | grep -o '.*/' | sort | uniq | wc -l)   # 283"
