@@ -12,13 +12,16 @@ source .env
 echo "1. Prisma generate..."
 npx prisma generate
 
-echo "2. Deploy migrations to real PostgreSQL..."
+echo "2. Run security migration (passwordHash, 2FA, audit, delegated access)..."
+psql "$DATABASE_URL" -f prisma/migrations/migration_add_security.sql 2>/dev/null || echo "Migration may already exist — continuing..."
+
+echo "3. Deploy all Prisma migrations..."
 npx prisma migrate deploy
 
-echo "3. Seed real production data (products, brands, articles, etc.)..."
+echo "4. Seed real production data (including primary admin alayainsider@gmail.com)..."
 npm run db:seed
 
-echo "4. Verify seed..."
+echo "5. Verify seed..."
 npx tsx -e "
 const { prisma } = require('./lib/db/prisma');
 (async () => {

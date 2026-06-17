@@ -857,6 +857,12 @@ model User {
 
   roles UserRole[]
 
+  // Security relations
+  twoFactorAuth     TwoFactorAuth?
+  backupCodes       BackupCode[]
+  delegatedAccess   DelegatedAccess[] @relation("DelegatedAccessGranter")
+  securityAuditLogs SecurityAuditLog[]
+
   @@index([email])
 }
 
@@ -1612,8 +1618,87 @@ model CronLog {
 }
 
 // =============================================
-// SECURITY — Device Sessions, Addresses, Push, 2FA
+// SECURITY — 2FA, Password, Login Tracking, Delegated Access
 // =============================================
+
+model TwoFactorAuth {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  secret    String   // TOTP secret (encrypted at rest)
+  enabled   Boolean  @default(false)
+  verified  Boolean  @default(false) // true after user confirms setup
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model BackupCode {
+  id        String   @id @default(cuid())
+  userId    String
+  codeHash  String   // bcrypt hash of backup code
+  used      Boolean  @default(false)
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([codeHash])
+}
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ipAddress String
+  userAgent String?
+  success   Boolean
+  failReason String? // "invalid_password" | "account_locked" | "2fa_failed"
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ipAddress, createdAt])
+  @@index([createdAt])
+}
+
+model DelegatedAccess {
+  id          String   @id @default(cuid())
+  grantedBy   String   // userId of the primary admin (alayainsider@gmail.com)
+  grantedTo   String   // userId or email of delegated user
+  email       String   // email of delegated user
+  role        Role     @default(EDITOR)
+  permissions String[] // specific permissions granted
+  active      Boolean  @default(true)
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  granter User @relation("DelegatedAccessGranter", fields: [grantedBy], references: [id], onDelete: Cascade)
+
+  @@index([grantedBy])
+  @@index([email])
+  @@index([active])
+}
+
+model SecurityAuditLog {
+  id           String   @id @default(cuid())
+  userId       String?
+  action       String   // "login_success" | "login_failed" | "2fa_enabled" | "2fa_disabled" | "password_changed" | "access_granted" | "access_revoked" | "session_revoked"
+  details      String?  @db.Text
+  ipAddress    String?
+  userAgent    String?
+  severity     String   @default("info") // info | warning | critical
+  createdAt    DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([action])
+  @@index([createdAt])
+  @@index([severity])
+}
 
 model DeviceSession {
   id         String      @id // JTI (JWT ID)

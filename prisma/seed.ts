@@ -267,7 +267,35 @@ async function main() {
     }
   }
 
-  // 9. Admin Demo User
+  // 9. Primary Admin (alayainsider@gmail.com) — SUPER_ADMIN with password hash
+  console.log('Seeding Primary Admin (alayainsider@gmail.com)...');
+  const bcrypt = require('bcryptjs');
+  const primaryPassword = process.env.PRIMARY_ADMIN_PASSWORD || 'Alaya@Admin#2026!Secure';
+  const primaryPasswordHash = await bcrypt.hash(primaryPassword, 12);
+  console.log(`Primary admin password: ${primaryPassword}`);
+  const primaryAdmin = await prisma.user.upsert({
+    where: { email: 'alayainsider@gmail.com' },
+    update: {},
+    create: {
+      email: 'alayainsider@gmail.com',
+      name: 'Giri (ALAYA Owner)',
+      currency: 'USD',
+      language: 'en',
+    },
+  });
+  // Set password hash via raw SQL (not in Prisma types yet)
+  await prisma.$executeRawUnsafe(
+    `INSERT INTO "User" (id, "passwordHash") VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET "passwordHash" = $2`,
+    primaryAdmin.id, primaryPasswordHash
+  );
+  // Assign SUPER_ADMIN role
+  await prisma.userRole.upsert({
+    where: { userId_role: { userId: primaryAdmin.id, role: 'SUPER_ADMIN' } },
+    update: {},
+    create: { userId: primaryAdmin.id, role: 'SUPER_ADMIN' },
+  });
+
+  // 10. Admin Demo User
   console.log('Seeding Admin Demo User...');
   const adminUser = await prisma.user.upsert({
     where: { email: 'admin@alayainsider.com' },
@@ -279,7 +307,6 @@ async function main() {
       language: 'en',
     },
   });
-  // Assign admin role
   await prisma.userRole.upsert({
     where: { userId_role: { userId: adminUser.id, role: 'ADMIN' } },
     update: {},

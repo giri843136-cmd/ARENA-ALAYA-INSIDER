@@ -8,7 +8,7 @@ module.exports = {
     {
       name: "alaya-insider",
       script: "npm",
-      args: "start",
+      args: "start",                    // Works with both standalone and non-standalone output
       instances: 1,                    // Increase for multi-core
       exec_mode: "cluster",
       env: {

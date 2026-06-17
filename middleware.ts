@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { detectCurrencyFromRequest } from "@/lib/currency/detect";
+import { applyCorsHeaders, isOriginAllowed } from "@/lib/backend/security/cors";
 
 /**
  * Role hierarchy for admin route access.
@@ -92,11 +93,17 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
-  // Protect /api/v1/admin/* API routes
+  // Protect /api/v1/admin/* API routes + apply CORS
   if (pathname.startsWith("/api/v1/admin/")) {
     const token = await getTokenFromRequest(request);
     if (!token || !hasAdminAccess(token.role || null)) {
       return forbiddenResponse();
+    }
+    // Apply CORS headers
+    const origin = request.headers.get("origin");
+    if (origin && isOriginAllowed(origin)) {
+      const response = NextResponse.next();
+      return applyCorsHeaders(response as any, origin) as NextResponse;
     }
   }
 
