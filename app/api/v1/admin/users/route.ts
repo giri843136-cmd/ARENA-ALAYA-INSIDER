@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const rlId = getRateLimitIdentifier(request);
+  const rl = await checkRateLimit(rlId, "admin");
+  if (!rl.allowed) {
+    return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
+  }
   const { searchParams } = new URL(request.url);
   const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
   const limit = Math.min(100, parseInt(searchParams.get("limit") || "50"));

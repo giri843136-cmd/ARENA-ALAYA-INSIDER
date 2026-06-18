@@ -7,6 +7,7 @@ import {
   Loader2 
 } from "lucide-react";
 import { SocialProofControls } from "@/components/admin/ui/SocialProofControls";
+import { RevenueForecastWidget } from "@/components/admin/widgets/RevenueForecastWidget";
 
 interface Stats {
   productCount: number;
@@ -114,17 +115,9 @@ export default function CommandCenter() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Revenue + Performance */}
-            <div className="lg:col-span-5 widget">
-              <div className="widget-title flex items-center gap-2"><BarChart3 size={14} /> REVENUE INTELLIGENCE</div>
-              <div className="h-64 flex items-center justify-center text-[var(--admin-text-muted)] text-sm border border-[var(--admin-border)] rounded-xl">
-                [Recharts Area Chart — Revenue by day + Commission breakdown]
-              </div>
-              <div className="grid grid-cols-3 gap-4 mt-4 text-xs">
-                <div>Top Network: <span className="font-medium text-[var(--admin-accent)]">Impact</span></div>
-                <div>Top Brand: <span className="font-medium">Ferm Living</span></div>
-                <div>Conversion: <span className="font-medium text-[#4ADE80]">18.4%</span></div>
-              </div>
+            {/* Revenue Forecast Widget */}
+            <div className="lg:col-span-5">
+              <RevenueForecastWidget />
             </div>
 
             {/* Top Products */}

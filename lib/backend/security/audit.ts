@@ -106,6 +106,62 @@ export async function isRateLimited(
 }
 
 /**
+/**
+ * Check and auto-lock an account after too many consecutive failed attempts
+ * Returns true if the account was just locked
+ */
+export async function checkAndLockAccount(email: string): Promise<boolean> {
+  const since = new Date(Date.now() - 30 * 60 * 1000); // 30 min window
+  const recentFailures = await prisma.loginAttempt.count({
+    where: {
+      email,
+      success: false,
+      createdAt: { gte: since },
+    },
+  });
+
+  // Auto-lock after 10 consecutive failures within 30 min
+  if (recentFailures >= 10) {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (user && !user.blocked) {
+      await prisma.user.update({
+        where: { email },
+        data: { blocked: true },
+      });
+      await logSecurityEvent({
+        userId: user.id,
+        action: "account_auto_locked",
+        details: `Account auto-locked after ${recentFailures} consecutive failed login attempts`,
+        severity: "critical",
+      });
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Unlock a previously locked account (admin action)
+ */
+export async function unlockAccount(userId: string, adminId: string): Promise<boolean> {
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { blocked: false },
+    });
+    await logSecurityEvent({
+      userId: adminId,
+      action: "account_unlocked",
+      details: `Account ${userId} manually unlocked by admin ${adminId}`,
+      severity: "info",
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Record a login attempt
  */
 export async function recordLoginAttempt(params: {

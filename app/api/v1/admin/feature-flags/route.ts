@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const rlId = getRateLimitIdentifier(request);
+  const rl = await checkRateLimit(rlId, "admin");
+  if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
   const { searchParams } = new URL(request.url);
   const key = searchParams.get("key");
   try {
@@ -21,6 +25,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const rlId = getRateLimitIdentifier(request);
+    const rl = await checkRateLimit(rlId, "admin");
+    if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
     const { key, description, enabled, percentage, rules } = await request.json();
     if (!key) return NextResponse.json({ success: false, error: { code: "VALIDATION_ERROR", message: "key is required" } }, { status: 400 });
     const flag = await prisma.featureFlag.upsert({

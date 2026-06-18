@@ -16,7 +16,7 @@ import { sendMagicLink } from "@/lib/backend/email/resend";
 import { verifyPassword } from "@/lib/backend/auth/password";
 import { is2FAEnabled, verifyTOTP, verifyBackupCode } from "@/lib/backend/auth/two-factor";
 import { hasDelegatedAccess } from "@/lib/backend/auth/delegated-access";
-import { recordLoginAttempt, isRateLimited, logSecurityEvent } from "@/lib/backend/security/audit";
+import { recordLoginAttempt, isRateLimited, checkAndLockAccount, logSecurityEvent } from "@/lib/backend/security/audit";
 
 const PRIMARY_ADMIN_EMAIL = "alayainsider@gmail.com";
 
@@ -140,6 +140,19 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        // Check for brute-force account locking
+        const locked = await checkAndLockAccount(email);
+        if (locked) {
+          await logSecurityEvent({
+            userId: user.id,
+            action: "brute_force_locked",
+            details: "Account auto-locked by brute force protection",
+            ipAddress,
+            severity: "critical",
+          });
+          throw new Error("Account has been temporarily locked due to too many failed login attempts. Please contact support or use the password reset option.");
+        }
+
         // Check 2FA
         const twoFAEnabled = await is2FAEnabled(user.id);
         if (twoFAEnabled) {
@@ -176,7 +189,7 @@ export const authOptions: NextAuthOptions = {
           }
         }
 
-        // Successful login
+        // Successful login - reset failure counter by recording success
         await recordLoginAttempt({ email, ipAddress, success: true });
         await logSecurityEvent({
           userId: user.id,

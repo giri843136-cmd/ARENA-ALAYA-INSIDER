@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {
+    const rlId = getRateLimitIdentifier(request);
+    const rl = await checkRateLimit(rlId, "admin");
+    if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("search")?.trim().toLowerCase();
     const status = searchParams.get("status");
@@ -65,6 +69,9 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const rlId = getRateLimitIdentifier(request);
+    const rl = await checkRateLimit(rlId, "admin");
+    if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 

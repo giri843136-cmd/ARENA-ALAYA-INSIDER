@@ -8,7 +8,8 @@ import {
   Shield, Activity, Settings, ChevronLeft, ChevronRight, BarChart3, Globe,
   Image, Target, Link as LinkIcon, Database, MessageSquare, FlaskConical,
   Key, WebhookIcon, Flag, SearchX, TrendingUp as TrendIcon,
-  DollarSign, Link2, FileText, Bell, Mail, Tag, Languages
+  DollarSign, Link2, FileText, Bell, Mail, Tag, Languages, Lock,
+  Rocket, Percent, Upload, Code
 } from "lucide-react";
 
 const navGroups = [
@@ -20,21 +21,22 @@ const navGroups = [
       { href: "/admin/revenue", label: "Revenue Intelligence", icon: BarChart3 },
       { href: "/admin/affiliates", label: "Affiliate Links", icon: Link2 },
       { href: "/admin/link-health", label: "Link Health Monitor", icon: Activity },
+      { href: "/admin/live-clicks", label: "Live Click Stream", icon: Activity },
     ]
-  },
-  {
-    label: "Content",
-    items: [
-      { href: "/admin/products", label: "Product Studio", icon: Package },
-      { href: "/admin/brands", label: "Brand Vault", icon: Users },
-      { href: "/admin/story-builder", label: "Story Builder", icon: BookOpen },
-      { href: "/admin/journal", label: "INSIDER Journal", icon: BookOpen },
-      { href: "/admin/comments", label: "Comments", icon: MessageSquare },
-      { href: "/admin/media", label: "Media Atelier", icon: Image },
-      { href: "/admin/kanban", label: "Kanban Board", icon: LayoutDashboard },
-      { href: "/admin/calendar", label: "Content Calendar", icon: LayoutDashboard },
-    ]
-  },
+  },    {
+      label: "Content",
+      items: [
+        { href: "/admin/products", label: "Product Studio", icon: Package },
+        { href: "/admin/brands", label: "Brand Vault", icon: Users },
+        { href: "/admin/story-builder", label: "Story Builder", icon: BookOpen },
+        { href: "/admin/journal", label: "INSIDER Journal", icon: BookOpen },
+        { href: "/admin/comments", label: "Comments", icon: MessageSquare },
+        { href: "/admin/media", label: "Media Atelier", icon: Image },
+        { href: "/admin/kanban", label: "Kanban Board", icon: LayoutDashboard },
+        { href: "/admin/calendar", label: "Content Calendar", icon: LayoutDashboard },
+        { href: "/admin/affiliate-import", label: "Bulk Import", icon: Upload },
+      ]
+    },
   {
     label: "Discovery",
     items: [
@@ -45,31 +47,32 @@ const navGroups = [
       { href: "/admin/feed-manager", label: "Feed Manager", icon: Database },
       { href: "/admin/broken-links", label: "Broken Links", icon: SearchX },
     ]
-  },
-  {
-    label: "Intelligence",
-    items: [
-      { href: "/admin/ai", label: "AI Workspace", icon: Bot },
-      { href: "/admin/automation", label: "Automation Center", icon: Zap },
-      { href: "/admin/trends", label: "Trend Radar", icon: TrendIcon },
-      { href: "/admin/ab-tests", label: "A/B Tests", icon: FlaskConical },
-      { href: "/admin/content-roi", label: "Content ROI", icon: FileText },
-    ]
-  },
-  {
-    label: "Audience & Revenue",
-    items: [
-      { href: "/admin/audience", label: "Audience Hub", icon: Users },
-      { href: "/admin/email-campaigns", label: "Email Campaigns", icon: Mail },
-      { href: "/admin/campaigns", label: "Campaign Center", icon: Globe },
-      { href: "/admin/price-monitor", label: "Price Monitor", icon: Bell },
-      { href: "/admin/deals", label: "Deals & Coupons", icon: Tag },
-    ]
-  },
+  },    {
+      label: "Intelligence",
+      items: [
+        { href: "/admin/ai", label: "AI Workspace", icon: Bot },
+        { href: "/admin/automation", label: "Automation Center", icon: Zap },
+        { href: "/admin/trends", label: "Trend Radar", icon: TrendIcon },
+        { href: "/admin/ab-tests", label: "A/B Tests", icon: FlaskConical },
+        { href: "/admin/content-roi", label: "Content ROI", icon: FileText },
+        { href: "/admin/inventory", label: "Inventory Predictions", icon: Package },
+      ]
+    },    {
+      label: "Audience & Revenue",
+      items: [
+        { href: "/admin/audience", label: "Audience Hub", icon: Users },
+        { href: "/admin/email-campaigns", label: "Email Campaigns", icon: Mail },
+        { href: "/admin/campaigns", label: "Campaign Center", icon: Globe },
+        { href: "/admin/price-monitor", label: "Price Monitor", icon: Bell },
+        { href: "/admin/deals", label: "Deals & Coupons", icon: Tag },
+        { href: "/admin/commission-split", label: "Commission Split", icon: Percent },
+      ]
+    },
   {
     label: "System",
     items: [
-      { href: "/admin/security", label: "Security Center", icon: Shield },
+      { href: "/admin/security/dashboard", label: "Security Dashboard", icon: Shield },
+      { href: "/admin/security", label: "Security Center", icon: Lock },
       { href: "/admin/users", label: "Users", icon: Users },
       { href: "/admin/activity-logs", label: "Activity & Audit", icon: Activity },
       { href: "/admin/moderation-logs", label: "Moderation Logs", icon: Shield },
@@ -78,6 +81,9 @@ const navGroups = [
       { href: "/admin/feature-flags", label: "Feature Flags", icon: Flag },
       { href: "/admin/integrations", label: "Integrations", icon: LinkIcon },
       { href: "/admin/i18n", label: "i18n & Localization", icon: Languages },
+      { href: "/admin/deploy", label: "One-Click Deploy", icon: Rocket },
+      { href: "/admin/api-docs", label: "API Documentation", icon: Code },
+      { href: "/admin/training", label: "Training & Docs", icon: BookOpen },
       { href: "/admin/settings", label: "System Settings", icon: Settings },
     ]
   }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { resolvePreset, applyPresetMapping } from "@/lib/import/presets";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -94,6 +95,9 @@ async function createMediaForProduct(productId: string, imageUrl: string) {
 
 export async function POST(request: NextRequest) {
   try {
+    const rlId = getRateLimitIdentifier(request);
+    const rl = await checkRateLimit(rlId, "adminImport");
+    if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
     const presetId = (formData.get("preset") as string) || "alaya";

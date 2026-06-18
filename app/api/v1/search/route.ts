@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHash } from "crypto";
 import { searchAll } from "@/lib/search/services/searchService";
 import { trackSearchEvent } from "@/lib/search/analytics/tracker";
+import { cacheAside } from "@/lib/backend/cache/redis-cache";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -33,18 +35,31 @@ export async function GET(request: NextRequest) {
   };
 
   try {
-    const results = await searchAll(params.q, {
-      page: params.page,
-      perPage: params.limit,
-      filters: [
-        params.category ? `category:=${params.category}` : "",
-        params.brand ? `brand:=${params.brand}` : "",
-        params.minPrice ? `price:>=${params.minPrice}` : "",
-        params.maxPrice ? `price:<=${params.maxPrice}` : "",
-      ].filter(Boolean).join("&&"),
-    });
+    // Hash query to keep Redis key short (search queries can be arbitrarily long)
+    const queryHash = params.q
+      ? createHash("sha1").update(params.q).digest("hex").slice(0, 16)
+      : "";
+    const cacheKey = `search:${queryHash}:${params.page}:${params.limit}:${params.category || ""}:${params.brand || ""}:${params.sort}`;
 
-    // Track search for analytics
+    const results = await cacheAside(
+      cacheKey,
+      async () => {
+        const res = await searchAll(params.q, {
+          page: params.page,
+          perPage: params.limit,
+          filters: [
+            params.category ? `category:=${params.category}` : "",
+            params.brand ? `brand:=${params.brand}` : "",
+            params.minPrice ? `price:>=${params.minPrice}` : "",
+            params.maxPrice ? `price:<=${params.maxPrice}` : "",
+          ].filter(Boolean).join("&&"),
+        });
+        return res;
+      },
+      { ttl: 120, keyPrefix: "alaya" } // 2 minute cache for search results
+    );
+
+    // Track search for analytics (non-blocking)
     try {
       await trackSearchEvent({
         query: params.q,

@@ -2,11 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { revenueIntelligence } from "@/lib/analytics/services/revenueIntelligence";
 import { affiliateIntelligence } from "@/lib/analytics/services/affiliateIntelligence";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const rlId = getRateLimitIdentifier(request);
+  const rl = await checkRateLimit(rlId, "admin");
+  if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
   const { searchParams } = new URL(request.url);
   const days = parseInt(searchParams.get("days") || "30");
   const start = new Date(Date.now() - days * 86400000);

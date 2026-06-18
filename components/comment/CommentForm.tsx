@@ -1,7 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { Send, Loader2 } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Send, Loader2, ShieldAlert } from "lucide-react";
+
+// Client-side XSS sanitization before submission (defense in depth)
+function sanitizeComment(text: string): string {
+  return text
+    .replace(/<[^>]*>/g, "")             // strip all HTML tags
+    .replace(/javascript\s*:/gi, "")    // strip javascript: protocol
+    .replace(/on\w+\s*=/gi, "")         // strip event handlers (onclick, onerror, etc.)
+    .replace(/data\s*:\s*text\/html/gi, "") // strip dangerous data URIs
+    .trim();
+}
 
 interface CommentFormProps {
   onSubmit: (content: string) => Promise<void> | void;
@@ -26,11 +36,24 @@ export function CommentForm({
     e.preventDefault();
     if (!content.trim() || isSubmitting) return;
 
+    // Sanitize content before submission (defense in depth)
+    const sanitized = sanitizeComment(content.trim());
+    if (!sanitized) {
+      setError("Comment content is not valid after security check.");
+      return;
+    }
+
+    // Check for suspicious content
+    if (sanitized.length < content.trim().length * 0.5) {
+      setError("Comment contains blocked content. Please remove any HTML tags or scripting.");
+      return;
+    }
+
     setIsSubmitting(true);
     setError(null);
 
     try {
-      await onSubmit(content.trim());
+      await onSubmit(sanitized);
       setContent("");
     } catch (err: any) {
       setError(err.message || "Failed to post comment. Please try again.");

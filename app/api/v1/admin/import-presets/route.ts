@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const rlId = getRateLimitIdentifier(request);
+  const rl = await checkRateLimit(rlId, "admin");
+  if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
   try {
     const presets = await prisma.importPreset.findMany({
       orderBy: { updatedAt: "desc" },
@@ -32,6 +36,9 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const rlId = getRateLimitIdentifier(request);
+    const rl = await checkRateLimit(rlId, "admin");
+    if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
     const body = await request.json();
     const { name, network, columns, defaultNetwork } = body;
 
@@ -72,6 +79,9 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const rlId = getRateLimitIdentifier(request);
+    const rl = await checkRateLimit(rlId, "admin");
+    if (!rl.allowed) return NextResponse.json({ success: false, error: { code: "RATE_LIMITED" } }, { status: 429 });
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
     if (!id) {
