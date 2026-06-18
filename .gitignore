@@ -57,6 +57,16 @@ logs/
 # Deployment script (contains server credentials)
 scripts/deploy.py
 
+# Next.js build archives (generated, not source)
+.next.tar.gz
+.next-new.tar.gz
+app-temp.tar
+temp-zip/
+
+# Python cache
+__pycache__/
+*.pyc
+
 # Windows reserved device names (can't be tracked on Windows)
 nul
 nul-notes.txt

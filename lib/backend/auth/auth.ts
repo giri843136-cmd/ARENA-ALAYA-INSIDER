@@ -283,7 +283,13 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export const { handlers, auth, signIn, signOut } = NextAuth(authOptions as any); // cast for session typing in this build
+// Export the NextAuth handler directly (v4 App Router pattern) plus auth utilities
+export const authHandler = NextAuth(authOptions as any) as any;
+export const { auth, signIn, signOut } = authHandler;
+export const handlers = {
+  GET: authHandler,
+  POST: authHandler,
+};
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions as any);
