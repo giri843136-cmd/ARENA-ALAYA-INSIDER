@@ -1,0 +1,11 @@
+# =============================================
+# ALAYA INSIDER — Vulnerability Disclosure
+# =============================================
+Contact: mailto:security@alayainsider.com
+Contact: https://alayainsider.com/security/vulnerability-disclosure
+Encryption: https://alayainsider.com/.well-known/pgp-key.txt
+Policy: https://alayainsider.com/security/policy
+Acknowledgments: https://alayainsider.com/security/hall-of-fame
+Preferred-Languages: en, fr, de, ja, zh
+Canonical: https://alayainsider.com/.well-known/security.txt
+Expires: 2026-09-18T00:00:00.000Z

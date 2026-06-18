@@ -1,0 +1,148 @@
+# =============================================
+# ALAYA INSIDER — CI/CD Security Scanning
+# Runs on every PR and daily on main
+# SAST: Snyk + SonarQube + OWASP Dependency-Check
+# DAST: OWASP ZAP (staging)
+# =============================================
+name: Security Scan
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 06:00 UTC
+
+jobs:
+  # === SAST: Dependency Scanning ===
+  dependency-scan:
+    name: Dependency Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Snyk Security Scan
+        uses: snyk/actions/node@v3
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --fail-on=all
+
+      - name: OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@v1
+        with:
+          project: 'ALAYA INSIDER'
+          path: '.'
+          format: 'HTML'
+        continue-on-error: true
+
+      - name: Upload Dependency Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports/
+
+  # === SAST: Code Analysis ===
+  code-analysis:
+    name: Code Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=alaya-insider
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/node_modules/**,**/.next/**,**/tests/**
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=tests/**
+
+      - name: Lint Check (ESLint)
+        run: npx eslint . --max-warnings=0
+        continue-on-error: true
+
+  # === SECRETS SCANNING ===
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog Secret Detection
+        uses: trufflesecurity/trufflehog@v3
+        with:
+          extra_args: --results=verified,unknown --fail
+
+      - name: Gitleaks Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # === DAST: OWASP ZAP ===
+  dast-scan:
+    name: DAST Scan (ZAP)
+    runs-on: ubuntu-latest
+    needs: [dependency-scan, code-analysis]
+    steps:
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12
+        with:
+          target: 'https://staging.alayainsider.com'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -j -I'
+          allow_issue_writing: false
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: zap-report.html
+
+  # === NIKTO + NMAP SCAN ===
+  external-scan:
+    name: External Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Nikto Web Server Scan
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq nikto
+          nikto -h https://staging.alayainsider.com -ssl -Format html \
+            -output nikto-report.html || true
+
+      - name: Upload Nikto Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: nikto-report
+          path: nikto-report.html
+
+  # === NOTIFY ===
+  notify:
+    name: Notify Team
+    runs-on: ubuntu-latest
+    needs: [dependency-scan, code-analysis, secret-scan, dast-scan, external-scan]
+    if: always()
+    steps:
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "Security Scan Complete — ${{ job.status }}",
+              "blocks": [
+                { "type": "section", "text": { "type": "mrkdwn", "text": "*ALAYA INSIDER Security Scan*" } },
+                { "type": "section", "text": { "type": "mrkdwn", "text": "Dependency: ${{ needs.dependency-scan.result }}\nCode: ${{ needs.code-analysis.result }}\nSecrets: ${{ needs.secret-scan.result }}\nDAST: ${{ needs.dast-scan.result }}\nExternal: ${{ needs.external-scan.result }}" } }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,0 +1,29 @@
+# =============================================
+# ALAYA INSIDER — Security.txt
+# Vulnerability Disclosure Program
+# https://alayainsider.com/.well-known/security.txt
+# =============================================
+
+# Contact Information
+Contact: mailto:security@alayainsider.com
+Contact: https://alayainsider.com/security/vulnerability-disclosure
+Contact: mailto:alayainsider@gmail.com
+
+# Encryption (PGP key for encrypted reports)
+Encryption: https://alayainsider.com/.well-known/pgp-key.txt
+
+# Disclosure Policy
+Policy: https://alayainsider.com/security/policy
+Hiring: https://alayainsider.com/careers
+
+# Acknowledgments
+Acknowledgments: https://alayainsider.com/security/hall-of-fame
+
+# Preferred Languages
+Preferred-Languages: en, fr, de, ja, zh
+
+# Canonical URL
+Canonical: https://alayainsider.com/.well-known/security.txt
+
+# Expiry (renew every 90 days)
+Expires: 2026-09-18T00:00:00.000Z
