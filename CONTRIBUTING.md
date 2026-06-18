@@ -134,8 +134,8 @@ All jobs run in parallel. E2E artifacts are uploaded on failure for debugging.
 
 ### Currency Detection
 
-The app uses IP-based currency detection via the middleware:
-1. **Server-side**: `middleware.ts` sets cookies (`x-currency-code`, `x-currency-symbol`, `x-currency-locale`) based on `cf-ipcountry` or `accept-language` headers
+The app uses IP-based currency detection via the proxy:
+1. **Server-side**: `proxy.ts` sets cookies (`x-currency-code`, `x-currency-symbol`, `x-currency-locale`) based on `cf-ipcountry` or `accept-language` headers
 2. **Client-side**: `CurrencyProvider` in `app/layout.tsx` reads these cookies and fetches live exchange rates from `open.er-api.com`
 3. **Fallback**: Hardcoded rates in `lib/currency/detect.ts` are used when the API is unavailable
 
@@ -146,7 +146,7 @@ The currency module is structured as:
 
 ### Multi-Language Support
 
-8 locales are supported: English, French, German, Spanish, Japanese, Korean, Chinese, Portuguese. Locale files are in `messages/` as JSON. The middleware detects locale from `accept-language` or `cf-ipcountry` headers.
+8 locales are supported: English, French, German, Spanish, Japanese, Korean, Chinese, Portuguese. Locale files are in `messages/` as JSON. The proxy detects locale from `accept-language` or `cf-ipcountry` headers.
 
 ## Architecture Decisions
 

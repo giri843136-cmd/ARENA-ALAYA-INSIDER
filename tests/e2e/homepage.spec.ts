@@ -73,7 +73,7 @@ test.describe('ALAYA INSIDER — Core User Flows', () => {
   });
 
   test('admin panel redirects to sign-in when unauthenticated', async ({ page }) => {
-    // Auth middleware now protects /admin/* — unauthenticated users get redirected
+    // Auth proxy now protects /admin/* — unauthenticated users get redirected
     await page.goto('/admin');
     await expect(page).toHaveURL(/\/auth\/signin/);
   });

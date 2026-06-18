@@ -5,12 +5,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  webpack(config) {
-    if (config.resolve?.alias) {
-      config.resolve.alias["@"] = __dirname;
-    }
-    return config;
-  },
+  // @ alias is resolved via tsconfig.json paths
+  // webpack config removed — Turbopack (default in Next.js 16) doesn't support it
   // Production optimizations
   output: 'standalone',                // Required for Docker (copies .next/standalone/)
   poweredByHeader: false,

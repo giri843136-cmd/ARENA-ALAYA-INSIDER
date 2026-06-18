@@ -61,30 +61,43 @@ export class RevenueIntelligenceService {
   }
 
   async getRevenueForecast(horizonDays = 30): Promise<Forecast> {
-    // Simple moving average + trend for demo. In prod: use Prophet / regression on ClickHouse data.
-    const recent = await prisma.analyticsEvent.findMany({
-      where: { name: "revenue.attributed", timestamp: { gte: new Date(Date.now() - 90 * 86400000) } },
-      orderBy: { timestamp: "desc" },
-    });
+    try {
+      // Simple moving average + trend for demo. In prod: use Prophet / regression on ClickHouse data.
+      const recent = await prisma.analyticsEvent.findMany({
+        where: { name: "revenue.attributed", timestamp: { gte: new Date(Date.now() - 90 * 86400000) } },
+        orderBy: { timestamp: "desc" },
+      });
 
-    const daily = new Map<string, number>();
-    recent.forEach((e: any) => {
-      const day = e.timestamp.toISOString().slice(0, 10);
-      daily.set(day, (daily.get(day) || 0) + Number(e.revenue || 0));
-    });
+      const daily = new Map<string, number>();
+      recent.forEach((e: any) => {
+        const day = e.timestamp.toISOString().slice(0, 10);
+        daily.set(day, (daily.get(day) || 0) + Number(e.revenue || 0));
+      });
 
-    const values = Array.from(daily.values());
-    const avg = values.length ? values.reduce((a: number, b: number) => a + b, 0) / values.length : 0;
-    const trend = values.length > 7 ? (values[0] - values[values.length - 1]) / values.length : 0;
+      const values = Array.from(daily.values());
+      const avg = values.length ? values.reduce((a: number, b: number) => a + b, 0) / values.length : 0;
+      const trend = values.length > 7 ? (values[0] - values[values.length - 1]) / values.length : 0;
 
-    return {
-      metric: "daily_revenue",
-      current: avg,
-      predicted: Math.max(0, avg + trend * horizonDays),
-      confidence: 0.72,
-      horizonDays,
-      model: "simple_trend",
-    };
+      return {
+        metric: "daily_revenue",
+        current: avg,
+        predicted: Math.max(0, avg + trend * horizonDays),
+        confidence: 0.72,
+        horizonDays,
+        model: "simple_trend",
+      };
+    } catch (_error) {
+      void _error;
+      console.warn('[RevenueIntelligence] DB unavailable — returning degraded forecast');
+      return {
+        metric: "daily_revenue",
+        current: 0,
+        predicted: 0,
+        confidence: 0.51,
+        horizonDays,
+        model: "degraded",
+      };
+    }
   }
 
   async getCohorts() {
