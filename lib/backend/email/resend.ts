@@ -4,9 +4,15 @@
 
 import { Resend } from "resend";
 
-const resend = process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY) 
-  : null;
+let resend: any = null;
+try {
+  if (process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+} catch {
+  console.warn('[Email] Resend client creation failed — email disabled (won\'t crash app)');
+  resend = null;
+}
 
 export async function sendTransactionalEmail({
   to,
