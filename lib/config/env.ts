@@ -59,14 +59,14 @@ export function validateEnv(): EnvConfig {
     // Database
     DATABASE_URL: getEnvVar('DATABASE_URL')!,
 
-    // Redis (required for BullMQ)
-    REDIS_URL: getEnvVar('REDIS_URL')!,
+    // Redis (optional — BullMQ queues degrade gracefully)
+    REDIS_URL: getEnvVar('REDIS_URL', false)!,
 
-    // Typesense
-    TYPESENSE_HOST: getEnvVar('TYPESENSE_HOST')!,
-    TYPESENSE_PORT: getEnvVar('TYPESENSE_PORT')!,
-    TYPESENSE_PROTOCOL: getEnvVar('TYPESENSE_PROTOCOL')!,
-    TYPESENSE_API_KEY: getEnvVar('TYPESENSE_API_KEY')!,
+    // Typesense (optional — search degrades gracefully to fallback)
+    TYPESENSE_HOST: getEnvVar('TYPESENSE_HOST', false)!,
+    TYPESENSE_PORT: getEnvVar('TYPESENSE_PORT', false)!,
+    TYPESENSE_PROTOCOL: getEnvVar('TYPESENSE_PROTOCOL', false)!,
+    TYPESENSE_API_KEY: getEnvVar('TYPESENSE_API_KEY', false)!,
 
     // Auth
     NEXTAUTH_SECRET: getEnvVar('NEXTAUTH_SECRET')!,
@@ -76,8 +76,8 @@ export function validateEnv(): EnvConfig {
     GOOGLE_CLIENT_ID: getEnvVar('GOOGLE_CLIENT_ID', false),
     GOOGLE_CLIENT_SECRET: getEnvVar('GOOGLE_CLIENT_SECRET', false),
 
-    // Email (Resend)
-    RESEND_API_KEY: getEnvVar('RESEND_API_KEY')!,
+    // Email (Resend) — optional, transactional emails are skipped gracefully
+    RESEND_API_KEY: getEnvVar('RESEND_API_KEY', false)!,
 
     // Media (Cloudinary)
     CLOUDINARY_CLOUD_NAME: getEnvVar('CLOUDINARY_CLOUD_NAME', false),
@@ -105,7 +105,7 @@ export function validateEnv(): EnvConfig {
     if (!config.NEXTAUTH_URL.startsWith('https://')) {
       throw new Error('❌ NEXTAUTH_URL must use https:// in production');
     }
-    if (!config.RESEND_API_KEY.startsWith('re_')) {
+    if (config.RESEND_API_KEY && !config.RESEND_API_KEY.startsWith('re_')) {
       console.warn('⚠️  RESEND_API_KEY does not look like a real key');
     }
   }
