@@ -88,7 +88,7 @@ const DEFAULT_SPLIT_RULES: SplitRule[] = [
 ];
 
 // Store active rules (in production, persist to DB)
-let customRules: SplitRule[] = [];
+const customRules: SplitRule[] = [];
 
 // =============================================
 // SERVICE

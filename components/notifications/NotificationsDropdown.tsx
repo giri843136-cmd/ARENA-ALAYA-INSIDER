@@ -160,7 +160,7 @@ export function NotificationsDropdown({ userId = "user_demo", className = "" }: 
               <div className="p-8 text-center">
                 <Bell size={24} className="mx-auto text-[#E4DDD5] dark:text-[#3D3530] mb-2" />
                 <p className="text-sm text-[#5C5249]">No notifications yet</p>
-                <p className="text-[10px] text-[#B8AFA3] mt-1">We'll notify you when something needs your attention.</p>
+                <p className="text-[10px] text-[#B8AFA3] mt-1">We&apos;ll notify you when something needs your attention.</p>
               </div>
             ) : (
               notifications.slice(0, 20).map((n) => (

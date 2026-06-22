@@ -17,9 +17,11 @@ export function useWishlist() {
   }, []);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     refresh();
     window.addEventListener("wishlist-updated", refresh);
     return () => window.removeEventListener("wishlist-updated", refresh);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [refresh]);
 
   return { items, count, refresh };

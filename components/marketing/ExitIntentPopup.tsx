@@ -106,7 +106,7 @@ export function ExitIntentPopup({
 
   // Set up exit intent monitoring
   useEffect(() => {
-    /* eslint-disable react-hooks/set-state-in-effect */
+     
     if (monitoringRef.current) return;
     monitoringRef.current = true;
 
@@ -125,7 +125,7 @@ export function ExitIntentPopup({
         document.removeEventListener("mouseover", handleLinkHover);
         clearTimeout(linkTimer);
       };
-    /* eslint-enable react-hooks/set-state-in-effect */
+     
     }, activationDelay);
 
     return () => {
@@ -277,7 +277,7 @@ export function ExitIntentPopup({
                     <div className="w-14 h-14 rounded-full bg-[#4ADE80]/10 flex items-center justify-center mx-auto mb-4">
                       <Mail size={24} className="text-[#4ADE80]" />
                     </div>
-                    <h3 className="font-display text-xl text-white mb-2">You're in!</h3>
+                    <h3 className="font-display text-xl text-white mb-2">You&apos;re in!</h3>
                     <p className="text-[#999] text-sm">
                       Check your inbox for your 10% off code. Welcome to the ALAYA INSIDER community.
                     </p>

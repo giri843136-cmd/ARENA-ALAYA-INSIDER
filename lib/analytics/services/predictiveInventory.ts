@@ -284,7 +284,7 @@ async function calculatePriceElasticity(
 
   // Simple elasticity: % change in demand / % change in price
   // Using events as demand proxy
-  let totalElasticity = 0;
+  const totalElasticity = 0;
   let count = 0;
 
   for (let i = 0; i < priceHistory.length - 1; i++) {

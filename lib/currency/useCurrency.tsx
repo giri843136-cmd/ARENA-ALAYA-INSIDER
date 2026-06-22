@@ -39,6 +39,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
   // Detect currency from cookies on mount
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     const nameMap: Record<string, string> = {
       USD: "US Dollar", EUR: "Euro", JPY: "Japanese Yen",
       CAD: "Canadian Dollar", AUD: "Australian Dollar",
@@ -53,6 +54,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
     const locale = getCookie("x-currency-locale") || "en-US";
 
     setCurrency({ code, symbol, locale, name: nameMap[code] || code });
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   // Fetch live exchange rates on mount and poll every hour

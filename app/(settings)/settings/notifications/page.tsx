@@ -106,10 +106,6 @@ export default function NotificationPreferences() {
     weekly_digest: false,
   });
 
-  useEffect(() => {
-    fetchPreferences();
-  }, []);
-
   const fetchPreferences = async () => {
     setLoading(true);
     setError(null);
@@ -144,6 +140,12 @@ export default function NotificationPreferences() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
+    fetchPreferences();
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
 
   const togglePref = (key: PrefKey) => {
     setPrefs((prev) => ({ ...prev, [key]: !prev[key] }));

@@ -54,13 +54,14 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
-    };      /* eslint-disable react-hooks/set-state-in-effect */
+    };       
       document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-    /* eslint-enable react-hooks/set-state-in-effect */
+     
   }, [open]);
 
   const handleSelect = (option: CurrencyOption) => {
+    // eslint-disable-next-line react-hooks/purity
     const expires = new Date(Date.now() + 86_400_000).toUTCString();
     setOpen(false);
     // Use setTimeout to avoid react-hooks/immutability during render

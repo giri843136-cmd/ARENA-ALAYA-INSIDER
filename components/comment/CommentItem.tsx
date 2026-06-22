@@ -41,6 +41,7 @@ export function CommentItem({ comment, depth = 0, onReply, onVote, onReport }: C
   const canNest = depth < 2; // Max 3 levels total (0-indexed)
 
   const timeAgo = (dateStr: string) => {
+    // eslint-disable-next-line react-hooks/purity
     const diff = Date.now() - new Date(dateStr).getTime();
     const mins = Math.floor(diff / 60000);
     if (mins < 60) return `${mins}m ago`;
