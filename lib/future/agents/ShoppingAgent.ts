@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * Shopping Agent (Phase 15)
  * Handles autonomous research, comparison, price tracking, and deal finding.

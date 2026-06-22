@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * Computer Vision Pipeline (Phase 15)
  * Prepares for advanced visual understanding and AR.

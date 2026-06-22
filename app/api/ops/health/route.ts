@@ -16,7 +16,7 @@ export async function GET() {
     // Database (graceful - uses build-safe stub if no DB)
     await prisma.$queryRaw`SELECT 1`;
     checks.database = "ok";
-  } catch (e: any) {
+  } catch {
     checks.database = { status: "error", message: "Database query failed" };
     checks.status = "degraded";
   }
@@ -26,7 +26,7 @@ export async function GET() {
     const redis = getRedis();
     await redis.ping();
     checks.redis = "ok";
-  } catch (e: any) {
+  } catch {
     checks.redis = { status: "error", message: "Redis unavailable - queues/cache degraded" };
     checks.status = "degraded";
   }

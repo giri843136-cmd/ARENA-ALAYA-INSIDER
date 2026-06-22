@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * ALAYA INSIDER — Taste Graph (Phase 15)
  * The living representation of what a specific user loves and why.

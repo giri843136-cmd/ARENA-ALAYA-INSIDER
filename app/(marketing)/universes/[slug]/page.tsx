@@ -14,7 +14,6 @@ export default async function UniversePage({ params }: Props) {
   const universe = universes.find(u => u.slug === slug);
   
   if (!universe) return notFound();  const universeSubs = subcollections.filter(s => s.universeSlug === slug);
-  const _subProducts = allProducts.filter(p => p.subcollectionIds.length > 0);
   const universeProducts = allProducts.filter(p => p.universe === slug).slice(0, 12);
 
   const universeArticles = articles.filter(a => a.universe === slug).slice(0, 4);
@@ -72,7 +71,6 @@ export default async function UniversePage({ params }: Props) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {universeSubs.map((sub) => {
-              const subProducts = allProducts.filter(p => p.subcollectionIds.includes(sub.id)).slice(0, 3);
               return (
                 <Link key={sub.slug} href={`/universes/${slug}/${sub.slug}`} className="group block rounded-3xl border border-[#E4DDD5] bg-white overflow-hidden hover:border-[#C5AA8A] transition-all">
                   <div className="aspect-[16/10] relative">

@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = (session.user as any).id;
-    const email = session.user.email || "";
     const body = await request.json();
     const { action, token } = body;
 

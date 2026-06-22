@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * ALAYA INSIDER — File Upload Security Middleware
  * Enterprise-grade upload validation: MIME type, magic bytes, size limits, malware scanning

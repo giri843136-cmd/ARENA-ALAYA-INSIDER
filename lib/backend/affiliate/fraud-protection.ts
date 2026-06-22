@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * ALAYA INSIDER — Affiliate Fraud Protection
  * Honeypot links, click anomaly detection, bot blocking

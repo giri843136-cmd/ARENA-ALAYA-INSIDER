@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * ALAYA INSIDER — Revenue Forecasting Service
  * Uses historical data to project future revenue by category, author, and channel.

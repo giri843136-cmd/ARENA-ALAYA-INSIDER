@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * AI Governance Layer (Phase 15)
  * Safety, explainability, cost control, and human sovereignty for autonomous systems.

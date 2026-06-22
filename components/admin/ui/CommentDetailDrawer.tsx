@@ -93,7 +93,7 @@ export function CommentDetailDrawer({ comment, open, onClose, onAction, onRefres
       setNotifyAuthor(true);
     }
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [comment?.id]);
+  }, [comment]);
 
   // Close editing when drawer closes
   useEffect(() => {

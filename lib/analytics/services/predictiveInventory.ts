@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * ALAYA INSIDER — Predictive Inventory Service
  * Uses historical sales data, seasonality patterns, and trend analysis to

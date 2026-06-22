@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Bell, BellOff, Mail, Smartphone, Monitor, Check, AlertTriangle,
+  Bell, Mail, Smartphone, Monitor, Check, AlertTriangle,
   RefreshCw, ChevronDown, ChevronUp, Save
 } from "lucide-react";
 

@@ -2,7 +2,7 @@
  * Example webhook handler (for future Stripe billing or affiliate payouts)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST() {
   // Verify + handle events
