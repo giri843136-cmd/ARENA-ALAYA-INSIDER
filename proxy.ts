@@ -52,7 +52,7 @@ async function getTokenFromRequest(request: NextRequest): Promise<{ id?: string;
 }
 
 function redirectToLogin(request: NextRequest) {
-  const loginUrl = new URL("/auth/signin", request.url);
+  const loginUrl = new URL("/login", request.url);
   loginUrl.searchParams.set("callbackUrl", request.nextUrl.pathname);
   return NextResponse.redirect(loginUrl);
 }

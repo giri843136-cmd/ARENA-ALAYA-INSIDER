@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import {
-  BookOpen, Search, ExternalLink, FileText, Code, Copy,
+  Search, FileText, Code, Copy,
   CheckCircle, ArrowRight, Shield, Package, Users,
-  Globe, Server, Key, Zap, Mail, Bell, MessageSquare,
+  Globe, Server, Key, Mail, MessageSquare,
   Image, Link as LinkIcon, Database, TrendingUp, FlaskConical,
-  LayoutDashboard, DollarSign, Target, Tag, Percent,
-  WebhookIcon, Bot, Rocket, Upload, ChevronDown
+  DollarSign, Tag,
+  WebhookIcon, Bot, Upload, ChevronDown
 } from "lucide-react";
 
 // =============================================

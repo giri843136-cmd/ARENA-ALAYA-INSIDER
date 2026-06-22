@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Percent, PieChart, Plus, RefreshCw, Loader2, CheckCircle,
-  AlertTriangle, DollarSign, Users, Network
+  Percent, PieChart, RefreshCw, Loader2,
+  AlertTriangle, DollarSign, Users
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -53,7 +53,7 @@ export default function CommissionSplitPage() {
   const [calcCommission, setCalcCommission] = useState("100");
   const [calcResult, setCalcResult] = useState<any>(null);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     setLoading(true);
     try {
       const [rulesRes, summaryRes] = await Promise.all([
@@ -66,9 +66,10 @@ export default function CommissionSplitPage() {
       if (summaryJson.success) setSummary(summaryJson.data);
     } catch { /* silent */ }
     finally { setLoading(false); }
-  }, []);
+  };
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  // Fetch on mount — eslint-disabled because setState inside effect is intentional pattern here
+  useEffect(() => { fetchData(); }, []); // eslint-disable-line react-hooks/set-state-in-effect
 
   const calculateSplit = async () => {
     try {

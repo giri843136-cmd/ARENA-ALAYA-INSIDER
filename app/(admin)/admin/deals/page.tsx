@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import {
-  Tag, Plus, Trash2, RefreshCw, Percent,
-  Calendar, DollarSign, AlertTriangle, CheckCircle
+  Tag, Plus, Trash2, Percent,
+  Calendar, AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";
 

@@ -60,19 +60,28 @@ export default function CommentDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-    setLoading(true);
-    fetch(`/api/v1/admin/comments/${id}`)
-      .then((r) => r.json())
-      .then((json) => {
-        if (json.success) {
-          setComment(json.data);
-          setEditContent(json.data.content);
-        } else {
-          setError(json.error?.message || "Failed to load comment");
+    let cancelled = false;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/v1/admin/comments/${id}`);
+        const json = await res.json();
+        if (!cancelled) {
+          if (json.success) {
+            setComment(json.data);
+            setEditContent(json.data.content);
+          } else {
+            setError(json.error?.message || "Failed to load comment");
+          }
         }
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+      } catch (err: any) {
+        if (!cancelled) setError(err.message);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    load();
+    return () => { cancelled = true; };
   }, [id]);
 
   const showToast = (type: "success" | "error", message: string) => {

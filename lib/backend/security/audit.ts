@@ -106,7 +106,6 @@ export async function isRateLimited(
 }
 
 /**
-/**
  * Check and auto-lock an account after too many consecutive failed attempts
  * Returns true if the account was just locked
  */
@@ -181,6 +180,10 @@ export async function recordLoginAttempt(params: {
         failReason: params.failReason || null,
       },
     });
+
+    if (!params.success) {
+      await checkAndLockAccount(params.email);
+    }
   } catch {
     // Never throw
   }

@@ -15,8 +15,9 @@ import EmailProvider from "next-auth/providers/email";
 import { sendMagicLink } from "@/lib/backend/email/resend";
 import { verifyPassword } from "@/lib/backend/auth/password";
 import { is2FAEnabled, verifyTOTP, verifyBackupCode } from "@/lib/backend/auth/two-factor";
-import { hasDelegatedAccess } from "@/lib/backend/auth/delegated-access";
-import { recordLoginAttempt, isRateLimited, checkAndLockAccount, logSecurityEvent } from "@/lib/backend/security/audit";
+import { hasDelegatedAccess, isPrimaryAdmin } from "@/lib/backend/auth/delegated-access";
+import { resolveSessionRole } from "@/lib/backend/auth/rbac";
+import { recordLoginAttempt, isRateLimited, logSecurityEvent } from "@/lib/backend/security/audit";
 
 const PRIMARY_ADMIN_EMAIL = "alayainsider@gmail.com";
 
@@ -140,19 +141,6 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Check for brute-force account locking
-        const locked = await checkAndLockAccount(email);
-        if (locked) {
-          await logSecurityEvent({
-            userId: user.id,
-            action: "brute_force_locked",
-            details: "Account auto-locked by brute force protection",
-            ipAddress,
-            severity: "critical",
-          });
-          throw new Error("Account has been temporarily locked due to too many failed login attempts. Please contact support or use the password reset option.");
-        }
-
         // Check 2FA
         const twoFAEnabled = await is2FAEnabled(user.id);
         if (twoFAEnabled) {
@@ -160,13 +148,8 @@ export const authOptions: NextAuthOptions = {
           const backupCode = credentials.backupCode;
           
           if (!totpToken && !backupCode) {
-            // 2FA required but not provided - return special response
-            return {
-              id: user.id,
-              email: user.email,
-              name: user.name,
-              requires2FA: true,
-            } as any;
+            // 2FA required but not provided — throw so signIn returns ok: false
+            throw new Error("requires_2fa");
           }
 
           let twoFAValid = false;
@@ -206,20 +189,25 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {
-        (token as any).role = (user as any).role || "USER";
-        (token as any).id = (user as any).id;
+        const userId = (user as any).id as string;
+        const email = user.email;
+
+        (token as any).id = userId;
         (token as any).mustChangePassword = (user as any).mustChangePassword || false;
         (token as any).requires2FA = (user as any).requires2FA || false;
-        
-        // For delegated users signing in via Google OAuth, set role
+
+        // Roles live in UserRole, not on the User model
         if (account?.provider === "google") {
-          const delegatedEmail = user.email || "";
-          const delegated = await prisma.delegatedAccess.findFirst({
-            where: { email: delegatedEmail, active: true },
-          });
-          if (delegated) {
-            (token as any).role = delegated.role;
+          if (email && isPrimaryAdmin(email)) {
+            (token as any).role = "SUPER_ADMIN";
+          } else {
+            const delegated = await prisma.delegatedAccess.findFirst({
+              where: { email: email || "", active: true },
+            });
+            (token as any).role = delegated?.role ?? (await resolveSessionRole(userId, email));
           }
+        } else {
+          (token as any).role = await resolveSessionRole(userId, email);
         }
       }
       
@@ -275,7 +263,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/login",
     error: "/auth/error",
   },
   events: {

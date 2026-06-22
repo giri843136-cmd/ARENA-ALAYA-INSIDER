@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Rocket, RefreshCw, Loader2, CheckCircle, XCircle, Clock,
-  GitBranch, ExternalLink, AlertTriangle, History, Server
+  GitBranch, AlertTriangle, History, Server
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -30,20 +30,31 @@ export default function DeployPage() {
   const [deploying, setDeploying] = useState(false);
   const [branch, setBranch] = useState("main");
 
-  const fetchStatus = useCallback(async () => {
-    setLoading(true);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/v1/admin/deploy");
+        const json = await res.json();
+        if (!cancelled && json.success) {
+          setStatus(json.data);
+          setBranch(json.data.config.branch || "main");
+        }
+      } catch { /* silent */ }
+      finally { if (!cancelled) setLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const fetchStatus = async () => {
     try {
       const res = await fetch("/api/v1/admin/deploy");
       const json = await res.json();
-      if (json.success) {
-        setStatus(json.data);
-        setBranch(json.data.config.branch || "main");
-      }
+      if (!json.success) return;
+      setStatus(json.data);
     } catch { /* silent */ }
-    finally { setLoading(false); }
-  }, []);
-
-  useEffect(() => { fetchStatus(); }, [fetchStatus]);
+  };
 
   const triggerDeploy = async () => {
     setDeploying(true);

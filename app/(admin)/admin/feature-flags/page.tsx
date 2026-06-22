@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Flag, Plus, RefreshCw, Loader2,
+  Flag, Plus, Loader2,
   AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";

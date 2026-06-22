@@ -2,8 +2,8 @@
 
 import React, { useState, useRef, useCallback } from "react";
 import {
-  Upload, Download, FileText, Loader2, CheckCircle, XCircle,
-  AlertTriangle, Database, RefreshCw, Search, ChevronDown
+  Upload, Download, Loader2, CheckCircle,
+  AlertTriangle, Database, RefreshCw, ChevronDown
 } from "lucide-react";
 import { toast } from "sonner";
 

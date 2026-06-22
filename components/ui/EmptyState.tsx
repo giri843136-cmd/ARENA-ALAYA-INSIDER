@@ -1,10 +1,10 @@
-import { Search, Package, BookOpen, Users } from "lucide-react";
+import { Search, Package, BookOpen, Users, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
 interface EmptyStateProps {
   title: string;
   description: string;
-  icon?: "search" | "product" | "journal" | "brand";
+  icon?: "search" | "product" | "journal" | "brand" | "cart";
   actionLabel?: string;
   actionHref?: string;
   secondaryAction?: React.ReactNode;
@@ -23,6 +23,7 @@ export function EmptyState({
     product: Package,
     journal: BookOpen,
     brand: Users,
+    cart: ShoppingBag,
   }[icon];
 
   return (

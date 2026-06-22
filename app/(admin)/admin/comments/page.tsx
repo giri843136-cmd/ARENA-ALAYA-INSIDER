@@ -180,10 +180,18 @@ export default function AdminComments() {
   };
 
   const toggleSelect = (id: string) => {
-    setSelectedComments((prev) => { const next = new Set(prev); next.has(id) ? next.delete(id) : next.add(id); return next; });
+    setSelectedComments((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) { next.delete(id); } else { next.add(id); }
+      return next;
+    });
   };
   const toggleSelectAll = () => {
-    selectedComments.size === comments.length ? setSelectedComments(new Set()) : setSelectedComments(new Set(comments.map((c) => c.id)));
+    if (selectedComments.size === comments.length) {
+      setSelectedComments(new Set());
+    } else {
+      setSelectedComments(new Set(comments.map((c) => c.id)));
+    }
   };
 
   return (

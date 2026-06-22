@@ -1,156 +1,105 @@
-# ALAYA INSIDER — Git Push Instructions (Updated 2026-06-17)
+# ALAYA INSIDER — Push & Deployment Status (Updated 2026-06-19)
 
-**Target:** https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
+**Status: ✅ PUSHED TO GITHUB SUCCESSFULLY**
 
-## Current Local State (Ready to Push)
+**Repository:** https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
+
+## Current GitHub State
 
 | Metric | Value |
 |--------|-------|
 | Branch | `main` |
-| Latest commit | `debe7a3a974d08f47f80ac8e8231e4a49e149cf8` |
-| Commit message | `fix: move BulkConfirmModal outside component, fix hoisting bug, update push docs` |
-| Commits ahead of origin | **11** (see below) |
-| Tracked files | **592** |
-| Source files (.ts/.tsx/.js/.jsx) | **406** |
-| Folders (unique paths) | **283** |
+| Latest commit | `549d0a3` |
+| Commit message | `feat: remove stale compare page, add deploy-complete.sh for one-shot VPS deployment` |
+| Tracked files | **797** |
+| Source files (.ts/.tsx/.js/.jsx) | **472** |
 | Remote URL | `https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` |
 
-**Recent commits (in order, oldest → newest):**
-1. `cd2c843` — Complete ALAYA INSIDER: Storybook fix, 85 new tests, WCAG AAA
-2. `7382c6f` — fix: typecheck script, add .env.example, fix .gitignore
-3. `eaaf28d` — fix: Prisma v7 adapter compatibility
-4. `086c762` — chore: add deploy.py to .gitignore
-5. `3224147` — chore: add initial Prisma migration SQL (2,132 lines)
-6. `a63a3ab` — fix: add baseUrl to tsconfig for @/* path alias resolution
-7. `07a4157` — fix: add webpack alias for @ in next.config.ts to fix path resolution on Hostinger
-8. `ca6b31b` — fix: add react-is dependency (peer dep required by recharts)
-9. `ceb45fc` — fix: move typescript and @types packages to dependencies (NODE_ENV=production skips devDeps)
-10. `ec7678a` — fix: skip TypeScript checking during build (storybook types in devDeps not installed)
-11. `debe7a3` — fix: move BulkConfirmModal outside component, fix hoisting bug, update push docs
+**Full commit history (19 commits, oldest → newest):**
+1. `17c0a76` — ALAYA INSIDER complete production platform
+2. `0021a61` — fix: remove duplicate trust bar, gender-neutral text, wire PriceDisplay everywhere
+3. `050ae16` — feat: currency selector, remove EST text, gender-neutral trust bar
+4. `d07c97d` — test: complete all test suites, fix a11y violations, add axe-playwright
+5. `9c28a64` — Feed Manager: import history persistence, row-level errors, products page links
+6. `cd2c843` — Complete ALAYA INSIDER: Storybook fix, 85 new tests, WCAG AAA
+7. `7382c6f` — fix: typecheck script, add .env.example, fix .gitignore
+8. `eaaf28d` — fix: Prisma v7 adapter compatibility
+9. `086c762` — chore: add deploy.py to .gitignore
+10. `3224147` — chore: add initial Prisma migration SQL (2,132 lines)
+11. `77e51ff` — fix: address review feedback - source .env for DB URL, use ESM import
+12. `3a1fa63` — feat: add server recovery script + cron watchdog for auto-restart
+13. `92ca2d6` — fix: disable standalone output mode for server deployment
+14. `340a565` — fix: move @tailwindcss/postcss to dependencies (NODE_ENV skips devDeps)
+15. `fc60e16` — fix: dynamic NextAuth import, add passwordHash, add VPS scripts
+16. `4d3f433` — fix: migrate middleware to proxy (Next.js 16), fix build and tests
+17. `4bfe1c2` — feat: comprehensive enterprise security hardening + compliance (6 phases)
+18. `d23a068` — feat: comprehensive production deployment - security, affiliate features, admin
+19. `549d0a3` — feat: remove stale compare page, add deploy-complete.sh for one-shot VPS deployment
 
-**No .env, node_modules, .next, or other forbidden files in the index** — all properly gitignored.
-
-**Note:** Archived build artifacts (.tar.gz, .zip) are untracked and gitignored — they will NOT be pushed.
+**No .env, node_modules, .next, or other forbidden files in the index** ✅
 
 ---
 
-## Step-by-Step Push Instructions
+## What's Next: Deploy to Hostinger VPS
 
-### Step 1: Get the project on your local machine
+The push is done. Now deploy to production using the automated script:
 
-**Option A — Copy from this sandbox (recommended):**
-If you have direct filesystem access to this sandbox at `C:\Users\rocki\Downloads\workspace-019ebb86-c6f6-7e2b-bff6-e03ad83125ed`, copy the entire folder to your machine. It already has the full Git repo with all commits.
-
-**Option B — Use the source tarball:**
-The file `alaya-insider-source.tar.gz` in the workspace contains all source files. Extract and init git:
+### Step 1: SSH into the VPS
 ```bash
-tar -xzf alaya-insider-source.tar.gz
+ssh -p 65002 u131951911@157.173.216.156
+```
+
+### Step 2: Clone from GitHub
+```bash
+git clone https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git alaya-insider
 cd alaya-insider
 ```
 
-### Step 2: Open terminal in the project folder
+### Step 3: Set up .env with real secrets
 ```bash
-cd /path/to/alaya-insider-project   # where app/, lib/, prisma/ etc. are
+cp .env.example .env
+# Edit .env with REAL values:
+#   DATABASE_URL=postgresql://...
+#   NEXTAUTH_SECRET=...
+#   NEXTAUTH_URL=https://alayainsider.com
+#   ANTHROPIC_API_KEY=...
+#   STRIPE_SECRET_KEY=...
+#   GOOGLE_CLIENT_ID=...
+#   GOOGLE_CLIENT_SECRET=...
+#   RESEND_API_KEY=...
 ```
 
-### Step 3: Generate a GitHub Personal Access Token
-1. Go to https://github.com/settings/tokens/new
-2. Give it a name (e.g. "Alaya Insider Push")
-3. Select scopes: **`repo`** (full control) + **`workflow`**
-4. Click "Generate token"
-5. **Copy the token now** — you won't see it again
-
-### Step 4: Configure the remote (copy-paste these one at a time)
-
+### Step 4: Run the all-in-one deployment script
 ```bash
-# Remove any existing origin
-git remote remove origin 2>/dev/null || true
-
-# Set the correct remote
-git remote add origin https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
-
-# Verify
-git remote -v
+bash scripts/deploy-complete.sh
 ```
 
-### Step 5: Authenticate with your PAT
+This single script handles all 8 steps:
+1. System packages (Docker, Nginx, Certbot, etc.)
+2. Code from GitHub
+3. .env detection
+4. Docker build
+5. Docker Compose services
+6. Prisma migrations + seed
+7. Nginx config + SSL via Certbot
+8. PM2 workers + verification
 
-**Recommended — use credential helper (only prompted once):**
-```bash
-git config --global credential.helper store
-```
-Then when you push, use:
-- Username: `giri843136-cmd`
-- Password: **paste your PAT** (not your GitHub password)
-
-**Alternative — inline token URL (one-time):**
-```bash
-git remote set-url origin https://giri843136-cmd:YOUR_PAT_HERE@github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git
-```
-
-### Step 6: Push to GitHub
-```bash
-# Ensure we're on main
-git branch -M main
-
-# Sync with remote (keep local version as authoritative)
-git fetch origin
-git pull origin main --allow-unrelated-histories --strategy=recursive -X ours 2>/dev/null || echo "No remote content to pull"
-
-# THE MAIN COMMAND — force push the complete repo
-git push -u origin main --force
-```
-
-### Step 7: Verify the push
-
-Run these commands to confirm everything was pushed correctly:
-
-```bash
-echo "=== VERIFICATION ==="
-echo "Branch: $(git branch --show-current)"
-echo "Commit: $(git rev-parse HEAD)"
-echo "Remote: $(git remote get-url origin)"
-echo ""
-echo "Tracked files: $(git ls-files | wc -l)"
-echo "Source files: $(git ls-files | grep -E '\.(ts|tsx|js|jsx)$' | wc -l)"
-echo "Folders: $(git ls-tree -r --name-only HEAD | grep -o '.*/' | sort -u | wc -l)"
-echo ""
-echo "Forbidden items (must be 0): $(git ls-files | grep -E '(\.next/|node_modules/|\.cache/|\.npm/|dist/|coverage/|\.turbo/|\.env[^.])' | wc -l)"
-echo ""
-echo "Key production files:"
-git ls-files | grep -E 'prisma/schema.prisma|scripts/deploy-to-hostinger.sh|lib/config/env.ts|workers/index.ts|nginx.conf|ecosystem.config.js|Dockerfile|docker-compose.yml|\.github/workflows' | sort
-echo ""
-echo "Top-level folders:"
-git ls-tree -r --name-only HEAD | grep -o '^[a-zA-Z0-9_.-]*/' | sort -u
-echo ""
-echo "Open: https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER"
-echo "Verify: 592 files, 283 folders, latest commit debe7a3, all folders present"
-```
-
-### Step 8: Confirm on GitHub
-
-Visit **https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER** in your browser.
-
-You should see:
-- **592 files** across **283 folders**
-- **17 top-level folders**: .github/, .storybook/, agents/, api/, app/, apps/, components/, docs/, infra/, lib/, prisma/, public/, runbooks/, scripts/, sdk/, tests/, workers/
-- Latest commit: `debe7a3` — "fix: move BulkConfirmModal outside component, fix hoisting bug, update push docs"
-- Full commit history (all 11 production commits)
-- **No** node_modules, .next, .env, or cache folders
+### Step 5: Final checks
+- **Public:** https://alayainsider.com
+- **Admin:** https://alayainsider.com/admin
+- **Health:** https://alayainsider.com/api/ops/health
+- **Queues:** https://alayainsider.com/api/ops/queues
 
 ---
 
-## Troubleshooting
+## Quick Reference
 
-| Problem | Solution |
-|---------|----------|
-| `Authentication failed` | PAT might have wrong scopes. Regenerate at https://github.com/settings/tokens with **repo** scope |
-| `Repository not found` | Double-check the remote URL is exactly `https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` — the repo must already exist |
-| `Push declined` | Use `--force` flag: `git push -u origin main --force` |
-| `Filename too long` on Windows | Run `git config --global core.longpaths true` and retry |
-| PAT doesn't work as password | Generate a new PAT. The token itself IS the password (not your GitHub password) |
-
----
-
-After successful push, the entire ALAYA INSIDER production platform is on GitHub. You can then clone it anywhere, continue development, and deploy from the remote.
+| Command | Purpose |
+|---------|---------|
+| `git clone https://github.com/giri843136-cmd/ARENA-ALAYA-INSIDER.git` | Get the code on fresh machine |
+| `bash scripts/deploy-complete.sh` | Full automated VPS deployment |
+| `bash scripts/verify-production-services.sh` | Verify all services are healthy |
+| `bash scripts/production-audit.sh` | Full production audit |
+| `docker logs \$(docker ps -q --filter name=alaya)` | App logs |
+| `pm2 logs alaya-insider` | Worker logs |
 

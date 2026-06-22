@@ -5,6 +5,40 @@
 
 import { Role, Permission } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
+import { isPrimaryAdmin } from "@/lib/backend/auth/delegated-access";
+
+const ROLE_RANK: Record<Role, number> = {
+  GUEST: 0,
+  USER: 1,
+  EDITOR: 2,
+  SENIOR_EDITOR: 3,
+  ADMIN: 4,
+  SUPER_ADMIN: 5,
+};
+
+/** Highest role from UserRole rows; primary admin is always SUPER_ADMIN. */
+export async function resolveSessionRole(
+  userId: string,
+  email?: string | null
+): Promise<Role> {
+  if (email && isPrimaryAdmin(email)) {
+    return "SUPER_ADMIN";
+  }
+
+  const roles = await prisma.userRole.findMany({
+    where: { userId },
+    select: { role: true },
+  });
+
+  if (roles.length === 0) {
+    return "USER";
+  }
+
+  return roles.reduce(
+    (highest, { role }) => (ROLE_RANK[role] > ROLE_RANK[highest] ? role : highest),
+    roles[0].role
+  );
+}
 
 export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
   GUEST: [],

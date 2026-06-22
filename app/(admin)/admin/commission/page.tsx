@@ -105,8 +105,6 @@ export default function CommissionDashboard() {
     clicks: n.clicks,
   }));
 
-  const maxRev = Math.max(...trendData.map((d) => d.revenue), 1);
-
   return (
     <div className="p-8 max-w-[1600px] mx-auto">
       <div className="mb-8">
