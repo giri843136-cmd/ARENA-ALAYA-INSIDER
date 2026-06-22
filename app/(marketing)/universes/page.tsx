@@ -22,6 +22,7 @@ export default function UniversesPage() {
           {universes.map((universe, index) => (
             <Link key={universe.slug} href={`/universes/${universe.slug}`} className="group block">
               <div className="relative h-[520px] rounded-3xl overflow-hidden border border-[#E4DDD5]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src={universe.heroImage} 
                   alt={universe.title}

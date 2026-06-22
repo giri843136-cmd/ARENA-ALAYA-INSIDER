@@ -268,6 +268,7 @@ async function getHistoricalRevenue(days: number = 90): Promise<{
   const dailyTotal = new Map<string, number>();
   const dailyByCategory = new Map<string, Map<string, number>>();
   const dailyByAuthor = new Map<string, Map<string, number>>();
+  const _dailyByAuthor = dailyByAuthor;
   const dailyByChannel = new Map<string, Map<string, number>>();
 
   for (const event of events) {
@@ -350,8 +351,6 @@ export async function forecastRevenue(
   const historicalDays = options.historicalDays || 90;
   const forecastDays = options.forecastDays || 30;
   const confidenceLevel = options.confidenceLevel || 0.80;    const { total, byChannel } = await getHistoricalRevenue(historicalDays);
-
-  const _dailyByAuthor = new Map<string, Map<string, number>>();
 
   const revenueValues = total.map((d) => d.revenue);
   const { values, lower, upper, r2 } = generateForecast(revenueValues, forecastDays, {

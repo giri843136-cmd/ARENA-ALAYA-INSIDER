@@ -6,7 +6,7 @@
 export class TasteGraph {
   constructor(private userId: string) {}
 
-  async getRelevantContext(query: string) {
+  async getRelevantContext(_query: string) {
     // In production: vector + graph query against the user's private taste graph
     return {
       coreAesthetics: ['quiet luxury', 'natural materials', 'warm neutrals'],

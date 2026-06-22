@@ -156,6 +156,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   >
                     {result.image && (
                       <div className="h-10 w-10 rounded-xl overflow-hidden bg-[#F1EDE6] flex-shrink-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={result.image} alt="" className="h-full w-full object-cover" />
                       </div>
                     )}

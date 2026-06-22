@@ -82,6 +82,7 @@ export function ExitIntentPopup({
     if (e.clientY <= 50 && e.movementY < -10 && mouseYRef.current >= 0) {
       trigger();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle tab visibility change
@@ -90,6 +91,7 @@ export function ExitIntentPopup({
       // User is switching tabs — may be leaving
       trigger();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle link hover (going to click a link to leave)
@@ -102,6 +104,7 @@ export function ExitIntentPopup({
         trigger();
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Set up exit intent monitoring

@@ -10,11 +10,6 @@ const LifestyleGraph: any = class {};
 const MemoryAgent: any = class {};
 const CoordinatorAgent: any = class {};
 
-const _TG: any = TasteGraph;
-const _LG: any = LifestyleGraph;
-const _MA: any = MemoryAgent;
-const _CA: any = CoordinatorAgent;
-
 export class PersonalAIConcierge {
   private userId: string;
   private tasteGraph: any;

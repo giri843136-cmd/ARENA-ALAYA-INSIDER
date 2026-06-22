@@ -3,7 +3,7 @@
  * Aggregates security posture data for the admin security dashboard
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/backend/auth/auth";
 import { prisma } from "@/lib/db/prisma";

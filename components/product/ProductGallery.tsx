@@ -86,6 +86,7 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
         >
           {/* Blur-up background while image loads */}
           <div className="absolute inset-0 bg-[#EFE7DE] animate-pulse" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={allImages[0]}
             alt={productName}
@@ -114,6 +115,7 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
                 onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") openAtIndex(i + 1); }}
               >
                 <div className="absolute inset-0 bg-[#EFE7DE] animate-pulse" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
                   alt={`${productName} ${i + 2}`}
@@ -192,6 +194,7 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
               onClick={(e) => { e.stopPropagation(); }}
               onMouseMove={handleMouseMove}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={allImages[currentIndex]}
                 alt={`${productName} — view ${currentIndex + 1}`}
@@ -233,6 +236,7 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
                   }`}
                   aria-label={`View image ${i + 1}`}
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={img} alt="" className="h-full w-full object-cover" />
                 </button>
               ))}

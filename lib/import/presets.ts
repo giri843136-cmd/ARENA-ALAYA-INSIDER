@@ -69,9 +69,7 @@ export const STANDARD_FIELDS = [
 export function scorePreset(preset: ImportPreset, headers: string[]): number {
   const lowerHeaders = headers.map((h) => h.toLowerCase().trim());
   let matched = 0;
-  let total = 0;
-
-  for (const [standardKey, sourceColumn] of Object.entries(preset.columns)) {
+  let total = 0;    for (const [, sourceColumn] of Object.entries(preset.columns)) {
     if (!sourceColumn) continue;
     total++;
     // Check if the source column exists in the CSV headers

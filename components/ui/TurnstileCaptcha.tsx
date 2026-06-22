@@ -86,6 +86,7 @@ export function TurnstileCaptcha({
         widgetIdRef.current = null;
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, onVerify, onExpire, theme, size]);
 
   return (

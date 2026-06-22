@@ -82,6 +82,7 @@ export function CommentDetailDrawer({ comment, open, onClose, onAction, onRefres
   const [notifyAuthor, setNotifyAuthor] = useState(true);
 
   // Reset states when comment changes
+   
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect */
     if (comment) {

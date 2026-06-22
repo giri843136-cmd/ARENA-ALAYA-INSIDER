@@ -111,8 +111,8 @@ export function ProductEmbed({
         target="_blank"
         rel="noopener noreferrer"
         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#EFE7DE]/50 border border-[#E4DDD5] hover:bg-[#E4DDD5] transition-colors no-underline ${className}`}
-      >
-        {product.image && (
+      >          {product.image && (
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={product.image} alt={product.imageAlt} className="w-8 h-8 rounded object-cover" />
         )}
         <div className="flex flex-col">
@@ -143,6 +143,7 @@ export function ProductEmbed({
           {/* Image */}
           <div className="relative sm:w-48 h-40 sm:h-auto bg-[#EFE7DE] overflow-hidden shrink-0">
             {product.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={product.image}
                 alt={product.imageAlt}

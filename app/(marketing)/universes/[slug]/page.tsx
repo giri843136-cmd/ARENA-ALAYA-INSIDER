@@ -13,10 +13,10 @@ export default async function UniversePage({ params }: Props) {
   const { slug } = await params;
   const universe = universes.find(u => u.slug === slug);
   
-  if (!universe) return notFound();
-
-  const universeSubs = subcollections.filter(s => s.universeSlug === slug);
+  if (!universe) return notFound();  const universeSubs = subcollections.filter(s => s.universeSlug === slug);
+  const _subProducts = allProducts.filter(p => p.subcollectionIds.length > 0);
   const universeProducts = allProducts.filter(p => p.universe === slug).slice(0, 12);
+
   const universeArticles = articles.filter(a => a.universe === slug).slice(0, 4);
 
   return (

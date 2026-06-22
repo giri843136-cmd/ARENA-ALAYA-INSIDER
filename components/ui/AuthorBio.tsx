@@ -24,6 +24,7 @@ export function AuthorBio({ author, className = "" }: AuthorBioProps) {
       {/* Avatar */}
       <div className="w-12 h-12 rounded-full bg-[#7A6848]/20 flex items-center justify-center text-[#7A6848] font-display text-lg flex-shrink-0 overflow-hidden">
         {author.avatar ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={author.avatar} alt={author.name} className="w-full h-full object-cover" />
         ) : (
           author.name.charAt(0)

@@ -12,6 +12,7 @@ export function EditorialCard({ article }: EditorialCardProps) {
     <Link href={`/journal/${article.slug}`} className="group block">
       <div className="card-editorial overflow-hidden rounded-3xl bg-white border border-[#E8E2D9]">
         <div className="relative aspect-[16/10] overflow-hidden bg-[#F1EDE6]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src={article.coverImage} 
             alt={article.title}

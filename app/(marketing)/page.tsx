@@ -59,7 +59,9 @@ export default function AlayaHomepage() {
         {/* Floating lifestyle layers */}
         <div className="absolute bottom-12 right-8 hidden xl:block">
           <div className="relative h-48 w-48 rotate-[7deg]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={allProducts[0].images[0]} alt="" className="absolute h-40 w-40 rounded-3xl object-cover shadow-xl float-slow" style={{ top: '12px', left: '12px' }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={allProducts[2].images[0]} alt="" className="absolute h-40 w-40 rounded-3xl object-cover shadow-xl float-slow" style={{ top: '32px', left: '42px', animationDelay: '2.2s' }} />
           </div>
         </div>
@@ -114,6 +116,8 @@ export default function AlayaHomepage() {
             {featuredUniverses.map((universe) => (
               <Link key={universe.slug} href={`/universes/${universe.slug}`} className="group block">
                 <div className="relative aspect-[16/11] rounded-3xl overflow-hidden">
+                  { }
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={universe.heroImage} 
                     alt={universe.title}
@@ -266,6 +270,7 @@ export default function AlayaHomepage() {
 
                     {/* Image */}
                     <div className="aspect-square rounded-2xl overflow-hidden bg-[#26221E] mb-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
                     </div>
 
@@ -357,6 +362,7 @@ export default function AlayaHomepage() {
                 <div className="flex -space-x-3 flex-shrink-0">
                   {allProducts.filter(p => p.universe === 'sanctuary').slice(0, 3).map((p, i) => (
                     <div key={p.id} className={`h-20 w-20 rounded-xl overflow-hidden border-2 border-white shadow-sm ${i > 0 ? '-ml-3' : ''}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" />
                     </div>
                   ))}
@@ -379,6 +385,7 @@ export default function AlayaHomepage() {
                 <div className="flex -space-x-3 flex-shrink-0">
                   {allProducts.filter(p => p.universe === 'glow-atelier').slice(0, 3).map((p, i) => (
                     <div key={p.id} className={`h-20 w-20 rounded-xl overflow-hidden border-2 border-white shadow-sm ${i > 0 ? '-ml-3' : ''}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" />
                     </div>
                   ))}

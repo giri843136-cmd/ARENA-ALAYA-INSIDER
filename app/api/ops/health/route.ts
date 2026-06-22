@@ -17,7 +17,7 @@ export async function GET() {
     await prisma.$queryRaw`SELECT 1`;
     checks.database = "ok";
   } catch (e: any) {
-    checks.database = { status: "error", message: (e as any).message?.slice(0, 120) };
+    checks.database = { status: "error", message: "Database query failed" };
     checks.status = "degraded";
   }
 

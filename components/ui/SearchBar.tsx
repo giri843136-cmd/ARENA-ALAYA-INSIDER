@@ -206,6 +206,7 @@ export function SearchBar({
                     }`}
                   >
                     <div className="h-10 w-10 rounded-lg bg-[#EFE7DE] overflow-hidden flex-shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={p.image} alt={p.name} className="h-full w-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
