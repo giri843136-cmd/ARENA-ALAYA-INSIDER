@@ -6,7 +6,7 @@ import { universes, allProducts, articles, brands } from "@/lib/data/seed";
 import { ProductCard } from "@/components/product/ProductCard";
 import { EditorialCard } from "@/components/editorial/EditorialCard";
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 
 export default function AlayaHomepage() {

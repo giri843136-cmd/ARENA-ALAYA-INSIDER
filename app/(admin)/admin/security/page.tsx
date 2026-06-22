@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Shield, Key, Smartphone, Users, Activity, AlertTriangle, Check, Copy, Eye, EyeOff, Loader2, RefreshCw, Ban, Plus } from "lucide-react";
 import { toast } from "sonner";
 
@@ -59,8 +59,9 @@ function TwoFactorSection() {
   const [submitting, setSubmitting] = useState(false);
   const [savedCodes, setSavedCodes] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
-  const fetchStatus = useCallback(async () => { setLoading(true); try { const res = await fetch("/api/v1/admin/security/setup-2fa"); const json = await res.json(); if (json.success) setStatus(json.data as TwoFAStatus); } catch {} finally { setLoading(false); } }, []);
-  useEffect(() => { fetchStatus(); }, [fetchStatus]);
+  const fetchStatus = async () => { setLoading(true); try { const res = await fetch("/api/v1/admin/security/setup-2fa"); const json = await res.json(); if (json.success) setStatus(json.data as TwoFAStatus); } catch {} finally { setLoading(false); } };
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { fetchStatus(); }, []);
   const handleGenerate = async () => { setSetupMode("generating"); setSubmitting(true); try { const res = await fetch("/api/v1/admin/security/setup-2fa", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "generate" }) }); const json = await res.json(); if (json.success) { setQrCode(json.data.qrCode); setBackupCodes(json.data.backupCodes as string[]); setSetupMode("verify"); } else { toast.error(json.error?.message); setSetupMode("idle"); } } catch { toast.error("Network error"); setSetupMode("idle"); } finally { setSubmitting(false); } };
   const handleVerify = async () => { if (!verifyToken) return; setSubmitting(true); try { const res = await fetch("/api/v1/admin/security/setup-2fa", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "verify", token: verifyToken }) }); const json = await res.json(); if (json.success) { toast.success(json.data.message); setSetupMode("complete"); setStatus(p => p ? { ...p, enabled: true } : { enabled: true, backupCodesRemaining: backupCodes.length }); } else { toast.error(json.error?.message); } } catch { toast.error("Network error"); } finally { setSubmitting(false); } };
   const handleDisable = async () => { if (!confirm("Disable 2FA?")) return; setSubmitting(true); try { const res = await fetch("/api/v1/admin/security/setup-2fa", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "disable" }) }); const json = await res.json(); if (json.success) { toast.success(json.data.message); setStatus({ enabled: false, backupCodesRemaining: 0 }); setSetupMode("idle"); } } catch { toast.error("Network error"); } finally { setSubmitting(false); } };
@@ -88,8 +89,9 @@ function DelegatedAccessSection() {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("EDITOR");
   const [submitting, setSubmitting] = useState(false);
-  const fetchRecords = useCallback(async () => { setLoading(true); try { const res = await fetch("/api/v1/admin/security/delegated-access"); const json = await res.json(); if (json.success) setRecords(json.data as DelegatedRecord[] || []); } catch {} finally { setLoading(false); } }, []);
-  useEffect(() => { fetchRecords(); }, [fetchRecords]);
+  const fetchRecords = async () => { setLoading(true); try { const res = await fetch("/api/v1/admin/security/delegated-access"); const json = await res.json(); if (json.success) setRecords(json.data as DelegatedRecord[] || []); } catch {} finally { setLoading(false); } };
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { fetchRecords(); }, []);
   const handleGrant = async (e: React.FormEvent) => { e.preventDefault(); setSubmitting(true); try { const res = await fetch("/api/v1/admin/security/delegated-access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "grant", email, role }) }); const json = await res.json(); if (json.success) { toast.success("Access granted"); setEmail(""); setShowForm(false); fetchRecords(); } else { toast.error(json.error?.message); } } catch { toast.error("Network error"); } finally { setSubmitting(false); } };
   const handleRevoke = async (id: string, email: string) => { if (!confirm(`Revoke ${email}?`)) return; try { const res = await fetch("/api/v1/admin/security/delegated-access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "revoke", accessId: id }) }); const json = await res.json(); if (json.success) { toast.success("Revoked"); fetchRecords(); } } catch { toast.error("Network error"); } };
   return (<div className="widget">
@@ -103,8 +105,9 @@ function ActivityLogSection() {
   const [events, setEvents] = useState<SecurityEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("security-events");
-  const fetchEvents = useCallback(async () => { setLoading(true); try { const res = await fetch(`/api/v1/admin/security/activity?type=${filter}`); const json = await res.json(); if (json.success) setEvents(json.data as SecurityEvent[] || []); } catch {} finally { setLoading(false); } }, [filter]);
-  useEffect(() => { fetchEvents(); }, [fetchEvents]);
+  const fetchEvents = async () => { setLoading(true); try { const res = await fetch(`/api/v1/admin/security/activity?type=${filter}`); const json = await res.json(); if (json.success) setEvents(json.data as SecurityEvent[] || []); } catch {} finally { setLoading(false); } };
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { fetchEvents(); }, [filter]);
   const sevColor = (s: string) => { if (s === "critical") return "text-[#F87171]"; if (s === "warning") return "text-[#FBBF24]"; return "text-[#4ADE80]"; };
   return (<div className="widget">
     <div className="flex items-center justify-between mb-6"><div className="flex items-center gap-2"><Activity size={16} className="text-[var(--admin-accent)]" /><div className="widget-title">SECURITY ACTIVITY</div></div><div className="flex gap-2">{["security-events", "login-attempts", "active-sessions"].map((t) => <button key={t} onClick={() => setFilter(t)} className={`text-[10px] px-2 py-1 rounded-full border ${filter === t ? "bg-[var(--admin-accent)]/10 border-[var(--admin-accent)]/30 text-[var(--admin-accent)]" : "border-[var(--admin-border)] text-[var(--admin-text-muted)]"}`}>{t === "security-events" ? "Events" : t === "login-attempts" ? "Logins" : "Sessions"}</button>)}</div></div>
