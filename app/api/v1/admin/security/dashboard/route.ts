@@ -11,7 +11,7 @@ import { prisma } from "@/lib/db/prisma";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     const session = (await getServerSession(authOptions as any)) as any;
     if (!session?.user?.id) {

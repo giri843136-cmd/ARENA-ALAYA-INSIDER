@@ -6,7 +6,7 @@
  */
 
 import { prisma } from "@/lib/db/prisma";
-import { cacheAside, cacheInvalidate, cacheInvalidatePattern } from "@/lib/backend/cache/redis-cache";
+import { cacheAside, cacheInvalidatePattern } from "@/lib/backend/cache/redis-cache";
 
 export interface CouponAutoFillResult {
   applied: boolean;

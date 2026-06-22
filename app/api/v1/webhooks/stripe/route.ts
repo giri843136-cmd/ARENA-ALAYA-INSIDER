@@ -4,10 +4,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const body = await req.text();
-  const signature = req.headers.get("stripe-signature");
-
+export async function POST(_req: NextRequest) {
   // Verify + handle events
   console.log("[Webhook] Received Stripe event");
 

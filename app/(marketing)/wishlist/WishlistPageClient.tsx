@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Heart, Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
+import { Heart, Trash2, ArrowLeft } from "lucide-react";
 import { getWishlist, removeFromWishlist, clearWishlist, type WishlistItem } from "@/lib/wishlist/store";
 
 export function WishlistPageClient() {

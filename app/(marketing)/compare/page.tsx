@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { ArrowLeft, Plus, X, ExternalLink, Star, ShoppingBag, Share2, Check } from "lucide-react";
+import { ArrowLeft, Plus, X, Star, ShoppingBag, Share2, Check } from "lucide-react";
 import { allProducts } from "@/lib/data/seed";
 import type { Product } from "@/lib/types";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";

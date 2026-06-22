@@ -21,7 +21,7 @@ const HONEYPOT_PATHS = [
 ];
 
 // Honeypot cookie names (set when a honeypot is "clicked")
-const HONEYPOT_COOKIE = "__alaya_honeypot";
+const _HONEYPOT_COOKIE = "__alaya_honeypot";
 
 /**
  * Generate a honeypot link (invisible to real users)
@@ -115,7 +115,7 @@ export async function detectClickFraud(event: ClickEvent): Promise<number> {
 
   // === SIGNAL 4: Same product rapid clicks ===
   if (event.productId) {
-    const recentClicks = await prisma.affiliateLink.count({
+    const _recentClicks = await prisma.affiliateLink.count({
       where: {
         product: { slug: event.productId },
         clicks: { gte: 50 }, // If link has many clicks, check velocity

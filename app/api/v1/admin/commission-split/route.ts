@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db/prisma";
 import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 import {
   getSplitRules,

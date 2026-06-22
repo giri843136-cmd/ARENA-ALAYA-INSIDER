@@ -2,17 +2,13 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  TrendingUp,
-  TrendingDown,
   BarChart3,
   RefreshCw,
   Loader2,
-  DollarSign,
   AlertTriangle,
   Calendar,
   ArrowUpRight,
   ArrowDownRight,
-  PieChart,
 } from "lucide-react";
 
 interface ForecastData {

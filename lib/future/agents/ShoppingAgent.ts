@@ -5,7 +5,7 @@
  */
 
 export class ShoppingAgent {
-  async research(query: string, context: any) {
+  async research(_query: string, _context: any) {
     // Uses existing search + recommendation systems + external tools
     return {
       findings: [],
@@ -15,7 +15,7 @@ export class ShoppingAgent {
     };
   }
 
-  async trackPrice(productId: string) {
+  async trackPrice(_productId: string) {
     // Integrates with Phase 10 revenue/affiliate systems
   }
 }

@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, name, source } = await request.json();
+    const { email, name } = await request.json();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ success: false, error: { code: "VALIDATION_ERROR", message: "Valid email is required" } }, { status: 400 });
     }

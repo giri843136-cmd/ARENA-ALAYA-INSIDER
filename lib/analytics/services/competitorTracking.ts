@@ -6,7 +6,7 @@
 
 import { prisma } from "@/lib/db/prisma";
 import { logSecurityEvent } from "@/lib/backend/security/audit";
-import { cacheAside, cacheSet } from "@/lib/backend/cache/redis-cache";
+import { cacheAside } from "@/lib/backend/cache/redis-cache";
 
 // =============================================
 // TYPES

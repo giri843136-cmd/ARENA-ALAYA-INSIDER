@@ -10,7 +10,6 @@ import { generateTOTPSecret, verifyTOTP, enable2FA, disable2FA, generateAndStore
 import { logSecurityEvent } from "@/lib/backend/security/audit";
 import { checkRateLimit, getRateLimitIdentifier } from "@/lib/backend/security/rate-limiter";
 import { csrfMiddleware } from "@/lib/backend/security/csrf";
-import { applyCorsHeaders } from "@/lib/backend/security/cors";
 
 /**
  * GET /api/v1/admin/security/setup-2fa
@@ -32,7 +31,6 @@ export async function GET(request: NextRequest) {
     }
 
     const userId = (session.user as any).id;
-    const email = session.user.email || "";
 
     const enabled = await is2FAEnabled(userId);
     const backupCodesCount = await getBackupCodesCount(userId);
@@ -77,7 +75,7 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case "generate": {
         // Generate new TOTP secret and QR code
-        const { qrCode, secret } = await generateTOTPSecret(userId, email);
+        const { qrCode } = await generateTOTPSecret(userId, session.user.email || "");
         const backupCodes = await generateAndStoreBackupCodes(userId);
 
         return NextResponse.json({

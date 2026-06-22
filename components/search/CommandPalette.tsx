@@ -148,7 +148,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
             {results.length > 0 && (
               <div className="px-2">
-                {results.map((result, index) => (
+                {results.map((result) => (
                   <Command.Item
                     key={`${result.type}-${result.id}`}
                     onSelect={() => handleSelect(result.url)}

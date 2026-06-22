@@ -20,7 +20,7 @@ export class TasteGraph {
     return `Your taste currently centers on...`;
   }
 
-  async updateFromFeedback(feedback: any) {
+  async updateFromFeedback(_feedback: any) {
     // Incremental learning from explicit corrections and implicit signals
   }
 }

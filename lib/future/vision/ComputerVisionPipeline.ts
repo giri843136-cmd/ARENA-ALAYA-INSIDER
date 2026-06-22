@@ -4,7 +4,7 @@
  */
 
 export class ComputerVisionPipeline {
-  async analyzeImage(image: string | Buffer) {
+  async analyzeImage(_image: string | Buffer) {
     // In production: fine-tuned models for style, brand, objects, room context
     return {
       objects: [],
@@ -16,7 +16,7 @@ export class ComputerVisionPipeline {
     };
   }
 
-  async generateVisualEmbedding(image: any) {
+  async generateVisualEmbedding(_image: any) {
     // CLIP-like or custom model
   }
 }

@@ -9,7 +9,7 @@ export abstract class DigitalTwin {
 export class UserTasteTwin extends DigitalTwin {
   constructor(private userId: string) { super(); }
 
-  async simulate(query: string) {
+  async simulate(_query: string) {
     // "What would this user think of this new product/brand?"
     return {
       predictedAffinity: 0.82,

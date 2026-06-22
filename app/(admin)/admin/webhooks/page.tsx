@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  WebhookIcon, Plus, RefreshCw, Loader2, Trash2, Play,
+  WebhookIcon, Plus, Loader2, Trash2, Play,
   AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";

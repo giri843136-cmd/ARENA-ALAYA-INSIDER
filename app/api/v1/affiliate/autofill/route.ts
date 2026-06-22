@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db/prisma";
 import { autoFillCoupon } from "@/lib/backend/affiliate/coupon-autofill";
 
 export const runtime = "nodejs";

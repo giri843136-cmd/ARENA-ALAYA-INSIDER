@@ -5,7 +5,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { getRedis } from "@/lib/search/redis/client";
-import { getTypesenseClient } from "@/lib/search/typesense/client";
 
 export async function GET() {
   const checks: Record<string, any> = {
@@ -18,7 +17,7 @@ export async function GET() {
     await prisma.$queryRaw`SELECT 1`;
     checks.database = "ok";
   } catch (e: any) {
-    checks.database = { status: "error", message: e.message?.slice(0, 120) };
+    checks.database = { status: "error", message: (e as any).message?.slice(0, 120) };
     checks.status = "degraded";
   }
 

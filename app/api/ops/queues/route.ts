@@ -8,7 +8,7 @@ import { requireAuth } from '@/lib/backend/auth/auth';
 // Bull Board is optional in this build for production readiness.
 // The /admin/queues page calls this endpoint and shows a safe UI.
 // Full Bull Board can be mounted in a separate Express app if needed.
-export async function GET(req: Request) {
+export async function GET() {
   const user = await requireAuth();
   if (!user || !['ADMIN', 'SUPER_ADMIN'].includes((user as any).role)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });

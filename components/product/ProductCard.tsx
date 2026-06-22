@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Heart, Eye, GitCompare } from "lucide-react";
 import type { Product } from "@/lib/types";
-import { motion } from "framer-motion";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { isInWishlist, toggleWishlist } from "@/lib/wishlist/store";
 import { useState, useEffect } from "react";

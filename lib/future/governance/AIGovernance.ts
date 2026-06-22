@@ -4,7 +4,7 @@
  */
 
 export class AIGovernance {
-  async evaluateProposedAction(action: any, userId: string, confidence: number) {
+  async evaluateProposedAction(action: any, _userId: string, confidence: number) {
     if (action.risk === 'high' || action.cost > 200) {
       return { tier: 2, requiresApproval: true };
     }

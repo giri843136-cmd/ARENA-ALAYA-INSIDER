@@ -5,7 +5,6 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 import { prisma } from "@/lib/db/prisma";
 import { logSecurityEvent } from "@/lib/backend/security/audit";
 

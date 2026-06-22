@@ -24,6 +24,7 @@ export default async function UniversePage({ params }: Props) {
       {/* Cinematic Hero — Apple + Architectural Digest inspired */}
       <div className="relative h-[92vh] min-h-[640px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src={universe.heroImage} 
             alt={universe.title} 
@@ -75,6 +76,7 @@ export default async function UniversePage({ params }: Props) {
               return (
                 <Link key={sub.slug} href={`/universes/${slug}/${sub.slug}`} className="group block rounded-3xl border border-[#E4DDD5] bg-white overflow-hidden hover:border-[#C5AA8A] transition-all">
                   <div className="aspect-[16/10] relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={sub.heroImage} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70" />
                     <div className="absolute bottom-0 p-7 text-white">

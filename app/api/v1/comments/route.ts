@@ -149,12 +149,10 @@ export async function PATCH(request: NextRequest) {
     }
 
     let statusChanged = false;
-    let oldStatus: string | null = null;
     const moderationActions = ["approve", "reject", "delete"] as const;
 
     // Fetch current state for audit logging
     const current = await prisma.comment.findUnique({ where: { id } });
-    if (current) oldStatus = current.status;
 
     switch (action) {
       case "upvote":

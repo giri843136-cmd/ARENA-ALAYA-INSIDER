@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Package, AlertTriangle, CheckCircle, TrendingUp, TrendingDown,
+  Package, CheckCircle, TrendingUp, TrendingDown,
   Minus, Clock, RefreshCw, Loader2, BarChart3
 } from "lucide-react";
 

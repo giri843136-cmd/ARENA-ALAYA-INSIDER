@@ -34,7 +34,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   const { id } = await params;
   try {
     const body = await request.json();
-    const { categories, tags, media, affiliateLinks, variants, faqs, deals, ...productData } = body;
+    const { categories, tags, media: _media, affiliateLinks: _affiliateLinks, variants: _variants, faqs: _faqs, deals: _deals, ...productData } = body;
 
     const product = await prisma.product.update({
       where: { id },

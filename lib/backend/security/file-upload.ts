@@ -171,7 +171,7 @@ export async function extractMagicBytes(file: File, numBytes = 16): Promise<Uint
  * Validate a file's magic bytes against known signatures
  * Returns the matched MIME type or null if no match
  */
-export function validateMagicBytes(bytes: Uint8Array, declaredType: string): string | null {
+export function validateMagicBytes(bytes: Uint8Array, _declaredType: string): string | null {
   for (const type of ALLOWED_TYPES) {
     for (const magic of type.magicBytes) {
       const offset = type.offset || 0;

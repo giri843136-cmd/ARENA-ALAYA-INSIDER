@@ -10,7 +10,7 @@ import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { PriceHistory } from "@/components/ui/PriceHistory";
 import { MultiRetailerPrice } from "@/components/ui/MultiRetailerPrice";
 import { MobileCompareBar } from "@/components/ui/MobileCompareBar";
-import { RecentlyViewed, trackProductView } from "@/components/product/RecentlyViewed";
+import { RecentlyViewed } from "@/components/product/RecentlyViewed";
 import { StickyPriceBar } from "@/components/product/StickyPriceBar";
 import { SocialProof } from "@/components/product/SocialProof";
 import { ProductGallery } from "@/components/product/ProductGallery";

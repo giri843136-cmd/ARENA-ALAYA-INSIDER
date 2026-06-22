@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { MessageSquare, Loader2 } from "lucide-react";
 import { CommentItem } from "./CommentItem";
 import { CommentForm } from "./CommentForm";
-import { Button } from "@/components/ui/Button";
 
 interface CommentThreadProps {
   articleId: string;

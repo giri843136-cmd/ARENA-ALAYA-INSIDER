@@ -15,7 +15,6 @@ interface Version {
 }
 
 interface VersionDiffViewerProps {
-  articleId: string;
   versions: Version[];
   currentTitle: string;
   currentContent: string;
@@ -77,7 +76,6 @@ function DiffView({ oldText, newText }: { oldText: string; newText: string }) {
 }
 
 export function VersionDiffViewer({
-  articleId,
   versions,
   currentTitle,
   currentContent,

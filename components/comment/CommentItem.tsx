@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ThumbsUp, ThumbsDown, Reply, Flag, ChevronDown, ChevronUp } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { CommentForm } from "./CommentForm";
 
 interface CommentUser {

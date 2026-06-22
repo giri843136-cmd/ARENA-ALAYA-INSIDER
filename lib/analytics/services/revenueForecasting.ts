@@ -67,8 +67,6 @@ export interface RevenueDataPoint {
 // =============================================
 
 const DAY_MS = 86400000;
-const WEEK_MS = DAY_MS * 7;
-const MONTH_MS = DAY_MS * 30;
 
 /**
  * Simple moving average for smoothing time series data
@@ -351,9 +349,9 @@ export async function forecastRevenue(
 ): Promise<RevenueForecast> {
   const historicalDays = options.historicalDays || 90;
   const forecastDays = options.forecastDays || 30;
-  const confidenceLevel = options.confidenceLevel || 0.80;
+  const confidenceLevel = options.confidenceLevel || 0.80;    const { total, byChannel } = await getHistoricalRevenue(historicalDays);
 
-  const { total, byChannel } = await getHistoricalRevenue(historicalDays);
+  const _dailyByAuthor = new Map<string, Map<string, number>>();
 
   const revenueValues = total.map((d) => d.revenue);
   const { values, lower, upper, r2 } = generateForecast(revenueValues, forecastDays, {
@@ -362,7 +360,7 @@ export async function forecastRevenue(
   });
 
   const totalProjectedRevenue = values.reduce((a, b) => a + b, 0);
-  const previousPeriodRevenue = await getPreviousPeriodRevenue(historicalDays);
+  const _previousPeriodRevenue = await getPreviousPeriodRevenue(historicalDays);
 
   // Channel forecasts
   const channelForecasts: ChannelForecast[] = [];

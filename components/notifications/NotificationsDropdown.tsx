@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Bell, Check, RefreshCw, ExternalLink, Trash2, Clock } from "lucide-react";
+import { Bell, Check, RefreshCw, ExternalLink, Clock } from "lucide-react";
 import Link from "next/link";
 
 type Notification = {

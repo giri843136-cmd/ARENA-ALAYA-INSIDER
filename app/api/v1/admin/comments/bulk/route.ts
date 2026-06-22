@@ -43,7 +43,7 @@ async function logActivity({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { ids, action, notify, editorId } = body;
+    const { ids, action, editorId } = body;
 
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return NextResponse.json(
