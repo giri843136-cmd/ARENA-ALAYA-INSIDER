@@ -55,7 +55,7 @@ export function TurnstileCaptcha({
     document.head.appendChild(script);
   }, []);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+   
   useEffect(() => {
     loadScript();
   }, [loadScript]);

@@ -72,7 +72,7 @@ export function SocialProof({
   const [mounted, setMounted] = useState(false);
 
   // Hydrate config from localStorage only after mount to avoid SSR/CSR mismatch
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+   
   useEffect(() => {
     setMounted(true);
     setConfig(getSocialProofConfig());
@@ -88,7 +88,7 @@ export function SocialProof({
     return () => window.removeEventListener("social-proof-config-updated", handleConfigChange);
   }, [handleConfigChange]);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+   
   useEffect(() => {
     const ranges = POPULARITY_RANGES[popularity];
 

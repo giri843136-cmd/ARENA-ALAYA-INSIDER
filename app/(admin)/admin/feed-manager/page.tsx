@@ -126,14 +126,15 @@ export default function FeedManager() {
   };
 
   // Load presets + saved presets + import history on mount
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     fetch("/api/v1/admin/products/import/presets")
       .then((r) => r.json())
       .then((j) => { if (j.success) setPresets(j.data); })
       .catch(() => {});
     loadSavedPresets();
     loadImportHistory();
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
@@ -192,12 +193,13 @@ export default function FeedManager() {
     return () => clearTimeout(timer);
   }, [historySearch, historyStatus, historyRefresh]);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (previewFile) {
       runPreview(previewFile, selectedPreset);
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [previewFile, selectedPreset, runPreview]);
 
   const doImport = async () => {

@@ -26,11 +26,12 @@ export default function CommandCenter() {
   const [error, setError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState("");
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     const hour = new Date().getHours();
     const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
     setCurrentTime(greeting);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const fetchStats = useCallback(async () => {
@@ -62,9 +63,10 @@ export default function CommandCenter() {
     }
   }, []);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     fetchStats();
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [fetchStats]);
 
   const kpis = stats ? [

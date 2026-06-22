@@ -62,8 +62,8 @@ export default function LiveClicksPage() {
   const [totalRevenue, setTotalRevenue] = useState(0);
 
   // Generate real-time clicks
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (!isLive) return;
 
     // Generate initial batch
@@ -87,6 +87,7 @@ export default function LiveClicksPage() {
     }, 2000 + Math.random() * 3000);
 
     return () => clearInterval(interval);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [isLive]);
 
   const formatTime = (iso: string) => {

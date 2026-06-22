@@ -70,7 +70,7 @@ export function MobileCompareBar({
   };
 
   // Sync saved state with wishlist on mount and on changes
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+   
   useEffect(() => {
     setSaved(isInWishlist(productSlug));
     const handler = () => setSaved(isInWishlist(productSlug));

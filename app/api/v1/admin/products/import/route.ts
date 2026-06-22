@@ -81,7 +81,7 @@ async function createMediaForProduct(productId: string, imageUrl: string) {
 
   // Extract a publicId from the URL — use the last path segment before query params
   const segments = url.split("/");
-  let publicId = segments[segments.length - 1]?.split("?")[0]?.split(".")[0] || `imported-${Date.now()}`;
+  const publicId = segments[segments.length - 1]?.split("?")[0]?.split(".")[0] || `imported-${Date.now()}`;
 
   await prisma.media.create({
     data: {

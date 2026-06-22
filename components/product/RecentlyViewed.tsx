@@ -54,7 +54,7 @@ export function RecentlyViewed({
 }) {
   const [products, setProducts] = useState<Product[]>([]);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+   
   useEffect(() => {
     const slugs = getStoredSlugs().filter(
       (s) => s !== currentProductSlug

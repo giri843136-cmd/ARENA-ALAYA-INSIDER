@@ -13,7 +13,7 @@ import {
   Loader2,
   LogIn,
   AlertOctagon,
-  FileText, Eye, Clock, Server, Globe, BarChart3,
+  FileText, Clock, Server, Globe, BarChart3,
 } from "lucide-react";
 
 interface DashboardData {
