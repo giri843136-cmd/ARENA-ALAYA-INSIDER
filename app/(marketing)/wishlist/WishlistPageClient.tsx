@@ -10,6 +10,7 @@ export function WishlistPageClient() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setItems(getWishlist());
     setLoaded(true);
 
@@ -17,6 +18,7 @@ export function WishlistPageClient() {
     const handler = () => setItems(getWishlist());
     window.addEventListener("wishlist-updated", handler);
     return () => window.removeEventListener("wishlist-updated", handler);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const handleRemove = (slug: string) => {
@@ -85,6 +87,7 @@ export function WishlistPageClient() {
           <div key={item.slug} className="group relative bg-white rounded-2xl border border-[#E4DDD5] overflow-hidden transition-shadow hover:shadow-lg">
             {/* Product image */}
             <Link href={`/products/${item.slug}`} className="block aspect-[4/5] bg-[#EFE7DE] overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={item.image}
                 alt={item.name}

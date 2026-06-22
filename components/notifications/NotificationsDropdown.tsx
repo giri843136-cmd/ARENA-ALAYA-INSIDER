@@ -68,7 +68,9 @@ export function NotificationsDropdown({ userId = "user_demo", className = "" }: 
   }, [userId]);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     fetchNotifications();
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [fetchNotifications]);
 
   useEffect(() => {

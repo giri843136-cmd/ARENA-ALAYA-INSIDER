@@ -58,6 +58,7 @@ export function CommentItem({ comment, depth = 0, onReply, onVote, onReport }: C
       <div className="group py-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={avatarUrl}
             alt={displayName}

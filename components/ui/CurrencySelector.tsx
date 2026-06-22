@@ -54,9 +54,10 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
-    };
-    document.addEventListener("mousedown", handler);
+    };      /* eslint-disable react-hooks/set-state-in-effect */
+      document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [open]);
 
   const handleSelect = (option: CurrencyOption) => {

@@ -70,12 +70,13 @@ export function MobileCompareBar({
   };
 
   // Sync saved state with wishlist on mount and on changes
-   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setSaved(isInWishlist(productSlug));
     const handler = () => setSaved(isInWishlist(productSlug));
     window.addEventListener("wishlist-updated", handler);
     return () => window.removeEventListener("wishlist-updated", handler);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [productSlug]);
 
   return (

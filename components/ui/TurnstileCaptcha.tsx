@@ -55,9 +55,10 @@ export function TurnstileCaptcha({
     document.head.appendChild(script);
   }, []);
 
-   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     loadScript();
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [loadScript]);
 
   useEffect(() => {

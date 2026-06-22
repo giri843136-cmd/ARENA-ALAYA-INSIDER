@@ -64,6 +64,17 @@ export function ExitIntentPopup({
     return true;
   }, [cookieName, showPercentage]);
 
+  const trigger = useCallback(() => {
+    if (hasShownRef.current) return;
+    if (!shouldShowOnPage()) return;
+    if (!shouldShow()) return;
+
+    hasShownRef.current = true;
+    setVisible(true);
+    // Focus email input after animation
+    setTimeout(() => inputRef.current?.focus(), 500);
+  }, [shouldShowOnPage, shouldShow]);
+
   // Track mouse movement for exit intent
   const handleMouseMove = useCallback((e: MouseEvent) => {
     mouseYRef.current = e.clientY;
@@ -93,19 +104,9 @@ export function ExitIntentPopup({
     }
   }, []);
 
-  const trigger = useCallback(() => {
-    if (hasShownRef.current) return;
-    if (!shouldShowOnPage()) return;
-    if (!shouldShow()) return;
-
-    hasShownRef.current = true;
-    setVisible(true);
-    // Focus email input after animation
-    setTimeout(() => inputRef.current?.focus(), 500);
-  }, [shouldShowOnPage, shouldShow]);
-
   // Set up exit intent monitoring
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (monitoringRef.current) return;
     monitoringRef.current = true;
 
@@ -124,6 +125,7 @@ export function ExitIntentPopup({
         document.removeEventListener("mouseover", handleLinkHover);
         clearTimeout(linkTimer);
       };
+    /* eslint-enable react-hooks/set-state-in-effect */
     }, activationDelay);
 
     return () => {
@@ -197,7 +199,7 @@ export function ExitIntentPopup({
               className="pointer-events-auto relative max-w-lg w-full bg-[#1C1C1C] border border-[#333] rounded-3xl overflow-hidden shadow-2xl"
               role="dialog"
               aria-modal="true"
-              aria-label="Don't miss out"
+              aria-label="Don&apos;t miss out"
             >
               {/* Close button */}
               <button

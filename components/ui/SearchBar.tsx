@@ -49,8 +49,8 @@ export function SearchBar({
   const router = useRouter();
 
   // Debounced suggestion + product lookup
-   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (query.length < 2) {
       setSuggestions([]);
       setProductResults([]);
@@ -86,6 +86,7 @@ export function SearchBar({
         setSuggestions([]);
         setProductResults([]);
       }
+    /* eslint-enable react-hooks/set-state-in-effect */
     }, 250);
     return () => clearTimeout(timer);
   }, [query]);

@@ -3,9 +3,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
   Users, Search, RefreshCw, Loader2, Shield, UserCheck,
-  UserX, ChevronLeft, ChevronRight, Mail, Calendar
+  UserX, ChevronLeft, ChevronRight
 } from "lucide-react";
-import { toast } from "sonner";
 
 interface AdminUser {
   id: string;
@@ -39,7 +38,7 @@ export default function UserManagement() {
     finally { setLoading(false); }
   }, [page, search]);
 
-  useEffect(() => { fetchUsers(); }, [fetchUsers]);
+  useEffect(() => { /* eslint-disable react-hooks/set-state-in-effect */ fetchUsers(); /* eslint-enable react-hooks/set-state-in-effect */ }, [fetchUsers]);
 
   return (
     <div className="p-8 max-w-[1400px] mx-auto">

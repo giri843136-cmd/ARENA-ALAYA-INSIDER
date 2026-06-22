@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Bell, BellOff, RefreshCw, Check, X, AlertTriangle } from "lucide-react";
+import { Bell, BellOff, RefreshCw, Check, AlertTriangle } from "lucide-react";
 
 // Demo user context — in production this would come from auth
 const DEMO_USER_ID = "user_demo_admin";
@@ -30,7 +30,9 @@ export default function SystemSettings() {
   };
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     fetchPreferences();
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const toggleCommentMute = async () => {

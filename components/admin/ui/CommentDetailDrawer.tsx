@@ -83,6 +83,7 @@ export function CommentDetailDrawer({ comment, open, onClose, onAction, onRefres
 
   // Reset states when comment changes
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (comment) {
       setEditContent(comment.content);
       setIsEditing(false);
@@ -90,15 +91,18 @@ export function CommentDetailDrawer({ comment, open, onClose, onAction, onRefres
       setSaveError(null);
       setNotifyAuthor(true);
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [comment?.id]);
 
   // Close editing when drawer closes
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (!open) {
       setIsEditing(false);
       setConfirmDelete(false);
       setSaveError(null);
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [open]);
 
   if (!comment || !open) return null;

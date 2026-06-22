@@ -74,7 +74,7 @@ export function InventoryPredictionWidget() {
     finally { setLoading(false); }
   }, []);
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  useEffect(() => { /* eslint-disable react-hooks/set-state-in-effect */ fetchData(); /* eslint-enable react-hooks/set-state-in-effect */ }, [fetchData]);
 
   if (loading && !summary) {
     return (

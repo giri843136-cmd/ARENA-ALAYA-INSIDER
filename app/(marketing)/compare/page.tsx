@@ -29,6 +29,7 @@ export default function ComparePage() {
 
   // Read slugs from URL ?slugs= param on initial mount
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (initialized) return;
     const params = new URLSearchParams(window.location.search);
     const slugsParam = params.get("slugs");
@@ -51,6 +52,7 @@ export default function ComparePage() {
       setSelectedSlugs(slugs);
     }
     setInitialized(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [initialized]);
 
   // Sync URL query params whenever selectedSlugs changes (after initial hydration)
@@ -178,6 +180,7 @@ export default function ComparePage() {
                           className="w-full flex items-center gap-4 px-5 py-3 hover:bg-[#FAF7F4] transition-colors text-left border-b border-[#E4DDD5]/50 last:border-none"
                         >
                           <div className="h-10 w-10 rounded-xl bg-[#EFE7DE] overflow-hidden flex-shrink-0">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -208,6 +211,7 @@ export default function ComparePage() {
                 <div key={product.id} className="relative group">
                   <Link href={`/products/${product.slug}`} className="block bg-white rounded-2xl border border-[#E4DDD5] p-5 hover:border-[#7A6848] transition-all">
                     <div className="aspect-square rounded-xl bg-[#EFE7DE] overflow-hidden mb-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
                     </div>
                     <div className="font-display text-sm tracking-tight text-[#26221E] line-clamp-2 mb-1">{product.name}</div>

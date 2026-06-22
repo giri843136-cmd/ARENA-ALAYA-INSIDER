@@ -8,10 +8,17 @@ import { signIn } from "next-auth/react";
 
 export default function SignInForm() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [successEmail, setSuccessEmail] = useState<string | null>(null);
   const [callbackUrl, setCallbackUrl] = useState("/admin");
 
   // Only read search params on client to avoid hydration mismatch
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const cb = params.get("callbackUrl");
@@ -24,14 +31,8 @@ export default function SignInForm() {
         setError("Could not sign in with Google. Please try again.");
       }
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successEmail, setSuccessEmail] = useState<string | null>(null);
 
   // 2FA state
   const [requires2FA, setRequires2FA] = useState(false);

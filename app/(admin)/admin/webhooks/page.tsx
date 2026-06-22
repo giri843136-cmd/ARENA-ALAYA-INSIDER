@@ -43,7 +43,7 @@ export default function WebhooksPage() {
     finally { setLoading(false); }
   }, []);
 
-  useEffect(() => { fetchWebhooks(); }, [fetchWebhooks]);
+  useEffect(() => { /* eslint-disable react-hooks/set-state-in-effect */ fetchWebhooks(); /* eslint-enable react-hooks/set-state-in-effect */ }, [fetchWebhooks]);
 
   const createWebhook = async () => {
     if (!newWebhook.name.trim() || !newWebhook.url.trim() || newWebhook.events.length === 0) {

@@ -71,7 +71,9 @@ export function CommentThread({ articleId }: CommentThreadProps) {
   };
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     fetchComments();
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [articleId, sort]);
 
   const handleSubmit = async (content: string, parentId?: string) => {

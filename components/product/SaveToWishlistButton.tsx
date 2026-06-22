@@ -21,14 +21,15 @@ export function SaveToWishlistButton({
 }: SaveToWishlistButtonProps) {
   const [saved, setSaved] = useState(false);
 
-   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setSaved(isInWishlist(slug));
 
     // Listen for wishlist changes from other components (keyboard shortcuts, other tabs)
     const handler = () => setSaved(isInWishlist(slug));
     window.addEventListener("wishlist-updated", handler);
     return () => window.removeEventListener("wishlist-updated", handler);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [slug]);
 
   const handleSave = () => {

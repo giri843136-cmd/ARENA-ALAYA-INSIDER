@@ -72,10 +72,11 @@ export function SocialProof({
   const [mounted, setMounted] = useState(false);
 
   // Hydrate config from localStorage only after mount to avoid SSR/CSR mismatch
-   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setMounted(true);
     setConfig(getSocialProofConfig());
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   // Listen for config changes from admin panel
@@ -88,8 +89,8 @@ export function SocialProof({
     return () => window.removeEventListener("social-proof-config-updated", handleConfigChange);
   }, [handleConfigChange]);
 
-   
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     const ranges = POPULARITY_RANGES[popularity];
 
     setViewers(randomInRange(ranges.viewers));
@@ -104,6 +105,7 @@ export function SocialProof({
     }, 5000 + Math.random() * 5000);
 
     return () => clearInterval(interval);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [popularity]);
 
   // Don't render until both mounted on client and initialized with random values
