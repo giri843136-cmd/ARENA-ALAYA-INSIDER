@@ -63,6 +63,19 @@ scripts/deploy.py
 app-temp.tar
 temp-zip/
 
+# Oversized build artifacts (must not be committed)
+*.tar.gz
+*.zip
+next-build.tar.gz
+next-output.tar.gz
+alaya-insider-deploy.zip
+alaya-insider-hostinger.zip
+alaya-insider-correct.tar.zip
+alaya-insider-correct.tar.gz
+ALAYA_INSIDER_COMPLETE.tar.gz
+.next-production.tar.gz
+app-temp.tar
+
 # Python cache
 __pycache__/
 *.pyc
