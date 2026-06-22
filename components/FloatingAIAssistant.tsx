@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { MessageCircle, X, Sparkles } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 
 export function FloatingAIAssistant() {
   const [isOpen, setIsOpen] = useState(false);

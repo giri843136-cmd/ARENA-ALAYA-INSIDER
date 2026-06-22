@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * ProductSchema — Renders JSON-LD structured data for Google rich snippets.
  *
@@ -8,14 +10,13 @@
  *   <ProductSchema product={product} brand={brand} reviews={reviews} />
  */
 import type { Product, Brand, Review } from "@/lib/types";
+import { useState } from 'react';
 
 interface ProductSchemaProps {
   product: Product;
   brand?: Brand;
   reviews?: Review[];
 }
-
-import { useState } from 'react';
 
 export function ProductSchema({ product, brand, reviews }: ProductSchemaProps) {
   const [defaultPriceDate] = useState(() => new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]);

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { Send, Loader2, ShieldAlert } from "lucide-react";
+import { useState } from "react";
+import { Send, Loader2 } from "lucide-react";
 
 // Client-side XSS sanitization before submission (defense in depth)
 function sanitizeComment(text: string): string {

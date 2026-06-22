@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Bell, User, Command } from "lucide-react";
+import { Search, Bell } from "lucide-react";
 import { useAdminCommandPalette } from "@/components/admin/ui/AdminCommandPaletteProvider";
 
 export function AdminTopBar() {

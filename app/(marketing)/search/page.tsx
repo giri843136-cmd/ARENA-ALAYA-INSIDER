@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { allProducts, articles, brands, universes, subcollections } from "@/lib/data/seed";
+import { allProducts, articles, brands, universes } from "@/lib/data/seed";
 import { ProductCard } from "@/components/product/ProductCard";
 import { EditorialCard } from "@/components/editorial/EditorialCard";
 import { Button } from "@/components/ui/Button";
 import { FilterDrawer } from "@/components/ui/FilterDrawer";
-import { Search, Mic, Image as ImageIcon, Filter, X } from "lucide-react";
+import { Search, Mic, Image as ImageIcon, Filter } from "lucide-react";
 
 type Tab = "all" | "products" | "articles" | "brands";
 

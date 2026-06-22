@@ -171,6 +171,7 @@ export function SearchBar({
           aria-label="Search"
           aria-expanded={showSuggestions}
           aria-autocomplete="list"
+          aria-controls={showSuggestions ? "search-autocomplete-results" : undefined}
           role="combobox"
         />
         {query && (
@@ -186,7 +187,7 @@ export function SearchBar({
 
       {/* Dropdown */}
       {showSuggestions && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#26221E] border border-[#E4DDD5] dark:border-[#3D3530] rounded-xl shadow-lg z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
+        <div id="search-autocomplete-results" className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#26221E] border border-[#E4DDD5] dark:border-[#3D3530] rounded-xl shadow-lg z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
           {/* Products (inline cards) */}
           {hasProducts && (
             <div>

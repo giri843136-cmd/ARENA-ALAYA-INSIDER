@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { History, ChevronDown, ChevronUp, RotateCcw, AlertTriangle, Clock, Check } from "lucide-react";
+import { History, ChevronDown, ChevronUp, RotateCcw, AlertTriangle } from "lucide-react";
 
 interface Version {
   id: string;

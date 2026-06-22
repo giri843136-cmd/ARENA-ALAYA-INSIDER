@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Heart, ShoppingBag, ArrowLeft, Trash2 } from "lucide-react";
+import { ShoppingBag, ArrowLeft, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ProductCard } from "@/components/product/ProductCard";

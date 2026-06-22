@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 export default function NotFound() {

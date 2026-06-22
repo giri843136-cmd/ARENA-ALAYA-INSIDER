@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, CheckCheck, Package, Tag, TrendingUp, AlertCircle, Clock } from "lucide-react";
+import { Bell, CheckCheck, Package, Tag, TrendingUp, Clock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import {
-  TrendingUp, TrendingDown, Search, RefreshCw, Loader2,
+  TrendingUp, Search, Loader2,
   ArrowUp, ArrowDown
 } from "lucide-react";
 import { toast } from "sonner";
