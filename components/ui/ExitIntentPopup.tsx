@@ -129,7 +129,7 @@ export function ExitIntentPopup({
               <div className="w-12 h-12 rounded-full bg-[#4ADE80]/10 flex items-center justify-center mx-auto mb-4">
                 <Sparkles size={24} className="text-[#4ADE80]" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">You're In! 🎉</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">You&apos;re In! 🎉</h3>
               <p className="text-sm text-[#999]">
                 Welcome to the ALAYA INSIDER community. Check your inbox for your welcome discount code.
               </p>

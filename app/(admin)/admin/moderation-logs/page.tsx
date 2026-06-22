@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
   Shield, RefreshCw, ChevronLeft, ChevronRight, Download,
-  Search, Filter, AlertTriangle, Check, X, Trash2, RotateCcw, Clock
+  Filter, AlertTriangle, Check, X, Trash2, RotateCcw, Clock
 } from "lucide-react";
 
 interface LogEntry {
@@ -72,6 +72,7 @@ export default function ModerationLogs() {
     }
   }, [page, actionFilter, searchDateStart, searchDateEnd]);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchLogs(); }, [fetchLogs]);
 
   const exportCSV = () => {

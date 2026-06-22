@@ -55,6 +55,7 @@ export function TurnstileCaptcha({
     document.head.appendChild(script);
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     loadScript();
   }, [loadScript]);
@@ -85,12 +86,6 @@ export function TurnstileCaptcha({
       }
     };
   }, [loaded, onVerify, onExpire, theme, size]);
-
-  const reset = useCallback(() => {
-    if (widgetIdRef.current) {
-      window.turnstile?.reset(widgetIdRef.current);
-    }
-  }, []);
 
   return (
     <div className="flex flex-col items-center">

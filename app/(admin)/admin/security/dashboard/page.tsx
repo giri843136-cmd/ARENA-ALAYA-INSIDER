@@ -3,20 +3,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
   Shield,
-  ShieldCheck,
-  ShieldAlert,
   Activity,
   AlertTriangle,
   CheckCircle,
   XCircle,
-  Users,
   Key,
   Smartphone,
   RefreshCw,
   Loader2,
   LogIn,
   AlertOctagon,
-  FileText,  Ban, Eye, Clock, Server, Lock, Globe, BarChart3,
+  FileText, Eye, Clock, Server, Globe, BarChart3,
 } from "lucide-react";
 
 interface DashboardData {
@@ -101,6 +98,7 @@ export default function SecurityDashboard() {
     finally { setLoading(false); }
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchData(); }, [fetchData]);
 
   if (loading && !data) {

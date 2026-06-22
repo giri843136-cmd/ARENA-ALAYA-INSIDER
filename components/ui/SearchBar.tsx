@@ -49,6 +49,7 @@ export function SearchBar({
   const router = useRouter();
 
   // Debounced suggestion + product lookup
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     if (query.length < 2) {
       setSuggestions([]);

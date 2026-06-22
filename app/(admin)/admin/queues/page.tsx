@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export const dynamic = 'force-dynamic';
 
 export default function QueuesDashboard() {
-  const [queueData, setQueueData] = useState<any>(null);
+  const [, setQueueData] = useState<any>(null);
   const [loading, setLoading] = useState(true);  
 
   useEffect(() => {

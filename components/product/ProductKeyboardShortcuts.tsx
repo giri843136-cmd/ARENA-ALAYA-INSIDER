@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { toggleWishlist, isInWishlist } from "@/lib/wishlist/store";
+import { toggleWishlist } from "@/lib/wishlist/store";
 
 interface ProductKeyboardShortcutsProps {
   slug: string;

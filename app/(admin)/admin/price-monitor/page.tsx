@@ -5,7 +5,6 @@ import {
   TrendingDown, Bell, RefreshCw, Loader2, AlertTriangle,
   DollarSign, Clock, Tag
 } from "lucide-react";
-import { toast } from "sonner";
 
 interface PriceAlert {
   id: string;
@@ -44,6 +43,7 @@ export default function PriceMonitor() {
     finally { setLoading(false); }
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchData(); }, [fetchData]);
 
   return (

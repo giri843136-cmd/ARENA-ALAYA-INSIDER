@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Cell, Legend
+  BarChart, Bar, Cell
 } from "recharts";
 
 interface NetworkData {

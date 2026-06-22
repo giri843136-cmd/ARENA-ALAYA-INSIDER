@@ -2,10 +2,9 @@
 
 import React, { useState } from "react";
 import {
-  Globe, CheckCircle, AlertTriangle, RefreshCw,
-  Languages, DollarSign, Eye, Edit3
+  Globe, CheckCircle, AlertTriangle,
+  Languages, DollarSign, Eye
 } from "lucide-react";
-import { toast } from "sonner";
 
 const CURRENCIES = [
   { code: "USD", symbol: "$", name: "US Dollar", locale: "en-US", active: true, products: 18420 },

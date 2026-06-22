@@ -15,10 +15,10 @@ interface ProductSchemaProps {
   reviews?: Review[];
 }
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 
 export function ProductSchema({ product, brand, reviews }: ProductSchemaProps) {
-  const defaultPriceDate = useMemo(() => new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0], []);
+  const [defaultPriceDate] = useState(() => new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]);
 
   const schema = {
     "@context": "https://schema.org",

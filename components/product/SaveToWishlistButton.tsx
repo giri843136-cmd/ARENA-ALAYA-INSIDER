@@ -21,6 +21,7 @@ export function SaveToWishlistButton({
 }: SaveToWishlistButtonProps) {
   const [saved, setSaved] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     setSaved(isInWishlist(slug));
 

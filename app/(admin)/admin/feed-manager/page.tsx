@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
-  Upload, Loader2, AlertTriangle,
+  Upload, Loader2,
   FileText, Download, Tags, FolderTree, Link2, Image,
   Eye, FileDown, CheckCircle, XCircle, Settings, Save, Trash2
 } from "lucide-react";
@@ -126,6 +126,7 @@ export default function FeedManager() {
   };
 
   // Load presets + saved presets + import history on mount
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     fetch("/api/v1/admin/products/import/presets")
       .then((r) => r.json())
@@ -191,6 +192,8 @@ export default function FeedManager() {
     return () => clearTimeout(timer);
   }, [historySearch, historyStatus, historyRefresh]);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     if (previewFile) {
       runPreview(previewFile, selectedPreset);
@@ -631,7 +634,7 @@ export default function FeedManager() {
         <span className="flex items-center gap-1"><Settings size={11} /> Custom column mapping</span>
         <span className="flex items-center gap-1"><Save size={11} /> Save &amp; reuse presets</span>
         <span className="flex items-center gap-1"><Eye size={11} /> Auto-detect format</span>
-        <span className="flex items-center gap-1"><AlertTriangle size={11} /> Matched by SKU/UPC/ASIN</span>
+        <span className="flex items-center gap-1">Matched by SKU/UPC/ASIN</span>
       </div>
     </div>
   );

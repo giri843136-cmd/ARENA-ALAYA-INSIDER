@@ -17,7 +17,6 @@ interface SocialShareProps {
 export function SocialShare({
   url,
   title,
-  description,
   platforms = ["twitter", "facebook", "copy"],
   className = "",
 }: SocialShareProps) {

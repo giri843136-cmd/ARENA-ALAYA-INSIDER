@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ShoppingBag, Heart, ChevronUp, ChevronDown } from "lucide-react";
+import { ShoppingBag, Heart, ChevronDown } from "lucide-react";
 import { PriceDisplay } from "./PriceDisplay";
 import { toggleWishlist, isInWishlist } from "@/lib/wishlist/store";
 
@@ -70,6 +70,7 @@ export function MobileCompareBar({
   };
 
   // Sync saved state with wishlist on mount and on changes
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     setSaved(isInWishlist(productSlug));
     const handler = () => setSaved(isInWishlist(productSlug));

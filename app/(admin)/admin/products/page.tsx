@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Search, Plus, Download, Upload, Filter, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 
 const mockProducts = Array.from({ length: 24 }, (_, i) => ({
   id: `p${i + 1}`,
@@ -18,7 +18,6 @@ const mockProducts = Array.from({ length: 24 }, (_, i) => ({
 }));
 
 export default function ProductStudio() {
-  const router = useRouter();
   const [view, setView] = useState<"grid" | "table">("table");
   const [search, setSearch] = useState("");
   const [selected] = useState<string[]>([]);

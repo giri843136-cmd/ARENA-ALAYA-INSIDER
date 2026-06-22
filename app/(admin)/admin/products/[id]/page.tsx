@@ -8,40 +8,6 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-interface ProductData {
-  id: string;
-  slug: string;
-  name: string;
-  shortDescription: string;
-  longDescription: string;
-  price: number;
-  salePrice: number | null;
-  currency: string;
-  rating: number;
-  reviewCount: number;
-  availability: string;
-  status: string;
-  brandId: string;
-  universeId: string;
-  brand?: { id: string; name: string; slug: string };
-  universe?: { id: string; slug: string; title: string };
-  benefits: string[];
-  pros: string[];
-  cons: string[];
-  perfectFor: string[];
-  seoTitle?: string;
-  metaDescription?: string;
-  canonicalUrl?: string;
-  affiliateLinks: Array<{ id: string; network: string; url: string; label: string; commissionRate?: number; health: string }>;
-  media: Array<{ id: string; url: string; altText?: string }>;
-  variants: Array<{ id: string; sku: string; color?: string; size?: string; priceAdjustment: number; stockStatus: string }>;
-  metadata?: { asin?: string; upc?: string; sku?: string; gtin?: string; manufacturer?: string; weightOz?: number };
-  deals: Array<{ id: string; title: string; discount?: number; endsAt?: string }>;
-  faqs: Array<{ id: string; question: string; answer: string; order: number }>;
-  productCategories: Array<{ category: { id: string; name: string } }>;
-  productTags: Array<{ tag: { id: string; name: string } }>;
-}
-
 export default function ProductEditPage() {
   const params = useParams();
   const router = useRouter();
@@ -86,6 +52,7 @@ export default function ProductEditPage() {
     finally { setLoading(false); }
   }, [params.id, isNew]);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchProduct(); }, [fetchProduct]);
 
   const handleSave = async () => {

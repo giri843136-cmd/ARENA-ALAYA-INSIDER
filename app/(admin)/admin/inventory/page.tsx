@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { InventoryPredictionWidget } from "@/components/admin/widgets/InventoryPredictionWidget";
 import { Package, TrendingUp, BarChart3 } from "lucide-react";
 

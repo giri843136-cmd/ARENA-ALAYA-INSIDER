@@ -47,8 +47,6 @@ export function Tabs({ tabs, defaultTab, onChange, className = "" }: TabsProps) 
     }
   };
 
-  const activeIndex = tabs.findIndex((t) => t.id === activeTab);
-
   return (
     <div className={className}>
       <div className="flex border-b border-[#E4DDD5] dark:border-[#3D3530]" role="tablist" aria-label="Content tabs">

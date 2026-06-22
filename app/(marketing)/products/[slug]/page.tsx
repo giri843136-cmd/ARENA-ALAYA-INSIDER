@@ -157,7 +157,6 @@ export default async function ProductPage({ params }: Props) {
                 <div className="mt-6">
                   <MultiRetailerPrice
                     productPrice={product.price}
-                    productName={product.name}
                     retailers={product.affiliateLinks.map(l => ({
                       network: l.network,
                       url: l.url,

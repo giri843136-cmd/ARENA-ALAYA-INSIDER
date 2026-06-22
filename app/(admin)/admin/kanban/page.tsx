@@ -99,10 +99,8 @@ function SortableKanbanCard({ card }: { card: KanbanCard }) {
 // =============================================
 
 function KanbanColumn({
-  columnId,
   column,
 }: {
-  columnId: string;
   column: Column;
 }) {
   const Icon = column.icon;
@@ -312,7 +310,7 @@ export default function KanbanBoard() {
       >
         <div className="flex gap-4 overflow-x-auto pb-4" style={{ scrollbarWidth: "thin" }}>
           {Object.entries(columns).map(([key, column]) => (
-            <KanbanColumn key={key} columnId={key} column={column} />
+            <KanbanColumn key={key} column={column} />
           ))}
         </div>
 

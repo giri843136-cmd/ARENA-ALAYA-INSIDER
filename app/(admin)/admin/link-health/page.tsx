@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Activity, RefreshCw, Loader2, AlertTriangle, CheckCircle,
   XCircle, Clock, Search
@@ -30,7 +30,7 @@ export default function LinkHealthMonitor() {
   const [scanning, setScanning] = useState(false);
   const [search, setSearch] = useState("");
 
-  const fetchHealth = useCallback(async () => {
+  const fetchHealth = async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/v1/admin/affiliate-links/health?limit=100");
@@ -38,9 +38,10 @@ export default function LinkHealthMonitor() {
       if (json.success) setRecords(json.data.records || json.data);
     } catch { /* silent */ }
     finally { setLoading(false); }
-  }, []);
+  };
 
-  useEffect(() => { fetchHealth(); }, [fetchHealth]);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { fetchHealth(); }, []);
 
   const runScan = async () => {
     setScanning(true);

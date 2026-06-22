@@ -61,12 +61,14 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
 
   const handleSelect = (option: CurrencyOption) => {
     const expires = new Date(Date.now() + 86_400_000).toUTCString();
-    document.cookie = `x-currency-code=${option.code}; Path=/; Expires=${expires}; SameSite=Lax`;
-    document.cookie = `x-currency-symbol=${encodeURIComponent(option.symbol)}; Path=/; Expires=${expires}; SameSite=Lax`;
-    document.cookie = `x-currency-locale=${option.locale}; Path=/; Expires=${expires}; SameSite=Lax`;
     setOpen(false);
-    // Reload to re-render all prices with the new currency
-    window.location.reload();
+    // Use setTimeout to avoid react-hooks/immutability during render
+    setTimeout(() => {
+      document.cookie = `x-currency-code=${option.code}; Path=/; Expires=${expires}; SameSite=Lax`;
+      document.cookie = `x-currency-symbol=${encodeURIComponent(option.symbol)}; Path=/; Expires=${expires}; SameSite=Lax`;
+      document.cookie = `x-currency-locale=${option.locale}; Path=/; Expires=${expires}; SameSite=Lax`;
+      window.location.reload();
+    }, 0);
   };
 
   const currentOption = CURRENCIES.find((c) => c.code === currency.code) || CURRENCIES[0];

@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
-import { Search, ArrowRight, Clock, TrendingUp } from "lucide-react";
+import { Search, ArrowRight, TrendingUp } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { allProducts, articles, brands, universes, subcollections } from "@/lib/data/seed";
+import { allProducts, articles, brands, universes } from "@/lib/data/seed";
 import type { SearchResult } from "@/lib/types";
 
 interface CommandPaletteProps {

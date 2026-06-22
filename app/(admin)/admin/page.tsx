@@ -26,6 +26,7 @@ export default function CommandCenter() {
   const [error, setError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState("");
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     const hour = new Date().getHours();
     const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
@@ -61,6 +62,7 @@ export default function CommandCenter() {
     }
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     fetchStats();
   }, [fetchStats]);

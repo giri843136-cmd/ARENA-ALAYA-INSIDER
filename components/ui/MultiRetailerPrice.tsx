@@ -1,7 +1,6 @@
 "use client";
 
 import { ExternalLink, DollarSign, TrendingDown } from "lucide-react";
-import type { AffiliateLink } from "@/lib/types";
 
 interface RetailerPrice {
   network: string;
@@ -14,7 +13,6 @@ interface RetailerPrice {
 
 interface MultiRetailerPriceProps {
   productPrice: number;
-  productName: string;
   retailers: RetailerPrice[];
   className?: string;
 }
@@ -35,7 +33,6 @@ interface MultiRetailerPriceProps {
  */
 export function MultiRetailerPrice({
   productPrice,
-  productName,
   retailers,
   className = "",
 }: MultiRetailerPriceProps) {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Percent, PieChart, RefreshCw, Loader2,
-  AlertTriangle, DollarSign, Users
+  DollarSign, Users
 } from "lucide-react";
 import { toast } from "sonner";
 

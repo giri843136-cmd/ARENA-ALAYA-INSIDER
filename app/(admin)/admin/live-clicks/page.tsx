@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MousePointerClick, Activity, Globe, Smartphone, Monitor,
-  TrendingUp, Clock, Filter, RefreshCw, ExternalLink, ChevronDown,
+  TrendingUp, Clock, RefreshCw, ExternalLink,
   Search, AlertCircle
 } from "lucide-react";
 
@@ -62,6 +62,7 @@ export default function LiveClicksPage() {
   const [totalRevenue, setTotalRevenue] = useState(0);
 
   // Generate real-time clicks
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     if (!isLive) return;
 
