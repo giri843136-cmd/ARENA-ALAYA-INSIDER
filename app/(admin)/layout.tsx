@@ -43,11 +43,11 @@ export default function AdminLayout({
             <div className="flex flex-1 flex-col overflow-hidden">
               <AdminTopBar />
 
-              <div className="flex-1 overflow-auto">
+              <main className="flex-1 overflow-auto" id="main-content">
                 <div className="h-full">
                   {children}
                 </div>
-              </div>
+              </main>
             </div>
           </div>
 

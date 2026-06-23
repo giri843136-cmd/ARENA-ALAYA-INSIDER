@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // TypeScript checking handled via `npm run typecheck` (separate from build)
+  // Note: build was verified to pass without this flag
+  // @ alias is resolved via tsconfig.json paths
+  // webpack config removed — Turbopack (default in Next.js 16) doesn't support it
+  // PoweredBy header disabled for security
   poweredByHeader: false,
 
   images: {
@@ -32,6 +37,9 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()' },
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          // COEP: require-corp would block external CDN resources (Unsplash, Cloudinary, Google Fonts, etc.)
+          // CORP: same-origin would prevent loading external images/fonts needed by the site
+          // COOP: relaxed to allow-popups for Google OAuth compatibility
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
           {
             key: 'Content-Security-Policy',

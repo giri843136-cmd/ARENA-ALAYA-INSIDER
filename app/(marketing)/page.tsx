@@ -67,8 +67,8 @@ export default function AlayaHomepage() {
       </section>
 
       {/* TRUST BAR — Quiet Confidence */}
-      <div className="border-y border-[#E4DDD5] bg-[#EFE7DE] py-5" role="region" aria-label="Trust indicators">
-        <div className="container flex flex-wrap justify-center gap-x-10 gap-y-2 text-center text-[11px] tracking-[2.5px] text-[#4D443B]">
+      <div className="border-y border-[#E4DDD5] bg-[#EFE7DE] py-5" role="region" aria-label="Editorial trust badges">
+        <div className="container flex flex-wrap justify-center gap-x-10 gap-y-2 text-center text-[11px] tracking-[2.5px] text-[#3D352F]">
           <div>HAND-PICKED WITH INTENTION</div>
           <div>EDITORIALLY VERIFIED</div>
           <div>SUSTAINABLY SOURCED</div>
