@@ -8,7 +8,7 @@ const prisma = getPrismaClient();
 
 async function main() {
   const bcrypt = require('bcryptjs');
-  const password = process.env.PRIMARY_ADMIN_PASSWORD || 'AlayaAdmin2026!';
+  const password = process.env.PRIMARY_ADMIN_PASSWORD || 'Alaya@Admin#2026!Secure';
   const hash = await bcrypt.hash(password, 12);
 
   const user = await prisma.user.upsert({
@@ -23,7 +23,7 @@ async function main() {
   });
 
   await prisma.$executeRawUnsafe(
-    `INSERT INTO "User" (id, "passwordHash") VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET "passwordHash" = $2`,
+    `UPDATE "User" SET "passwordHash" = $2 WHERE id = $1`,
     user.id, hash
   );
 
