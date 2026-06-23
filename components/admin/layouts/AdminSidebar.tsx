@@ -94,7 +94,7 @@ export function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className={`admin-sidebar flex-shrink-0 flex flex-col border-r border-[#252525] transition-all duration-200 ${collapsed ? 'w-[68px]' : 'w-[248px]'}`}>
+    <div className={`admin-sidebar flex-shrink-0 flex flex-col border-r border-[#252525] transition-all duration-200 ${collapsed ? 'w-[68px]' : 'w-[248px]'}`} >
       {/* Logo */}
       <div className="h-14 flex items-center px-4 border-b border-[#252525] justify-between">
         <div className="flex items-center gap-3">
@@ -103,13 +103,13 @@ export function AdminSidebar() {
           </div>
           {!collapsed && <span className="font-semibold tracking-tight text-lg">ALAYA</span>}
         </div>
-        <button onClick={() => setCollapsed(!collapsed)} className="p-1 hover:bg-[#1F1F1F] rounded">
+        <button onClick={() => setCollapsed(!collapsed)} className="p-1 hover:bg-[#1F1F1F] rounded" aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
           {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 overflow-y-auto py-4 text-sm">
+      <div className="flex-1 overflow-y-auto py-4 text-sm" role="navigation" aria-label="Admin navigation">
         {navGroups.map((group, idx) => (
           <div key={idx} className="mb-6">
             {!collapsed && (
