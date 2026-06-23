@@ -21,10 +21,10 @@ async function main() {
   console.log('Seeding Universes...');
   for (const u of universes) {
     await prisma.universe.upsert({
-      where: { slug: u.slug.toUpperCase() as any as any },  
+      where: { slug: u.slug.toUpperCase().replace(/-/g, '_') as any },  
       update: {},
       create: {
-        slug: u.slug.toUpperCase() as any,
+        slug: u.slug.toUpperCase().replace(/-/g, '_') as any,
         title: u.title,
         subtitle: u.subtitle,
         description: u.description,
@@ -68,7 +68,7 @@ async function main() {
   dbUniverses.forEach(u => universeMap.set(u.slug, u.id));
 
   for (const sc of subcollections) {
-    const uniId = universeMap.get(sc.universeSlug.toUpperCase());
+    const uniId = universeMap.get(sc.universeSlug.toUpperCase().replace(/-/g, '_'));
     if (!uniId) continue;
 
     await prisma.subcollection.upsert({
