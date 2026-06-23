@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ZoomIn, Expand } from "lucide-react";
 
 interface ProductGalleryProps {
@@ -86,13 +87,12 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
         >
           {/* Blur-up background while image loads */}
           <div className="absolute inset-0 bg-[#EFE7DE] animate-pulse" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={allImages[0]}
             alt={productName}
-            loading="lazy"
-            decoding="async"
-            className="relative inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-all duration-700 group-hover:scale-[1.02]"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
           <div className="absolute top-5 right-5 flex items-center gap-2">
@@ -115,13 +115,12 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
                 onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") openAtIndex(i + 1); }}
               >
                 <div className="absolute inset-0 bg-[#EFE7DE] animate-pulse" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={img}
                   alt={`${productName} ${i + 2}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="relative inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-all duration-500 group-hover:scale-[1.02]"
                 />
                 {i === maxThumbnails - 1 && allImages.length > maxThumbnails && (
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -194,21 +193,21 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
               onClick={(e) => { e.stopPropagation(); }}
               onMouseMove={handleMouseMove}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={allImages[currentIndex]}
                 alt={`${productName} — view ${currentIndex + 1}`}
-                loading="lazy"
-                decoding="async"
-                className={`max-h-[75vh] max-w-full object-contain transition-transform duration-200 select-none ${
+                width={1200}
+                height={900}
+                className={`max-h-[75vh] w-auto h-auto max-w-full object-contain transition-transform duration-200 select-none ${
                   isZoomed ? "scale-[2]" : "scale-100"
                 }`}
                 style={
                   isZoomed
                     ? { transformOrigin: `${mousePos.x}% ${mousePos.y}%` }
-                    : undefined
+                    : { width: 'auto', height: 'auto' }
                 }
                 draggable={false}
+                unoptimized
               />
             </div>
 
@@ -229,15 +228,14 @@ export function ProductGallery({ images, productName, className = "" }: ProductG
                 <button
                   key={i}
                   onClick={() => { setCurrentIndex(i); setIsZoomed(false); }}
-                  className={`flex-shrink-0 h-14 w-14 sm:h-16 sm:w-16 rounded-lg overflow-hidden border-2 transition-all ${
+                  className={`flex-shrink-0 h-14 w-14 sm:h-16 sm:w-16 rounded-lg overflow-hidden relative border-2 transition-all ${
                     i === currentIndex
                       ? "border-white opacity-100 scale-105"
                       : "border-white/20 opacity-50 hover:opacity-80 hover:border-white/40"
                   }`}
                   aria-label={`View image ${i + 1}`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt="" className="h-full w-full object-cover" />
+                  <Image src={img} alt="" fill sizes="64px" className="object-cover" unoptimized />
                 </button>
               ))}
             </div>

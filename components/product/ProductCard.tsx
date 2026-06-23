@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Heart, Eye, GitCompare } from "lucide-react";
 import type { Product } from "@/lib/types";
@@ -50,12 +51,12 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
       <div className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#7A6848]">
         {/* Premium Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE7DE]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={product.images?.[0] || (product as any).featuredImage || "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"}
             alt={product.name}
-            loading="lazy"
-            className="img-editorial absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
           
           {/* Elegant Badges */}

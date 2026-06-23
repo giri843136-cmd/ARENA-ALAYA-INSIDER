@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
+import Image from "next/image";
 import { Search, ArrowRight, TrendingUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { allProducts, articles, brands, universes } from "@/lib/data/seed";
@@ -156,8 +157,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   >
                     {result.image && (
                       <div className="h-10 w-10 rounded-xl overflow-hidden bg-[#F1EDE6] flex-shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={result.image} alt="" className="h-full w-full object-cover" />
+                        <Image src={result.image} alt="" width={40} height={40} className="h-full w-full object-cover" />
                       </div>
                     )}
                     <div className="flex-1 min-w-0">

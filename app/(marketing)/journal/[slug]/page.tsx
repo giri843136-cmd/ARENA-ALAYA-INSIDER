@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { articles } from "@/lib/data/seed";
@@ -18,8 +19,7 @@ export default async function ArticlePage({ params }: Props) {
     <article className="bg-[#F5F0EA]">
       {/* Hero */}
       <div className="relative h-[70vh] min-h-[520px] flex items-end">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={article.coverImage} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <Image src={article.coverImage} alt="" fill sizes="100vw" className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/75" />
         
         <div className="container relative pb-16 text-white max-w-3xl">

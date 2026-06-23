@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { universes, allProducts, articles, brands } from "@/lib/data/seed";
@@ -59,10 +60,8 @@ export default function AlayaHomepage() {
         {/* Floating lifestyle layers */}
         <div className="absolute bottom-12 right-8 hidden xl:block">
           <div className="relative h-48 w-48 rotate-[7deg]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={allProducts[0].images[0]} alt="" className="absolute h-40 w-40 rounded-3xl object-cover shadow-xl float-slow" style={{ top: '12px', left: '12px' }} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={allProducts[2].images[0]} alt="" className="absolute h-40 w-40 rounded-3xl object-cover shadow-xl float-slow" style={{ top: '32px', left: '42px', animationDelay: '2.2s' }} />
+            <Image src={allProducts[0].images[0]} alt="" width={160} height={160} className="absolute rounded-3xl object-cover shadow-xl float-slow" style={{ top: '12px', left: '12px', width: '160px', height: '160px' }} />
+            <Image src={allProducts[2].images[0]} alt="" width={160} height={160} className="absolute rounded-3xl object-cover shadow-xl float-slow" style={{ top: '32px', left: '42px', width: '160px', height: '160px', animationDelay: '2.2s' }} />
           </div>
         </div>
       </section>
@@ -117,11 +116,12 @@ export default function AlayaHomepage() {
               <Link key={universe.slug} href={`/universes/${universe.slug}`} className="group block">
                 <div className="relative aspect-[16/11] rounded-3xl overflow-hidden">
                   { }
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
+                  <Image 
                     src={universe.heroImage} 
                     alt={universe.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/75" />
                   
@@ -269,9 +269,8 @@ export default function AlayaHomepage() {
                     </div>
 
                     {/* Image */}
-                    <div className="aspect-square rounded-2xl overflow-hidden bg-[#26221E] mb-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                    <div className="aspect-square rounded-2xl overflow-hidden bg-[#26221E] mb-4 relative">
+                      <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
                     </div>
 
                     {/* Info */}
@@ -361,9 +360,8 @@ export default function AlayaHomepage() {
               <div className="flex items-start gap-5">
                 <div className="flex -space-x-3 flex-shrink-0">
                   {allProducts.filter(p => p.universe === 'sanctuary').slice(0, 3).map((p, i) => (
-                    <div key={p.id} className={`h-20 w-20 rounded-xl overflow-hidden border-2 border-white shadow-sm ${i > 0 ? '-ml-3' : ''}`}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" />
+                    <div key={p.id} className={`h-20 w-20 rounded-xl overflow-hidden border-2 border-white shadow-sm relative ${i > 0 ? '-ml-3' : ''}`}>
+                      <Image src={p.images[0]} alt={p.name} fill sizes="80px" className="object-cover" />
                     </div>
                   ))}
                 </div>
@@ -384,9 +382,8 @@ export default function AlayaHomepage() {
               <div className="flex items-start gap-5">
                 <div className="flex -space-x-3 flex-shrink-0">
                   {allProducts.filter(p => p.universe === 'glow-atelier').slice(0, 3).map((p, i) => (
-                    <div key={p.id} className={`h-20 w-20 rounded-xl overflow-hidden border-2 border-white shadow-sm ${i > 0 ? '-ml-3' : ''}`}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" />
+                    <div key={p.id} className={`h-20 w-20 rounded-xl overflow-hidden border-2 border-white shadow-sm relative ${i > 0 ? '-ml-3' : ''}`}>
+                      <Image src={p.images[0]} alt={p.name} fill sizes="80px" className="object-cover" />
                     </div>
                   ))}
                 </div>

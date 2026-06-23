@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/lib/types";
 
@@ -12,11 +13,12 @@ export function EditorialCard({ article }: EditorialCardProps) {
     <Link href={`/journal/${article.slug}`} className="group block">
       <div className="card-editorial overflow-hidden rounded-3xl bg-white border border-[#E8E2D9]">
         <div className="relative aspect-[16/10] overflow-hidden bg-[#F1EDE6]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
+          <Image 
             src={article.coverImage} 
             alt={article.title}
-            className="img-editorial absolute inset-0 h-full w-full object-cover transition-transform duration-[800ms] group-hover:scale-[1.04]"
+            fill
+            sizes="(max-width: 1024px) 100vw, 33vw"
+            className="object-cover transition-transform duration-[800ms] group-hover:scale-[1.04]"
           />
           {article.universe && (
             <div className="absolute top-4 right-4 badge badge-neutral text-[10px] tracking-widest">

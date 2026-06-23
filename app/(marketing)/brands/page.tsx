@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { brands } from "@/lib/data/seed";
 
@@ -16,8 +17,7 @@ export default function BrandsPage() {
             <Link key={brand.id} href={`/brands/${brand.slug}`} className="group block rounded-3xl border border-[#E8E2D9] bg-white p-8 hover:border-[#7A6848]">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-full bg-[#F1EDE6] flex-shrink-0 overflow-hidden relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={brand.logo} alt={brand.name} loading="lazy" className="h-full w-full object-cover" />
+                  <Image src={brand.logo} alt={brand.name} width={48} height={48} className="h-full w-full object-cover" />
                 </div>
                 <div>
                   <div className="font-display text-3xl tracking-tight group-hover:text-[#7A6848]">{brand.name}</div>

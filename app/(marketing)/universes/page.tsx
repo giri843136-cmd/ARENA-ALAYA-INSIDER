@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { universes } from "@/lib/data/seed";
 import { Button } from "@/components/ui/Button";
@@ -22,11 +23,12 @@ export default function UniversesPage() {
           {universes.map((universe, index) => (
             <Link key={universe.slug} href={`/universes/${universe.slug}`} className="group block">
               <div className="relative h-[520px] rounded-3xl overflow-hidden border border-[#E4DDD5]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
+                <Image 
                   src={universe.heroImage} 
                   alt={universe.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+                  fill
+                  sizes="50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-black/85" />
                 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Heart, Trash2, ArrowLeft } from "lucide-react";
@@ -86,13 +87,13 @@ export function WishlistPageClient() {
         {items.map((item) => (
           <div key={item.slug} className="group relative bg-white rounded-2xl border border-[#E4DDD5] overflow-hidden transition-shadow hover:shadow-lg">
             {/* Product image */}
-            <Link href={`/products/${item.slug}`} className="block aspect-[4/5] bg-[#EFE7DE] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+            <Link href={`/products/${item.slug}`} className="block aspect-[4/5] bg-[#EFE7DE] overflow-hidden relative">
+              <Image
                 src={item.image}
                 alt={item.name}
-                loading="lazy"
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </Link>
 

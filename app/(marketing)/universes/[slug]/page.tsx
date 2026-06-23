@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { universes, subcollections, allProducts, articles } from "@/lib/data/seed";
@@ -23,12 +24,13 @@ export default async function UniversePage({ params }: Props) {
       {/* Cinematic Hero — Apple + Architectural Digest inspired */}
       <div className="relative h-[92vh] min-h-[640px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
+          <Image 
             src={universe.heroImage} 
             alt={universe.title} 
-            loading="lazy"
-            className="h-full w-full object-cover"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/40 to-black/80" />
         </div>
@@ -74,8 +76,7 @@ export default async function UniversePage({ params }: Props) {
               return (
                 <Link key={sub.slug} href={`/universes/${slug}/${sub.slug}`} className="group block rounded-3xl border border-[#E4DDD5] bg-white overflow-hidden hover:border-[#C5AA8A] transition-all">
                   <div className="aspect-[16/10] relative">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={sub.heroImage} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+                    <Image src={sub.heroImage} alt="" fill sizes="33vw" className="object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70" />
                     <div className="absolute bottom-0 p-7 text-white">
                       <div className="font-display text-3xl tracking-tight">{sub.title}</div>

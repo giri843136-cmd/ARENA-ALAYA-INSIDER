@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Plus, X, Star, ShoppingBag, Share2, Check } from "lucide-react";
 import { allProducts } from "@/lib/data/seed";
 import type { Product } from "@/lib/types";
@@ -179,9 +180,8 @@ export default function ComparePage() {
                           onClick={() => addProduct(product.slug)}
                           className="w-full flex items-center gap-4 px-5 py-3 hover:bg-[#FAF7F4] transition-colors text-left border-b border-[#E4DDD5]/50 last:border-none"
                         >
-                          <div className="h-10 w-10 rounded-xl bg-[#EFE7DE] overflow-hidden flex-shrink-0">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
+                          <div className="h-10 w-10 rounded-xl bg-[#EFE7DE] overflow-hidden flex-shrink-0 relative">
+                            <Image src={product.images[0]} alt={product.name} fill sizes="40px" className="object-cover" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="text-sm font-medium text-[#26221E] truncate">{product.name}</div>
@@ -211,8 +211,7 @@ export default function ComparePage() {
                 <div key={product.id} className="relative group">
                   <Link href={`/products/${product.slug}`} className="block bg-white rounded-2xl border border-[#E4DDD5] p-5 hover:border-[#7A6848] transition-all">
                     <div className="aspect-square rounded-xl bg-[#EFE7DE] overflow-hidden mb-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
+                      <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
                     </div>
                     <div className="font-display text-sm tracking-tight text-[#26221E] line-clamp-2 mb-1">{product.name}</div>
                     <div className="text-xs text-[#5C5249] mb-2">{product.brandName}</div>

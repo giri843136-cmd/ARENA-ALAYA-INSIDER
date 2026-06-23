@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ThumbsUp, ThumbsDown, Reply, Flag, ChevronDown, ChevronUp } from "lucide-react";
 import { CommentForm } from "./CommentForm";
 
@@ -58,11 +59,13 @@ export function CommentItem({ comment, depth = 0, onReply, onVote, onReport }: C
       <div className="group py-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={avatarUrl}
             alt={displayName}
-            className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+            width={32}
+            height={32}
+            className="rounded-full object-cover flex-shrink-0"
+            unoptimized
           />
           <div>
             <span className="text-sm font-medium text-[#26221E] dark:text-[#EDE6DC]">

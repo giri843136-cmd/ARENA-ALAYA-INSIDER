@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { collections, allProducts } from "@/lib/data/seed";
 import { CollectionProductPrice } from "./CollectionProductPrice";
@@ -18,8 +19,7 @@ export default function CollectionsPage() {
             return (
               <div key={collection.id} className="rounded-3xl overflow-hidden border border-[#E8E2D9] bg-white">
                 <div className="aspect-[16/9] relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={collection.coverImage} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                  <Image src={collection.coverImage} alt="" fill sizes="50vw" className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/60" />
                   <div className="absolute bottom-0 p-9 text-white">
                     <div className="uppercase tracking-[2px] text-xs text-white/70 mb-1">{collection.type.toUpperCase()}</div>
@@ -34,8 +34,7 @@ export default function CollectionsPage() {
                     {collectionProducts.slice(0, 6).map(p => (
                       <Link key={p.id} href={`/products/${p.slug}`} className="group">
                         <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#F1EDE6] mb-2 relative">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={p.images[0]} alt="" loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition-transform" />
+                          <Image src={p.images[0]} alt="" fill sizes="25vw" className="object-cover group-hover:scale-105 transition-transform" />
                         </div>
                         <div className="text-sm font-medium">{p.name}</div>
                         <div className="text-xs text-[#5C5249]"><CollectionProductPrice price={p.price} /></div>

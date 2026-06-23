@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { brands, allProducts } from "@/lib/data/seed";
@@ -26,8 +27,7 @@ export default async function BrandPage({ params }: Props) {
               
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-16 w-16 rounded-full overflow-hidden border border-[#E4DDD5] bg-white flex-shrink-0 relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={brand.logo} alt={brand.name} loading="lazy" className="h-full w-full object-cover" />
+                  <Image src={brand.logo} alt={brand.name} width={64} height={64} className="h-full w-full object-cover" />
                 </div>
                 <div>
                   <h1 className="font-display text-6xl tracking-[-2.2px]">{brand.name}</h1>

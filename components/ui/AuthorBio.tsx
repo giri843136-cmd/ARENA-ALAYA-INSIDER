@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Twitter, Globe, BookOpen } from "lucide-react";
 
 interface Author {
@@ -24,8 +25,7 @@ export function AuthorBio({ author, className = "" }: AuthorBioProps) {
       {/* Avatar */}
       <div className="w-12 h-12 rounded-full bg-[#7A6848]/20 flex items-center justify-center text-[#7A6848] font-display text-lg flex-shrink-0 overflow-hidden">
         {author.avatar ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={author.avatar} alt={author.name} className="w-full h-full object-cover" />
+          <Image src={author.avatar} alt={author.name} width={48} height={48} className="w-full h-full object-cover" />
         ) : (
           author.name.charAt(0)
         )}

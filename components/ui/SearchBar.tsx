@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { Search, X, Clock, TrendingUp, Package } from "lucide-react";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { useRouter } from "next/navigation";
@@ -206,8 +207,7 @@ export function SearchBar({
                     }`}
                   >
                     <div className="h-10 w-10 rounded-lg bg-[#EFE7DE] overflow-hidden flex-shrink-0">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.image} alt={p.name} className="h-full w-full object-cover" />
+                      <Image src={p.image} alt={p.name} width={40} height={40} className="h-full w-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-[#26221E] dark:text-[#EDE6DC] truncate">{p.name}</div>

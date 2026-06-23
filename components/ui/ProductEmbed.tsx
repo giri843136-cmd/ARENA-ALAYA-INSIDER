@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { ExternalLink, Star, ShoppingBag, Loader2 } from "lucide-react";
 
@@ -112,8 +113,7 @@ export function ProductEmbed({
         rel="noopener noreferrer"
         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#EFE7DE]/50 border border-[#E4DDD5] hover:bg-[#E4DDD5] transition-colors no-underline ${className}`}
       >          {product.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={product.image} alt={product.imageAlt} className="w-8 h-8 rounded object-cover" />
+          <Image src={product.image} alt={product.imageAlt} width={32} height={32} className="rounded object-cover" unoptimized />
         )}
         <div className="flex flex-col">
           <span className="text-xs font-medium text-[#26221E]">{product.name}</span>
@@ -143,11 +143,13 @@ export function ProductEmbed({
           {/* Image */}
           <div className="relative sm:w-48 h-40 sm:h-auto bg-[#EFE7DE] overflow-hidden shrink-0">
             {product.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={product.image}
                 alt={product.imageAlt}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                sizes="192px"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                unoptimized
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center text-[#7A6848]">
