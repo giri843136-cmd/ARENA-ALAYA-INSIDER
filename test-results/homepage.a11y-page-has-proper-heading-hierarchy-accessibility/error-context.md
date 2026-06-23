@@ -22,7 +22,7 @@ Timeout:  5000ms
 Call log:
   - Expect "toBeVisible" with timeout 5000ms
   - waiting for locator('h1')
-    14 × locator resolved to <h1 class="display mb-6 tracking-[-3.8px] leading-[0.9]">…</h1>
+    13 × locator resolved to <h1 class="display mb-6 tracking-[-3.8px] leading-[0.9]">…</h1>
        - unexpected value "hidden"
 
 ```

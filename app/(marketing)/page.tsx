@@ -20,7 +20,7 @@ export default function AlayaHomepage() {
   return (
     <div className="bg-[#F5F0EA] min-h-screen">
       {/* CINEMATIC HERO — Apple + Aesop inspired */}
-      <section className="relative h-[100dvh] min-h-[820px] flex items-center justify-center overflow-hidden bg-[#26221E] text-[#F5F0EA]">
+      <section className="relative h-[100dvh] min-h-[820px] flex items-center justify-center overflow-hidden bg-[#26221E] text-[#F5F0EA]" aria-label="Hero banner">
         <div className="absolute inset-0 bg-[radial-gradient(#3D3530_0.6px,transparent_1px)] bg-[length:3.5px_3.5px] opacity-30" />
         
         <div 
@@ -67,7 +67,7 @@ export default function AlayaHomepage() {
       </section>
 
       {/* TRUST BAR — Quiet Confidence */}
-      <div className="border-y border-[#E4DDD5] bg-[#EFE7DE] py-5">
+      <div className="border-y border-[#E4DDD5] bg-[#EFE7DE] py-5" role="region" aria-label="Trust indicators">
         <div className="container flex flex-wrap justify-center gap-x-10 gap-y-2 text-center text-[11px] tracking-[2.5px] text-[#4D443B]">
           <div>HAND-PICKED WITH INTENTION</div>
           <div>EDITORIALLY VERIFIED</div>
@@ -76,7 +76,7 @@ export default function AlayaHomepage() {
       </div>
 
       {/* THE EDIT — Curated Selection */}
-      <section id="the-edit" className="section bg-[#F5F0EA]">
+      <section id="the-edit" className="section bg-[#F5F0EA]" aria-label="This week's curated selection">
         <div className="container">
           <div className="flex items-end justify-between mb-9">
             <div>
@@ -103,7 +103,7 @@ export default function AlayaHomepage() {
         <div className="container">
           <div className="mb-9 flex items-end justify-between">
             <div>
-              <div className="text-xs tracking-[3.5px] text-[#6B5D40] font-medium mb-1">EIGHT WORLDS OF INTENTION</div>
+              <div className="text-xs tracking-[3.5px] text-[#7A6848] font-medium mb-1">EIGHT WORLDS OF INTENTION</div>
               <h2 className="font-display text-[42px] tracking-[-1.6px]">Explore the Universes</h2>
             </div>
             <Link href="/universes" className="hidden md:flex items-center gap-1.5 text-sm text-[#7A6848] hover:underline">
