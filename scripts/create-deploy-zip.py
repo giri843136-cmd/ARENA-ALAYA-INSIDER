@@ -2,7 +2,7 @@ import zipfile
 import os
 
 src = r'C:\Users\rocki\Downloads\workspace-019ebb86-c6f6-7e2b-bff6-e03ad83125ed'
-dest = os.path.join(src, 'alaya-insider-deploy.zip')
+dest = os.path.join(src, 'alaya-insider-deploy-v2.zip')
 
 os.chdir(src)
 
@@ -13,7 +13,7 @@ dirs_to_include = ['app', 'components', 'lib', 'prisma', 'public', 'i18n', 'work
 files_to_include = ['package.json', 'next.config.ts', 'tsconfig.json', 'postcss.config.mjs', 
                     'eslint.config.mjs', '.gitignore', '.env.example', 'README.md']
 
-skip_dirs = {'.git', '__pycache__', 'node_modules', 'traces', 'cache'}
+skip_dirs = {'.git', '__pycache__', 'node_modules', 'traces', 'cache', 'dev'}
 
 def should_skip(path):
     parts = path.replace(os.sep, '/').split('/')
