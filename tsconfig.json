@@ -42,8 +42,11 @@
     ".next",
     "apps/mobile",
     "sdk",
-    "**/*.test.ts",
     "tests",
-    "**/*.spec.ts"
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/.storybook"
   ]
 }

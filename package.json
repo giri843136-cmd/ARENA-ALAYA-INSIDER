@@ -108,6 +108,9 @@
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^2.1.8"
   },
+  "overrides": {
+    "nodemailer": "^8.0.11"
+  },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   }
