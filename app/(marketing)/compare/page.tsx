@@ -11,11 +11,11 @@ import { PriceDisplay } from "@/components/ui/PriceDisplay";
 const COMPARISON_FEATURES = [
   { key: "price", label: "Price", render: (p: Product) => <PriceDisplay usdAmount={p.price} className="font-medium tabular-nums text-[#26221E]" /> },
   { key: "description", label: "Description", render: (p: Product) => <span className="text-xs text-[#5C5249] line-clamp-3">{p.description}</span> },
-  { key: "rating", label: "Rating", render: (p: Product) => <div className="flex items-center gap-1"><Star size={14} className="text-[#7A6848]" /> {p.rating} ({p.reviewCount})</div> },
+  { key: "rating", label: "Rating", render: (p: Product) => <div className="flex items-center gap-1"><Star size={14} className="text-[#6D5C3E]" /> {p.rating} ({p.reviewCount})</div> },
   { key: "category", label: "Category", render: (p: Product) => <span className="text-sm">{p.category}</span> },
   { key: "brandName", label: "Brand", render: (p: Product) => <span className="text-sm font-medium">{p.brandName}</span> },
   { key: "inStock", label: "In Stock", render: (p: Product) => <span className={p.inStock ? "text-green-600 text-sm" : "text-rose-500 text-sm"}>{p.inStock ? "✓ Yes" : "✗ Limited"}</span> },
-  { key: "bestseller", label: "Bestseller", render: (p: Product) => <span className={p.bestseller ? "text-[#7A6848]" : "text-[#8A8178]"}>{p.bestseller ? "★ Bestseller" : "—"}</span> },
+  { key: "bestseller", label: "Bestseller", render: (p: Product) => <span className={p.bestseller ? "text-[#6D5C3E]" : "text-[#8A8178]"}>{p.bestseller ? "★ Bestseller" : "—"}</span> },
   { key: "perfectFor", label: "Perfect For", render: (p: Product) => <div className="flex flex-wrap gap-1">{p.perfectFor.slice(0, 3).map((pf, i) => <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-[#EFE7DE] text-[#5C5249]">{pf}</span>)}</div> },
   { key: "pros", label: "Pros", render: (p: Product) => <ul className="text-xs space-y-1">{p.pros.slice(0, 3).map((pro, i) => <li key={i} className="flex gap-1">✓ {pro}</li>)}</ul> },
   { key: "cons", label: "Cons", render: (p: Product) => <ul className="text-xs space-y-1">{p.cons.slice(0, 2).map((con, i) => <li key={i} className="flex gap-1">• {con}</li>)}</ul> },
@@ -118,7 +118,7 @@ export default function ComparePage() {
       {/* Header */}
       <div className="border-b border-[#E4DDD5] bg-white">
         <div className="container py-10 px-6 md:px-0">
-          <Link href="/" className="text-xs text-[#6D655F] hover:text-[#7A6848] flex items-center gap-1 mb-4 transition-colors">
+          <Link href="/" className="text-xs text-[#6D655F] hover:text-[#6D5C3E] flex items-center gap-1 mb-4 transition-colors">
             <ArrowLeft size={14} /> Back to home
           </Link>
           <div className="flex items-start justify-between gap-4">
@@ -129,7 +129,7 @@ export default function ComparePage() {
             {selectedProducts.length >= 2 && (
               <button
                 onClick={copyShareLink}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#E4DDD5] bg-white text-sm text-[#5C5249] hover:border-[#7A6848] hover:text-[#7A6848] transition-all flex-shrink-0 active:scale-95"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#E4DDD5] bg-white text-sm text-[#5C5249] hover:border-[#6D5C3E] hover:text-[#6D5C3E] transition-all flex-shrink-0 active:scale-95"
               >
                 {copied ? (
                   <>
@@ -156,7 +156,7 @@ export default function ComparePage() {
             <div className="relative">
               <button
                 onClick={() => setShowSearch(!showSearch)}
-                className="flex items-center gap-2 px-5 py-3 border-2 border-dashed border-[#D9D0C3] rounded-2xl text-sm text-[#6D655F] hover:border-[#7A6848] hover:text-[#7A6848] transition-all w-full sm:w-auto"
+                className="flex items-center gap-2 px-5 py-3 border-2 border-dashed border-[#D9D0C3] rounded-2xl text-sm text-[#6D655F] hover:border-[#6D5C3E] hover:text-[#6D5C3E] transition-all w-full sm:w-auto"
               >
                 <Plus size={16} />
                 Add a product to compare
@@ -169,7 +169,7 @@ export default function ComparePage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search products by name or brand..."
-                    className="w-full max-w-lg px-5 py-3 rounded-2xl border border-[#E4DDD5] bg-white text-sm focus:border-[#7A6848] outline-none shadow-lg"
+                    className="w-full max-w-lg px-5 py-3 rounded-2xl border border-[#E4DDD5] bg-white text-sm focus:border-[#6D5C3E] outline-none shadow-lg"
                     autoFocus
                   />
                   {searchResults.length > 0 && (
@@ -187,7 +187,7 @@ export default function ComparePage() {
                             <div className="text-sm font-medium text-[#26221E] truncate">{product.name}</div>
                             <div className="text-xs text-[#5C5249]">{product.brandName} • ${product.price}</div>
                           </div>
-                          <Plus size={16} className="text-[#7A6848] flex-shrink-0" />
+                          <Plus size={16} className="text-[#6D5C3E] flex-shrink-0" />
                         </button>
                       ))}
                     </div>
@@ -209,7 +209,7 @@ export default function ComparePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {selectedProducts.map((product) => (
                 <div key={product.id} className="relative group">
-                  <Link href={`/products/${product.slug}`} className="block bg-white rounded-2xl border border-[#E4DDD5] p-5 hover:border-[#7A6848] transition-all">
+                  <Link href={`/products/${product.slug}`} className="block bg-white rounded-2xl border border-[#E4DDD5] p-5 hover:border-[#6D5C3E] transition-all">
                     <div className="aspect-square rounded-xl bg-[#EFE7DE] overflow-hidden mb-4">
                       <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
                     </div>
@@ -295,7 +295,7 @@ export default function ComparePage() {
               </span>
               <button
                 onClick={copyShareLink}
-                className="flex items-center gap-1.5 text-xs text-[#7A6848] hover:underline"
+                className="flex items-center gap-1.5 text-xs text-[#6D5C3E] hover:underline"
               >
                 {copied ? (
                   <><Check size={12} className="text-green-600" /> Link copied!</>

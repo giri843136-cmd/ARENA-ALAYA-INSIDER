@@ -79,7 +79,7 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
     <div className={`relative ${className}`} ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1.5 h-9 px-3 rounded-xl border border-[#E4DDD5] bg-white text-xs text-[#6D655F] hover:border-[#7A6848] hover:text-[#26221E] transition-all active:scale-[0.985] ${
+        className={`flex items-center gap-1.5 h-9 px-3 rounded-xl border border-[#E4DDD5] bg-white text-xs text-[#6D655F] hover:border-[#6D5C3E] hover:text-[#26221E] transition-all active:scale-[0.985] ${
           !ratesLoaded ? "animate-pulse" : ""
         }`}
         aria-label={`Currency: ${currency.code}. Click to change.`}
@@ -107,7 +107,7 @@ export function CurrencySelector({ className = "" }: { className?: string }) {
                 onClick={() => handleSelect(option)}
                 className={`w-full flex items-center gap-3 px-4 py-2 text-sm text-left transition-colors ${
                   isActive
-                    ? "bg-[#7A6848]/10 text-[#26221E] font-medium"
+                    ? "bg-[#6D5C3E]/10 text-[#26221E] font-medium"
                     : "text-[#6D655F] hover:bg-[#FAF7F4]"
                 }`}
               >

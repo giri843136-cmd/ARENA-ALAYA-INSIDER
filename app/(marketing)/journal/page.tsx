@@ -6,10 +6,10 @@ export default function JournalIndex() {
   const recent = articles.filter(a => !a.featured).slice(0, 18);
 
   return (
-    <div className="bg-[#F5F0EA]">
+    <main className="bg-[#F5F0EA]">
       <div className="container py-16">
         <div className="max-w-2xl">
-          <div className="uppercase tracking-[4px] text-xs text-[#7A6848]">THE ALAYA INSIDER JOURNAL</div>
+          <div className="uppercase tracking-[4px] text-xs text-[#6D5C3E]">THE ALAYA INSIDER JOURNAL</div>
           <h1 className="font-display text-[52px] tracking-[-2.6px] leading-[0.92] mt-2">Stories that stay with you.</h1>
           <p className="mt-4 text-xl text-[#5C5249]">
             Long-form essays, quiet observations, and deep dives into the objects and rituals that shape a considered life.
@@ -39,6 +39,6 @@ export default function JournalIndex() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

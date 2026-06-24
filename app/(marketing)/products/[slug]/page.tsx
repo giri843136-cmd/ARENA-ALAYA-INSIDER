@@ -179,7 +179,7 @@ export default async function ProductPage({ params }: Props) {
             <div className="mt-4 grid grid-cols-2 gap-3">
               <Link
                 href={`/compare?add=${product.slug}`}
-                className="flex items-center justify-center gap-2 rounded-xl border border-[#E4DDD5] bg-white px-4 py-3 text-xs font-medium text-[#5C5249] hover:border-[#7A6848] hover:text-[#7A6848] transition-all"
+                className="flex items-center justify-center gap-2 rounded-xl border border-[#E4DDD5] bg-white px-4 py-3 text-xs font-medium text-[#5C5249] hover:border-[#6D5C3E] hover:text-[#6D5C3E] transition-all"
               >
                 + Add to Compare
               </Link>

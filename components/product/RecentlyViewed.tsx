@@ -77,7 +77,7 @@ export function RecentlyViewed({
       <div className="container">
         <div className="flex items-end justify-between mb-6">
           <div>
-            <div className="flex items-center gap-2 text-xs tracking-[3px] text-[var(--accent-gold,#7A6848)] uppercase mb-1">
+            <div className="flex items-center gap-2 text-xs tracking-[3px] text-[var(--accent-gold,#6D5C3E)] uppercase mb-1">
               <Clock size={12} /> Recently Viewed
             </div>
             <h3 className="font-display text-3xl tracking-tight">
@@ -86,7 +86,7 @@ export function RecentlyViewed({
           </div>
           <Link
             href="/search"
-            className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#7A6848)] hover:underline"
+            className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#6D5C3E)] hover:underline"
           >
             Browse all <ArrowRight className="h-3 w-3" />
           </Link>

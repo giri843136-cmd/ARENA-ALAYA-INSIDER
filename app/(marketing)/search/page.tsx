@@ -73,7 +73,7 @@ export default function SearchPage() {
       <div className="border-b border-[#E4DDD5] bg-white/70 backdrop-blur-xl sticky top-20 z-40">
         <div className="container py-8">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-3 text-xs tracking-[3px] text-[#7A6848] mb-2">
+            <div className="flex items-center gap-3 text-xs tracking-[3px] text-[#6D5C3E] mb-2">
               SEMANTIC DISCOVERY
               <span className="text-[#5C5249]">•</span> 
               NATURAL LANGUAGE • VOICE • VISUAL • MULTIMODAL
@@ -91,7 +91,7 @@ export default function SearchPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Try “quiet luxury linen for a sanctuary bedroom”, “cast iron for slow cooking”, or “gifts under $120 for her”"
-                className="input w-full pl-14 pr-32 text-[17px] py-5 shadow-sm border-[#D9D0C3] focus:border-[#7A6848] placeholder:text-[#5C5249]"
+                className="input w-full pl-14 pr-32 text-[17px] py-5 shadow-sm border-[#D9D0C3] focus:border-[#6D5C3E] placeholder:text-[#5C5249]"
               />
               <div className="absolute right-3 top-3 flex items-center gap-2">
                 <button 
@@ -114,9 +114,9 @@ export default function SearchPage() {
             <div className="flex items-center gap-4 mt-3 text-xs text-[#5C5249]">
               <span>Popular:</span>
               {["linen bedding", "cast iron", "cashmere", "silk sleep mask", "ceramic vase"].map(t => (
-                <button key={t} onClick={() => setQuery(t)} className="hover:text-[#7A6848] transition-colors underline-offset-2 hover:underline">{t}</button>
+                <button key={t} onClick={() => setQuery(t)} className="hover:text-[#6D5C3E] transition-colors underline-offset-2 hover:underline">{t}</button>
               ))}
-              <button onClick={clearFilters} className="ml-auto text-[#7A6848] hover:underline">Clear all</button>
+              <button onClick={clearFilters} className="ml-auto text-[#6D5C3E] hover:underline">Clear all</button>
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ export default function SearchPage() {
                       {u.title}
                     </label>
                   ))}
-                  <button onClick={() => setSelectedUniverse("")} className="text-xs text-[#7A6848] mt-1">Clear universe</button>
+                  <button onClick={() => setSelectedUniverse("")} className="text-xs text-[#6D5C3E] mt-1">Clear universe</button>
                 </div>
               </div>
 
@@ -190,7 +190,7 @@ export default function SearchPage() {
                   <span className="text-[#5C5249]">to</span>
                   <input type="number" value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], +e.target.value])} className="input w-24 py-2 text-sm" />
                 </div>
-                <input type="range" min="0" max="600" step="10" value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], +e.target.value])} className="w-full accent-[#7A6848] mt-4" />
+                <input type="range" min="0" max="600" step="10" value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], +e.target.value])} className="w-full accent-[#6D5C3E] mt-4" />
               </div>
 
               {/* Quick Presets */}
@@ -203,7 +203,7 @@ export default function SearchPage() {
                       if (preset === "$80–$150") setPriceRange([80, 150]);
                       if (preset === "New Arrivals") setQuery("new");
                       if (preset === "Bestsellers") setQuery("bestseller");
-                    }} className="text-xs border border-[#E4DDD5] px-4 py-1.5 rounded-full hover:border-[#7A6848]">
+                    }} className="text-xs border border-[#E4DDD5] px-4 py-1.5 rounded-full hover:border-[#6D5C3E]">
                       {preset}
                     </button>
                   ))}
@@ -227,8 +227,8 @@ export default function SearchPage() {
         {(activeTab === "all" || activeTab === "products") && (
           <div>
             <div className="flex justify-between mb-6 items-baseline border-b border-[#E4DDD5] pb-3">
-              <div className="font-medium tracking-widest text-xs text-[#7A6848]">PRODUCTS • {filteredProducts.length}</div>
-              <button onClick={() => setActiveTab("products")} className="text-xs text-[#7A6848]">View all →</button>
+              <div className="font-medium tracking-widest text-xs text-[#6D5C3E]">PRODUCTS • {filteredProducts.length}</div>
+              <button onClick={() => setActiveTab("products")} className="text-xs text-[#6D5C3E]">View all →</button>
             </div>
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-6">
@@ -244,7 +244,7 @@ export default function SearchPage() {
         {(activeTab === "all" || activeTab === "articles") && (
           <div>
             <div className="flex justify-between mb-6 items-baseline border-b border-[#E4DDD5] pb-3">
-              <div className="font-medium tracking-widest text-xs text-[#7A6848]">FROM THE JOURNAL • {filteredArticles.length}</div>
+              <div className="font-medium tracking-widest text-xs text-[#6D5C3E]">FROM THE JOURNAL • {filteredArticles.length}</div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
               {filteredArticles.map(a => <EditorialCard key={a.id} article={a} />)}
@@ -256,12 +256,12 @@ export default function SearchPage() {
         {(activeTab === "all" || activeTab === "brands") && (
           <div>
             <div className="flex justify-between mb-6 items-baseline border-b border-[#E4DDD5] pb-3">
-              <div className="font-medium tracking-widest text-xs text-[#7A6848]">BRANDS • {filteredBrands.length}</div>
+              <div className="font-medium tracking-widest text-xs text-[#6D5C3E]">BRANDS • {filteredBrands.length}</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {filteredBrands.map(b => (
                 <a key={b.id} href={`/brands/${b.slug}`} className="card p-8 group">
-                  <div className="font-display text-3xl tracking-tight group-hover:text-[#7A6848] transition-colors">{b.name}</div>
+                  <div className="font-display text-3xl tracking-tight group-hover:text-[#6D5C3E] transition-colors">{b.name}</div>
                   <p className="text-sm mt-1 text-[#5C5249]">{b.tagline}</p>
                   <div className="mt-5 text-[10px] tracking-[2px] text-[#5C5249]">{b.country} • {b.productCount} OBJECTS</div>
                 </a>
@@ -274,7 +274,7 @@ export default function SearchPage() {
         {q && filteredProducts.length === 0 && filteredArticles.length === 0 && filteredBrands.length === 0 && (
           <div className="text-center py-20">
             <div className="mx-auto mb-6 h-12 w-12 rounded-full bg-[#EFE7DE] flex items-center justify-center">
-              <Search className="h-5 w-5 text-[#7A6848]" />
+              <Search className="h-5 w-5 text-[#6D5C3E]" />
             </div>
             <div className="font-display text-2xl tracking-tight mb-2">We couldn’t find anything for “{query}”</div>
             <p className="text-[#6D655F] max-w-xs mx-auto">Try a different phrase, browse a universe, or let the AI Concierge guide you.</p>
@@ -286,7 +286,7 @@ export default function SearchPage() {
       {/* Bottom hint for AI + Multimodal */}
       <div className="border-t border-[#E4DDD5] py-8 bg-white">
         <div className="container text-center text-xs text-[#5C5249]">
-          Pro tip: Open the <span className="text-[#7A6848]">Alaya Concierge</span> (bottom right) for natural language shopping, gift finding, or room styling.
+          Pro tip: Open the <span className="text-[#6D5C3E]">Alaya Concierge</span> (bottom right) for natural language shopping, gift finding, or room styling.
         </div>
       </div>
     </div>

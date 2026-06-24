@@ -68,10 +68,10 @@
   --text-tertiary: #5C5249;     /* Tertiary text — ~4.5:1 on #F5F0EA (AA) */
   --text-muted: #6D655F;        /* Muted text — ~5.0:1 on #F5F0EA (AA) */
   --text-inverse: #F5F0EA;
-  --text-accent: #7A6848;       /* Accent text — ~4.75:1 on #F5F0EA (AA) */
+  --text-accent: #6D5C3E;       /* Accent text — ~5.5:1 on #F5F0EA (AA) */
 
-  --accent-gold: #7A6848;        /* WCAG AA compliant gold accent */
-  --accent-gold-dark: #665840;   /* Darker hover state */
+  --accent-gold: #6D5C3E;        /* WCAG AA compliant gold accent */
+  --accent-gold-dark: #5C4F38;   /* Darker hover state */
   --accent-warm: #D5C4AF;
   --accent-sage: #8A9A7B;
 

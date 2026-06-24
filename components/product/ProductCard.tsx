@@ -48,7 +48,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
 
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <div className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#7A6848]">
+      <div className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#6D5C3E]">
         {/* Premium Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE7DE]">
           <Image
@@ -72,7 +72,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
               </div>
             )}
             {hasDiscount && (
-              <div className="inline-flex items-center rounded-full bg-[#7A6848] px-3 py-0.5 text-[10px] font-medium tracking-[2px] text-white">
+              <div className="inline-flex items-center rounded-full bg-[#6D5C3E] px-3 py-0.5 text-[10px] font-medium tracking-[2px] text-white">
                 -{discount}%
               </div>
             )}
@@ -87,21 +87,21 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
             <button 
               onClick={(e) => handleQuickAction(e, 'wishlist')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#7A6848] transition-colors active:scale-[0.96]"
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
               aria-label="Save to wishlist"
             >
               <Heart className="h-4 w-4 text-[#26221E]" />
             </button>
             <button 
               onClick={(e) => handleQuickAction(e, 'quick-view')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#7A6848] transition-colors active:scale-[0.96]"
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
               aria-label="Quick view"
             >
               <Eye className="h-4 w-4 text-[#26221E]" />
             </button>
             <button 
               onClick={(e) => handleQuickAction(e, 'compare')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#7A6848] transition-colors active:scale-[0.96]"
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
               aria-label="Compare"
             >
               <GitCompare className="h-4 w-4 text-[#26221E]" />
@@ -129,13 +129,13 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
             </span>
             {product.rating && (
               <span className="flex items-center gap-1 text-xs text-[#6D655F]">
-                <span className="text-[#7A6848]">★</span> {product.rating}
+                <span className="text-[#6D5C3E]">★</span> {product.rating}
                 <span className="text-[#5C5249]">({product.reviewCount})</span>
               </span>
             )}
           </div>
 
-          <h3 className="font-display text-[17px] leading-[1.15] tracking-[-0.25px] text-[#26221E] mb-3 line-clamp-2 group-hover:text-[#7A6848] transition-colors">
+          <h3 className="font-display text-[17px] leading-[1.15] tracking-[-0.25px] text-[#26221E] mb-3 line-clamp-2 group-hover:text-[#6D5C3E] transition-colors">
             {product.name}
           </h3>
 

@@ -79,7 +79,7 @@ export function ProductEmbed({
   if (loading) {
     return (
       <div className={`flex items-center justify-center py-8 bg-[#EFE7DE]/30 rounded-xl border border-[#E4DDD5] ${className}`}>
-        <Loader2 size={16} className="animate-spin text-[#7A6848]" />
+        <Loader2 size={16} className="animate-spin text-[#6D5C3E]" />
       </div>
     );
   }
@@ -117,7 +117,7 @@ export function ProductEmbed({
         )}
         <div className="flex flex-col">
           <span className="text-xs font-medium text-[#26221E]">{product.name}</span>
-          <span className="text-[10px] text-[#7A6848]">                {product.salePrice ? (
+          <span className="text-[10px] text-[#6D5C3E]">                {product.salePrice ? (
                   <><span className="line-through text-[#6D655F]">${product.price.toFixed(2)}</span> ${product.salePrice.toFixed(2)}</>
                 ) : (
                   <>${product.price.toFixed(2)}</>
@@ -125,7 +125,7 @@ export function ProductEmbed({
             {product.rating > 0 && ` · ★ ${product.rating}`}
           </span>
         </div>
-        <ExternalLink size={12} className="text-[#7A6848] shrink-0" />
+        <ExternalLink size={12} className="text-[#6D5C3E] shrink-0" />
       </a>
     );
   }
@@ -137,7 +137,7 @@ export function ProductEmbed({
         href={product.bestAffiliate?.url || `/products/${product.slug}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="group block rounded-2xl border border-[#E4DDD5] bg-white overflow-hidden hover:border-[#7A6848] transition-all duration-300 no-underline"
+        className="group block rounded-2xl border border-[#E4DDD5] bg-white overflow-hidden hover:border-[#6D5C3E] transition-all duration-300 no-underline"
       >
         <div className="flex flex-col sm:flex-row">
           {/* Image */}
@@ -152,7 +152,7 @@ export function ProductEmbed({
                 unoptimized
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-[#7A6848]">
+              <div className="absolute inset-0 flex items-center justify-center text-[#6D5C3E]">
                 <ShoppingBag size={32} className="opacity-40" />
               </div>
             )}
@@ -168,7 +168,7 @@ export function ProductEmbed({
             <div className="text-[11px] tracking-[2px] uppercase text-[#6D655F] font-medium mb-1">
               {product.brand.name}
             </div>
-            <h4 className="font-display text-[17px] leading-tight tracking-[-0.25px] text-[#26221E] mb-2 group-hover:text-[#7A6848] transition-colors">
+            <h4 className="font-display text-[17px] leading-tight tracking-[-0.25px] text-[#26221E] mb-2 group-hover:text-[#6D5C3E] transition-colors">
               {product.name}
             </h4>
             <p className="text-[13px] leading-snug text-[#6D655F] line-clamp-2 mb-3">
@@ -188,12 +188,12 @@ export function ProductEmbed({
               <div className="flex items-center gap-3">
                 {product.rating > 0 && (
                   <span className="flex items-center gap-1 text-xs text-[#6D655F]">
-                    <Star size={12} className="text-[#7A6848] fill-current" />
+                    <Star size={12} className="text-[#6D5C3E] fill-current" />
                     {product.rating}
                     <span className="text-[#5C5249]">({product.reviewCount})</span>
                   </span>
                 )}
-                <span className="flex items-center gap-1 text-xs font-medium text-[#7A6848] group-hover:gap-1.5 transition-all">
+                <span className="flex items-center gap-1 text-xs font-medium text-[#6D5C3E] group-hover:gap-1.5 transition-all">
                   Shop Now <ExternalLink size={12} />
                 </span>
               </div>
