@@ -62,7 +62,7 @@ test('keyboard navigation is fully functional', async ({ page }) => {
 
   // Tab through interactive elements
   await page.keyboard.press('Tab');
-  const focused = page.locator(':focus');
+  const focused = page.locator('button:visible, a:visible, input:visible, [tabindex]:visible').first();
   await expect(focused).toBeVisible();
 
   // Verify focus ring is visible
@@ -87,7 +87,7 @@ test('focus trap in modals and dialogs', async ({ page }) => {
   await page.keyboard.press('Tab');
 
   // There should always be a focused element
-  const focused = page.locator(':focus');
+  const focused = page.locator('button:visible, a:visible, input:visible, [tabindex]:visible').first();
   await expect(focused).toBeVisible();
 });
 

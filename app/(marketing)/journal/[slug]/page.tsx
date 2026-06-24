@@ -16,7 +16,7 @@ export default async function ArticlePage({ params }: Props) {
   const related = articles.filter(a => a.universe === article.universe && a.id !== article.id).slice(0, 3);
 
   return (
-    <article className="bg-[#F5F0EA]">
+    <main><article className="bg-[#F5F0EA]">
       {/* Hero */}
       <div className="relative h-[70vh] min-h-[520px] flex items-end">
         <Image src={article.coverImage} alt="" fill sizes="100vw" className="object-cover" priority />
@@ -66,7 +66,7 @@ export default async function ArticlePage({ params }: Props) {
         {/* Related */}
         {related.length > 0 && (
           <div className="mt-20">
-            <h3 className="font-display text-3xl tracking-tight mb-8">Continue Reading</h3>
+            <h2 className="font-display text-3xl tracking-tight mb-8">Continue Reading</h2>
             <div className="space-y-4">
               {related.map(a => (
                 <Link key={a.id} href={`/journal/${a.slug}`} className="flex gap-6 group border-b border-[#E4DDD5] pb-6 last:border-none">
@@ -78,7 +78,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
       </div>
-    </article>
+    </article></main>
   );
 }
 

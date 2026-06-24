@@ -80,10 +80,10 @@ export default function AlayaHomepage() {
         <div className="container">
           <div className="flex items-end justify-between mb-9">
             <div>
-              <div className="text-xs tracking-[3.5px] text-[#7A6848] font-medium mb-1">THIS WEEK’S CURATION</div>
+              <div className="text-xs tracking-[3.5px] text-[#6D5C3E] font-medium mb-1">THIS WEEK’S CURATION</div>
               <h2 className="font-display text-[42px] tracking-[-1.8px]">The Edit</h2>
             </div>
-            <Link href="/search" className="hidden sm:flex items-center gap-2 text-sm text-[#7A6848] hover:underline">
+            <Link href="/search" className="hidden sm:flex items-center gap-2 text-sm text-[#6D5C3E] hover:underline">
               View all discoveries <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -103,10 +103,10 @@ export default function AlayaHomepage() {
         <div className="container">
           <div className="mb-9 flex items-end justify-between">
             <div>
-              <div className="text-xs tracking-[3.5px] text-[#7A6848] font-medium mb-1">EIGHT WORLDS OF INTENTION</div>
+              <div className="text-xs tracking-[3.5px] text-[#6D5C3E] font-medium mb-1">EIGHT WORLDS OF INTENTION</div>
               <h2 className="font-display text-[42px] tracking-[-1.6px]">Explore the Universes</h2>
             </div>
-            <Link href="/universes" className="hidden md:flex items-center gap-1.5 text-sm text-[#7A6848] hover:underline">
+            <Link href="/universes" className="hidden md:flex items-center gap-1.5 text-sm text-[#6D5C3E] hover:underline">
               See all universes <ArrowRight />
             </Link>
           </div>
@@ -146,12 +146,12 @@ export default function AlayaHomepage() {
           <div className="grid lg:grid-cols-12 gap-x-12 gap-y-16">
             <div className="lg:col-span-5">
               <div className="sticky top-24">
-                <div className="uppercase tracking-[3.5px] text-xs text-[#7A6848] mb-2">FROM THE EDITORS</div>
+                <div className="uppercase tracking-[3.5px] text-xs text-[#6D5C3E] mb-2">FROM THE EDITORS</div>
                 <h2 className="font-display text-[52px] tracking-[-2.2px] leading-[0.96] mb-6">Insider Picks</h2>
                 <p className="text-[#4D443B] max-w-sm text-[15px]">
                   The objects we’re reaching for right now. Chosen not for trends, but for the way they quietly improve our days.
                 </p>
-                <Link href="/search" className="mt-8 inline-flex items-center gap-2 text-sm text-[#7A6848] hover:underline">
+                <Link href="/search" className="mt-8 inline-flex items-center gap-2 text-sm text-[#6D5C3E] hover:underline">
                   Browse all Insider Picks <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -175,10 +175,10 @@ export default function AlayaHomepage() {
           <div className="mb-14">
             <div className="flex items-end justify-between mb-6">
               <div>
-                <div className="text-xs tracking-[3px] text-[var(--accent-gold,#7A6848)] mb-1">JUST ARRIVED</div>
+                <div className="text-xs tracking-[3px] text-[var(--accent-gold,#6D5C3E)] mb-1">JUST ARRIVED</div>
                 <h3 className="font-display text-3xl tracking-tight">New Arrivals</h3>
               </div>
-              <Link href="/search?sort=newest" className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#7A6848)] hover:underline">
+              <Link href="/search?sort=newest" className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#6D5C3E)] hover:underline">
                 View all <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
@@ -195,10 +195,10 @@ export default function AlayaHomepage() {
           <div className="mb-14">
             <div className="flex items-end justify-between mb-6">
               <div>
-                <div className="text-xs tracking-[3px] text-[var(--accent-gold,#7A6848)] mb-1">WHAT PEOPLE ARE LOVING</div>
+                <div className="text-xs tracking-[3px] text-[var(--accent-gold,#6D5C3E)] mb-1">WHAT PEOPLE ARE LOVING</div>
                 <h3 className="font-display text-3xl tracking-tight">Trending Now</h3>
               </div>
-              <Link href="/search?sort=trending" className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#7A6848)] hover:underline">
+              <Link href="/search?sort=trending" className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#6D5C3E)] hover:underline">
                 View all <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
@@ -215,10 +215,10 @@ export default function AlayaHomepage() {
           <div>
             <div className="flex items-end justify-between mb-6">
               <div>
-                <div className="text-xs tracking-[3px] text-[var(--accent-gold,#7A6848)] mb-1">HAND SELECTED BY OUR EDITORS</div>
+                <div className="text-xs tracking-[3px] text-[var(--accent-gold,#6D5C3E)] mb-1">HAND SELECTED BY OUR EDITORS</div>
                 <h3 className="font-display text-3xl tracking-tight">Editor’s Picks</h3>
               </div>
-              <Link href="/search?sort=top-rated" className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#7A6848)] hover:underline">
+              <Link href="/search?sort=top-rated" className="hidden sm:flex items-center gap-1.5 text-xs text-[var(--accent-gold,#6D5C3E)] hover:underline">
                 View all <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
@@ -302,16 +302,16 @@ export default function AlayaHomepage() {
         <div className="container">
           <div className="flex items-center justify-between mb-9">
             <div>
-              <div className="text-xs tracking-[3.5px] uppercase text-[#7A6848]">PARTNERS IN CRAFT</div>
+              <div className="text-xs tracking-[3.5px] uppercase text-[#6D5C3E]">PARTNERS IN CRAFT</div>
               <h2 className="font-display text-[42px] tracking-[-1.4px]">Brand Collaborations</h2>
             </div>
-            <Link href="/brands" className="hidden md:flex text-sm text-[#7A6848] hover:underline">Meet all brands →</Link>
+            <Link href="/brands" className="hidden md:flex text-sm text-[#6D5C3E] hover:underline">Meet all brands →</Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             {brandCollaborations.map((brand) => (
               <Link key={brand.id} href={`/brands/${brand.slug}`} className="group rounded-3xl border border-[#E4DDD5] p-8 hover:border-[#B89B7A] transition-all bg-white">
-                <div className="font-display text-2xl tracking-tight mb-1 group-hover:text-[#7A6848]">{brand.name}</div>
+                <div className="font-display text-2xl tracking-tight mb-1 group-hover:text-[#6D5C3E]">{brand.name}</div>
                 <div className="text-[13px] text-[#4D443B] mb-6">{brand.tagline}</div>
                 <div className="text-[10px] tracking-[2px] text-[#4D443B]">{brand.country} • SINCE {brand.founded}</div>
               </Link>
@@ -325,10 +325,10 @@ export default function AlayaHomepage() {
         <div className="container">
           <div className="flex items-end justify-between mb-9">
             <div>
-              <div className="uppercase tracking-[3.5px] text-xs text-[#7A6848]">FROM THE JOURNAL</div>
+              <div className="uppercase tracking-[3.5px] text-xs text-[#6D5C3E]">FROM THE JOURNAL</div>
               <h2 className="font-display text-[42px] tracking-[-1.5px]">INSIDER Journal</h2>
             </div>
-            <Link href="/journal" className="text-sm flex items-center gap-1.5 text-[#7A6848] hover:underline">
+            <Link href="/journal" className="text-sm flex items-center gap-1.5 text-[#6D5C3E] hover:underline">
               Read the full archive <ArrowRight />
             </Link>
           </div>
@@ -349,7 +349,7 @@ export default function AlayaHomepage() {
               <div className="text-xs tracking-[3.5px] text-[#4D443B] font-medium mb-1">CURATED TOGETHER</div>
               <h2 className="font-display text-[42px] tracking-[-1.8px]">Complete the Look</h2>
             </div>
-            <Link href="/collections" className="hidden sm:flex items-center gap-2 text-sm text-[#7A6848] hover:underline">
+            <Link href="/collections" className="hidden sm:flex items-center gap-2 text-sm text-[#6D5C3E] hover:underline">
               View all collections <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -366,8 +366,8 @@ export default function AlayaHomepage() {
                   ))}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[10px] tracking-[2px] text-[#7A6848] mb-1">BUNDLE & SAVE</div>
-                  <h3 className="font-display text-xl tracking-[-0.4px] text-[#26221E] group-hover:text-[#7A6848] transition-colors mb-1">The Sanctuary Edit</h3>
+                  <div className="text-[10px] tracking-[2px] text-[#6D5C3E] mb-1">BUNDLE & SAVE</div>
+                  <h3 className="font-display text-xl tracking-[-0.4px] text-[#26221E] group-hover:text-[#6D5C3E] transition-colors mb-1">The Sanctuary Edit</h3>
                   <p className="text-[13px] text-[#6D655F] line-clamp-2">Linen bedding, ceramic vase, and wool throw — everything you need for a serene bedroom.</p>
                   <div className="mt-3 flex items-center gap-2 text-sm">
                     <span className="font-medium tabular-nums text-[#26221E]"><PriceDisplay usdAmount={248 + 68 + 165} /></span>
@@ -388,8 +388,8 @@ export default function AlayaHomepage() {
                   ))}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[10px] tracking-[2px] text-[#7A6848] mb-1">BUNDLE & SAVE</div>
-                  <h3 className="font-display text-xl tracking-[-0.4px] text-[#26221E] group-hover:text-[#7A6848] transition-colors mb-1">Morning Ritual Bundle</h3>
+                  <div className="text-[10px] tracking-[2px] text-[#6D5C3E] mb-1">BUNDLE & SAVE</div>
+                  <h3 className="font-display text-xl tracking-[-0.4px] text-[#26221E] group-hover:text-[#6D5C3E] transition-colors mb-1">Morning Ritual Bundle</h3>
                   <p className="text-[13px] text-[#6D655F] line-clamp-2">Silk sleep mask, gentle cleanser, and a ceramic mug — your AM routine, elevated.</p>
                   <div className="mt-3 flex items-center gap-2 text-sm">
                     <span className="font-medium tabular-nums text-[#26221E]"><PriceDisplay usdAmount={42 + 38 + 28} /></span>

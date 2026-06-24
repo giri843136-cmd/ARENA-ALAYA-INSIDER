@@ -121,9 +121,8 @@ export default function SignInForm() {
   };
 
   // Magic link sent state
-  if (successEmail) {
-    return (
-      <div className="min-h-screen bg-[#F5F0EA] flex items-center justify-center px-4">
+  if (successEmail) {  return (
+    <main className="min-h-screen bg-[#F5F0EA] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white rounded-2xl border border-[#E4DDD5] p-8 shadow-sm text-center">
           <div className="w-14 h-14 rounded-full bg-[#4ADE80]/10 flex items-center justify-center mx-auto mb-4">
             <Check size={28} className="text-[#4ADE80]" />
@@ -139,12 +138,12 @@ export default function SignInForm() {
             Use a different email
           </button>
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F0EA] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-[#F5F0EA] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Brand */}
         <div className="text-center mb-8">
@@ -201,7 +200,7 @@ export default function SignInForm() {
                     inputMode="numeric"
                     className="w-full px-4 py-3 text-center text-2xl font-mono tracking-[8px] rounded-xl border border-[#E4DDD5] bg-white text-[#2C2522] placeholder:text-[#C5AA8A]/40 focus:outline-none focus:ring-2 focus:ring-[#C5AA8A]/30 focus:border-[#C5AA8A] transition-all"
                   />
-                  <p className="text-xs text-[#8A8178] mt-1.5 text-center">
+                  <p className="text-xs text-[#6D655F] mt-1.5 text-center">
                     Enter the 6-digit code from your authenticator app
                   </p>
                 </div>
@@ -251,7 +250,7 @@ export default function SignInForm() {
                   setBackupCode("");
                   setUseBackupCode(false);
                 }}
-                className="w-full text-xs text-[#8A8178] hover:text-[#5C5249] transition-colors"
+                className="w-full text-xs text-[#6D655F] hover:text-[#5C5249] transition-colors"
               >
                 &larr; Back to sign in
               </button>
@@ -317,7 +316,7 @@ export default function SignInForm() {
                     <div className="w-full border-t border-[#E4DDD5]" />
                   </div>
                   <div className="relative flex justify-center text-xs">
-                    <span className="bg-white px-3 text-[#8A8178]">Or continue with</span>
+                    <span className="bg-white px-3 text-[#6D655F]">Or continue with</span>
                   </div>
                 </div>
               </div>
@@ -353,7 +352,7 @@ export default function SignInForm() {
 
         {/* Footer */}
         {!requires2FA && (
-          <p className="text-center text-xs text-[#8A8178] mt-6">
+          <p className="text-center text-xs text-[#6D655F] mt-6">
             By signing in, you agree to our{" "}
             <Link href="/terms" className="text-[#C5AA8A] hover:underline">Terms</Link>
             {" "}and{" "}
@@ -361,6 +360,6 @@ export default function SignInForm() {
           </p>
         )}
       </div>
-    </div>
+    </main>
   );
 }

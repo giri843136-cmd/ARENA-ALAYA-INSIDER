@@ -42,7 +42,7 @@ export default async function ProductPage({ params }: Props) {
   const lastReviewed = reviewedDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
   return (
-    <div className="bg-[#F5F0EA]">
+    <main className="bg-[#F5F0EA]">
       {/* JSON-LD Structured Data */}
       <ProductSchema product={product} brand={brand} reviews={productReviews} />
       <FAQSchema faqs={faqs.slice(0, 5)} />
@@ -445,7 +445,7 @@ export default async function ProductPage({ params }: Props) {
 
       {/* Track product view for Recently Viewed */}
       <ProductPageClient slug={product.slug} />
-    </div>
+    </main>
   );
 }
 
