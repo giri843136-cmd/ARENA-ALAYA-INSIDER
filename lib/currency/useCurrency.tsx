@@ -60,27 +60,40 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   // Fetch live exchange rates on mount and poll every hour
   useEffect(() => {
     let cancelled = false;
+    let resolved = false; // mutable flag visible to the safety timer closure
 
     const loadRates = async () => {
       try {
         const liveRates = await fetchExchangeRates();
         if (!cancelled) {
+          resolved = true;
           setRates(liveRates);
           setRatesLoaded(true);
         }
       } catch {
         if (!cancelled) {
+          resolved = true;
           setRates(FALLBACK_RATES);
           setRatesLoaded(true);
         }
       }
     };
 
+    // Safety timeout: force fallback rates after 3 seconds
+    // Prevents 'Loading price…' from persisting if the fetch hangs
+    const safetyTimer = setTimeout(() => {
+      if (!cancelled && !resolved) {
+        setRates(FALLBACK_RATES);
+        setRatesLoaded(true);
+      }
+    }, 3000);
+
     loadRates();
 
     const interval = setInterval(loadRates, 3600000);
     return () => {
       cancelled = true;
+      clearTimeout(safetyTimer);
       clearInterval(interval);
     };
   }, []);
