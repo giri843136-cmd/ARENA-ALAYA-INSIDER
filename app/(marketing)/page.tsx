@@ -356,7 +356,7 @@ export default function AlayaHomepage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Collection 1: Sanctuary Bundle */}
-            <Link href="/collections" className="group relative rounded-3xl overflow-hidden bg-white border border-[#E4DDD5] p-6 hover:border-[#7A6848] transition-all">
+            <Link href="/collections" className="group relative rounded-3xl overflow-hidden bg-white border border-[#E4DDD5] p-6 hover:border-[#6D5C3E] transition-all">
               <div className="flex items-start gap-5">
                 <div className="flex -space-x-3 flex-shrink-0">
                   {allProducts.filter(p => p.universe === 'sanctuary').slice(0, 3).map((p, i) => (
@@ -378,7 +378,7 @@ export default function AlayaHomepage() {
             </Link>
 
             {/* Collection 2: Morning Ritual Bundle */}
-            <Link href="/collections" className="group relative rounded-3xl overflow-hidden bg-white border border-[#E4DDD5] p-6 hover:border-[#7A6848] transition-all">
+            <Link href="/collections" className="group relative rounded-3xl overflow-hidden bg-white border border-[#E4DDD5] p-6 hover:border-[#6D5C3E] transition-all">
               <div className="flex items-start gap-5">
                 <div className="flex -space-x-3 flex-shrink-0">
                   {allProducts.filter(p => p.universe === 'glow-atelier').slice(0, 3).map((p, i) => (
@@ -413,6 +413,8 @@ export default function AlayaHomepage() {
 
           <form className="mt-8 flex flex-col sm:flex-row gap-3" onSubmit={(e) => { e.preventDefault(); alert("Thank you. You are now part of the Alaya circle."); }}>
             <input 
+              id="newsletter-email" 
+              name="email" 
               type="email" 
               placeholder="your@email.com" 
               className="input flex-1 bg-[#3D3530] border-[#524A42] text-white placeholder:text-[#A1A1A1]" 

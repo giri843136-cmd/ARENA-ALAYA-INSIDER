@@ -84,6 +84,8 @@ export function Footer() {
               }}
             >
               <input 
+                id="footer-newsletter-email" 
+                name="email" 
                 type="email" 
                 placeholder="your@email.com" 
                 className="input flex-1 bg-[#1A1A1A] border-[#333] text-white placeholder:text-[#A1A1A1] py-3.5" 
