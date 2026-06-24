@@ -21,6 +21,9 @@ async function getTokenFromRequest(request: NextRequest): Promise<{ id?: string;
       req: request as any,
       secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
       secureCookie: process.env.NODE_ENV === "production",
+      cookieName: process.env.NODE_ENV === "production"
+        ? "__Secure-next-auth.session-token"
+        : "next-auth.session-token",
     });
     if (token) {
       return {
