@@ -47,6 +47,9 @@
     "**/*.spec.ts",
     "**/*.stories.ts",
     "**/*.stories.tsx",
-    "**/.storybook"
+    "**/.storybook",
+    "playwright.config.ts",
+    "vitest.config.ts",
+    "prisma.config.ts"
   ]
 }
