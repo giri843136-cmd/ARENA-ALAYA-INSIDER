@@ -9,6 +9,7 @@ import { EditorialCard } from "@/components/editorial/EditorialCard";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
+import { DealCountdown } from "@/components/ui/DealCountdown";
 
 export default function AlayaHomepage() {
   const featuredUniverses = universes.slice(0, 6);
@@ -258,13 +259,7 @@ export default function AlayaHomepage() {
                         -{discount}% OFF
                       </div>
                       <div className="text-[10px] text-[#D4B88A] font-mono tracking-wider">
-                        {(function Countdown() {
-                          const expires = new Date(Date.now() + (index + 1) * 86400000 + 3600000);
-                          const diff = expires.getTime() - Date.now();
-                          const h = Math.floor(diff / 3600000);
-                          const m = Math.floor((diff % 3600000) / 60000);
-                          return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}h`;
-                        })()}
+                        <DealCountdown index={index} />
                       </div>
                     </div>
 
