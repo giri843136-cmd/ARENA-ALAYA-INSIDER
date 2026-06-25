@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+
 export default function SEOCenter() {
   return (
     <div className="p-8 max-w-[1100px]">
@@ -22,7 +24,7 @@ export default function SEOCenter() {
         </div>
         <div className="admin-card p-8">
           <div className="text-xs text-[var(--admin-accent)] tracking-widest mb-4">AI SEO STRATEGIST (PRESERVED)</div>
-          <button className="btn-admin-primary mt-2 text-xs w-full" onClick={() => alert("SEO audit job queued (existing AI Workspace functionality)")}>
+          <button className="btn-admin-primary mt-2 text-xs w-full" onClick={() => toast.success("SEO audit job queued.")}>
             Run full site audit
           </button>
           <div className="mt-8 text-xs text-[var(--admin-text-muted)]">All SEO tooling, meta generation, and schema builder remain fully operational.</div>

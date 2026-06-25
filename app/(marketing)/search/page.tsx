@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { EditorialCard } from "@/components/editorial/EditorialCard";
 import { Button } from "@/components/ui/Button";
 import { FilterDrawer } from "@/components/ui/FilterDrawer";
+import { toast } from "sonner";
 import { Search, Mic, Image as ImageIcon, Filter } from "lucide-react";
 
 type Tab = "all" | "products" | "articles" | "brands";
@@ -59,12 +60,11 @@ export default function SearchPage() {
 
   const hasActiveFilters = query || selectedUniverse || priceRange[0] > 0 || priceRange[1] < 500 || sort !== "relevance";
 
-  // Mock voice/visual search (wires to existing multimodal architecture)
   const handleVoiceSearch = () => {
-    alert("Voice search activated (multimodal endpoint ready). Say something like “linen bedding for a calm bedroom”.");
+    toast.info("Voice search coming soon. Type your search instead.");
   };
   const handleVisualSearch = () => {
-    alert("Visual search opened (upload image for similarity search via existing /api/search/multimodal).");
+    toast.info("Visual search coming soon. Try describing what you're looking for.");
   };
 
   return (

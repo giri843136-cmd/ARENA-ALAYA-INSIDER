@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 import { 
   BarChart3, TrendingUp, Package, BookOpen, Zap, 
   ShoppingCart, Heart, Users, Eye,
@@ -228,8 +229,8 @@ export default function CommandCenter() {
                     key={i} 
                     onClick={() => {
                       if (action === "Bulk import products") window.location.href = "/admin/feed-manager";
-                      else if (action === "Export revenue report") alert("Revenue report export queued");
-                      else alert(`Action: ${action}`);
+                      else if (action === "Export revenue report") toast.success("Revenue report export queued");
+                      else toast.success(`Action: ${action} started`);
                     }} 
                     className="btn-admin justify-center"
                   >

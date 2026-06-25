@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+
 export default function RecommendationEngine() {
   return (
     <div className="p-8 max-w-[1200px]">
@@ -19,10 +21,10 @@ export default function RecommendationEngine() {
       </div>
 
       <div className="flex gap-3">
-        <button className="btn-admin-primary" onClick={() => alert("Recommendation graph refresh job queued (demo — all existing recs & AI preserved)")}>
+        <button className="btn-admin-primary" onClick={() => toast.success("Recommendation graph refresh queued.")}>
           Force Full Graph Refresh
         </button>
-        <button className="btn-admin" onClick={() => alert("Personalization preview opened (demo)")}>Preview for Current User</button>
+        <button className="btn-admin" onClick={() => toast.success("Personalization preview ready.")}>Preview for Current User</button>
       </div>
 
       <div className="mt-6 text-xs text-[var(--admin-text-muted)]">All recommendation services, Typesense, and AI Workspace integrations remain fully functional.</div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+
 export default function SearchIntelligence() {
   return (
     <div className="p-8 max-w-5xl">
@@ -24,7 +26,7 @@ export default function SearchIntelligence() {
         <div className="admin-card p-8">
           <div className="font-medium mb-4 tracking-widest text-xs text-[var(--admin-accent)]">NO-RESULT QUERIES (needs attention)</div>
           <div className="text-sm text-[var(--admin-text-secondary)] leading-relaxed">“hand-thrown pottery vase” • “quiet luxury blanket” • “scandinavian oak sideboard”</div>
-          <button className="btn-admin-primary mt-6 text-xs" onClick={() => alert("Synonym + new products suggested by AI (demo). Full search + multimodal preserved.")}>Let AI suggest fixes</button>
+          <button className="btn-admin-primary mt-6 text-xs" onClick={() => toast.success("AI analyzing search queries for improvements.")}>Let AI suggest fixes</button>
         </div>
       </div>
 

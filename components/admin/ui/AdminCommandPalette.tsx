@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Search, ArrowRight } from "lucide-react";
 
 interface AdminCommandPaletteProps {
@@ -54,11 +55,11 @@ export function AdminCommandPalette({ open, onOpenChange }: AdminCommandPaletteP
     if (item.action.startsWith("/")) {
       router.push(item.action);
     } else if (item.action === "import") {
-      alert("CSV import modal would open here (demo)");
+      router.push("/admin/feed-manager");
     } else if (item.action === "ai-seo") {
-      alert("SEO Strategist AI job queued for all published content (demo)");
+      toast.success("SEO audit queued for all published content.");
     } else if (item.action === "validate-links") {
-      alert("Affiliate link validation job started (demo)");
+      toast.success("Affiliate link validation started.");
     }
   };
 

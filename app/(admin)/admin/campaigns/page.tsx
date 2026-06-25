@@ -5,6 +5,7 @@ import {
   Globe, Plus, TrendingUp, Users,
   DollarSign, BarChart3, Megaphone
 } from "lucide-react";
+import { toast } from "sonner";
 
 interface Campaign {
   id: string;
@@ -36,7 +37,7 @@ export default function CampaignCenter() {
             <h1 className="text-[42px] font-semibold tracking-[-1.2px] leading-none">Campaign Center</h1>
             <p className="text-[var(--admin-text-secondary)] mt-2 text-sm">Manage email, social, and multi-channel marketing campaigns.</p>
           </div>
-          <button className="btn-admin-primary text-xs" onClick={() => alert("New campaign creation form")}>
+          <button className="btn-admin-primary text-xs" onClick={() => toast.success("Campaign creation form will open in a new version")}>
             <Plus size={14} /> New Campaign
           </button>
         </div>

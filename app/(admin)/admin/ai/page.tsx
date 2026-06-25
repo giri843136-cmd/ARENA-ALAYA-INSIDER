@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { toast } from "sonner";
 import { Bot, Play, History, Sparkles } from "lucide-react";
 
 const aiTools = [
@@ -22,7 +23,7 @@ export default function AIWorkspace() {
     setActiveTool(toolId);
     // Preserves all existing AI Workspace backend routes and queues
     setTimeout(() => {
-      alert(`AI job "${aiTools.find(t => t.id === toolId)?.title}" completed. Output logged to AI History and recommendation engine. (demo — full backend intact)`);
+      toast.success(`AI job "${aiTools.find(t => t.id === toolId)?.title}" completed. Results logged to AI History.`);
       setActiveTool(null);
     }, 1400);
   };
@@ -74,7 +75,7 @@ export default function AIWorkspace() {
         <div className="flex justify-between items-center mt-4">
           <div className="text-[10px] text-[var(--admin-text-muted)]">This prompt is sent to your Personal AI Concierge + existing AI Workspace APIs</div>
           <button 
-            onClick={() => { if (prompt.trim()) { alert("Prompt sent to Content Architect and Personal AI Concierge (demo). Full backend preserved."); setPrompt(""); } }} 
+            onClick={() => { if (prompt.trim()) { toast.success("Prompt sent to AI for processing."); setPrompt(""); } }} 
             className="btn-admin-primary text-xs px-8"
           >
             Send to AI

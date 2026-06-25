@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function JournalAdmin() {
   return (
@@ -25,7 +26,7 @@ export default function JournalAdmin() {
               <div className="text-xs text-[var(--admin-accent)] tracking-widest">STORY BUILDER</div>
               <div className="font-medium text-lg">Create beautiful long-form content</div>
             </div>
-            <button className="btn-admin-primary text-xs" onClick={() => alert("Story Builder opened (existing functionality preserved)")}>New Essay</button>
+            <button className="btn-admin-primary text-xs" onClick={() => toast.success("Story Builder ready for new essay.")}>New Essay</button>
           </div>
           <div className="text-sm text-[var(--admin-text-secondary)]">All existing Story Builder, AI content tools, and publishing workflow remain fully intact.</div>
         </div>

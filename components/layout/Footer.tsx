@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import { CurrencyIndicator } from "@/components/ui/CurrencyIndicator";
 
 export function Footer() {
@@ -84,7 +85,7 @@ export function Footer() {
               className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md" 
               onSubmit={(e) => { 
                 e.preventDefault(); 
-                alert("Thank you. You are now part of the circle. Welcome."); 
+                toast.success("You are now part of the Alaya circle. Welcome."); 
               }}
             >
               <input 

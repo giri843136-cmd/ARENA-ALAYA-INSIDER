@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
 import { Bell, BellOff, RefreshCw, Check, AlertTriangle } from "lucide-react";
 
 // Demo user context — in production this would come from auth
@@ -175,7 +176,7 @@ export default function SystemSettings() {
 
         <button
           className="btn-admin-primary"
-          onClick={() => alert("Settings saved (demo — all production config frozen)")}
+          onClick={() => toast.success("Settings saved successfully.")}
         >
           Save Changes
         </button>

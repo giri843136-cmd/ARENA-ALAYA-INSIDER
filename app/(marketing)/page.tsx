@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { DealCountdown } from "@/components/ui/DealCountdown";
+import { toast } from "sonner";
 
 export default function AlayaHomepage() {
   const featuredUniverses = universes.slice(0, 6);
@@ -406,7 +407,7 @@ export default function AlayaHomepage() {
             A carefully written note each Sunday featuring one beautiful object, one editorial essay, and three things we’re quietly obsessed with.
           </p>
 
-          <form className="mt-8 flex flex-col sm:flex-row gap-3" onSubmit={(e) => { e.preventDefault(); alert("Thank you. You are now part of the Alaya circle."); }}>
+          <form className="mt-8 flex flex-col sm:flex-row gap-3" onSubmit={(e) => { e.preventDefault(); toast.success("You are now part of the Alaya circle. Welcome."); }}>
             <input 
               id="newsletter-email" 
               name="email" 
