@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { CurrencyIndicator } from "@/components/ui/CurrencyIndicator";
 
 export function Footer() {
+  const [year, setYear] = useState(() => new Date().getFullYear());
+  useEffect(() => { setYear(new Date().getFullYear()); }, []);
+
   return (
     <footer className="bg-[#111111] text-[#EDE6DC] pt-20 pb-12 border-t border-[#252525]">
       <div className="container">
@@ -49,7 +53,7 @@ export function Footer() {
               <Link href="/about" className="block hover:text-white transition-colors">Our Story</Link>
               <Link href="/contact" className="block hover:text-white transition-colors">Contact</Link>
               <Link href="/newsletter" className="block hover:text-white transition-colors">The Alaya Letter</Link>
-              <Link href="/saved" className="block hover:text-white transition-colors">Saved &amp; Wishlist</Link>
+              <Link href="/wishlist" className="block hover:text-white transition-colors">Saved &amp; Wishlist</Link>
               <Link href="/account" className="block hover:text-white transition-colors">Account</Link>
             </div>
           </div>
@@ -73,7 +77,7 @@ export function Footer() {
             <div className="text-xs tracking-[2.5px] text-[#D4B88A] mb-2">A QUIET LETTER, ONCE A WEEK</div>
             <div className="font-display text-3xl tracking-[-1px] text-white mb-3">The Alaya Letter</div>
             <p className="text-[#C8C0B8] text-[15px] max-w-md">
-              One beautiful object. One essay. Three things we’re quietly obsessed with. Delivered Sunday.
+              One beautiful object. One essay. Three things we&rsquo;re quietly obsessed with. Delivered Sunday.
             </p>
 
             <form 
@@ -104,7 +108,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-[#252525] flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs text-[#A1A1A1]">
-          <div>© {new Date().getFullYear()} Alaya Insider. All rights reserved. Handcrafted with care in the quiet hours.</div>
+          <div suppressHydrationWarning>© {year} Alaya Insider. All rights reserved. Handcrafted with care in the quiet hours.</div>
           
           <div className="flex items-center gap-5">
             <CurrencyIndicator />
