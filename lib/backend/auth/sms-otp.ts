@@ -207,7 +207,7 @@ export async function registerPhoneFor2FA(
   if (!/^\+[1-9]\d{6,14}$/.test(phoneClean)) {
     return { success: false, message: "Invalid phone number. Use international format like +1234567890." };
   }    // Upsert the phone record
-  await (prisma.smsTwoFactor as any).upsert({
+  await prisma.smsTwoFactor.upsert({
     where: { userId },
     create: {
       userId,
@@ -223,7 +223,7 @@ export async function registerPhoneFor2FA(
   });
 
   // Send verification OTP
-  return sendSmsOtp(userId, phoneClean as string);
+  return sendSmsOtp(userId, phoneClean);
 }
 
 /**
@@ -231,7 +231,7 @@ export async function registerPhoneFor2FA(
  */
 export async function enableSms2FA(userId: string): Promise<boolean> {
   try {
-    await (prisma.smsTwoFactor as any).update({
+    await prisma.smsTwoFactor.update({
       where: { userId },
       data: { enabled: true, verified: true },
     });
@@ -246,7 +246,7 @@ export async function enableSms2FA(userId: string): Promise<boolean> {
  */
 export async function disableSms2FA(userId: string): Promise<boolean> {
   try {
-    await (prisma.smsTwoFactor as any).update({
+    await prisma.smsTwoFactor.update({
       where: { userId },
       data: { enabled: false },
     });

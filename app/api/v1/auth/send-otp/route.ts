@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if SMS 2FA is enabled for this user
-    const sms2fa = await (prisma.smsTwoFactor as any).findUnique({ where: { userId: user.id } });
+    const sms2fa = await prisma.smsTwoFactor.findUnique({ where: { userId: user.id } });
     if (!sms2fa || !sms2fa.enabled || !sms2fa.verified) {
       return NextResponse.json({
         success: true,

@@ -827,8 +827,6 @@ model User {
   theme    String   @default("light")
   blocked  Boolean  @default(false)
   passwordHash String? // bcrypt hash, set via SQL migration or seed
-  phoneNumber String? // For SMS 2FA
-  phoneVerified Boolean @default(false) // If phone number is verified
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
