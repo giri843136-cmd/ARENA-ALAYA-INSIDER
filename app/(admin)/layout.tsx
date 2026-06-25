@@ -5,6 +5,9 @@ import { AdminSidebar } from "@/components/admin/layouts/AdminSidebar";
 import { AdminTopBar } from "@/components/admin/layouts/AdminTopBar";
 import { AdminCommandPaletteProvider } from "@/components/admin/ui/AdminCommandPaletteProvider";
 import { Toaster } from "sonner";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/backend/auth/auth";
+import { redirect } from "next/navigation";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,11 +22,26 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminLayout({
+// Force dynamic rendering so auth check always runs server-side
+export const dynamic = "force-dynamic";
+
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Server-side auth check — defense in depth beyond the proxy middleware
+  const session = await getServerSession(authOptions as any) as any;
+  if (!session?.user) {
+    redirect("/login?error=SessionRequired");
+  }
+
+  const role = session.user?.role;
+  const ADMIN_ROLES = ["EDITOR", "SENIOR_EDITOR", "ADMIN", "SUPER_ADMIN"];
+  if (!role || !ADMIN_ROLES.includes(role)) {
+    redirect("/login?error=AccessDenied");
+  }
+
   return (
     <html lang="en" className={`${inter.variable} dark admin-theme`}>
       <body className="min-h-screen bg-[var(--admin-bg)] text-[var(--admin-text-primary)] font-sans antialiased selection:bg-[var(--admin-accent)] selection:text-[var(--admin-bg)]">

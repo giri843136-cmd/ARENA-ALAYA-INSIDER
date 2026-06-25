@@ -44,6 +44,11 @@ interface EnvConfig {
   // App
   NEXT_PUBLIC_SITE_URL: string;
   NODE_ENV: string;
+
+  // SMS (Twilio) — optional, OTP 2FA degrades gracefully with dev-mode logging
+  TWILIO_ACCOUNT_SID?: string;
+  TWILIO_AUTH_TOKEN?: string;
+  TWILIO_PHONE_NUMBER?: string;
 }
 
 function getEnvVar(key: string, required = true): string | undefined {
@@ -91,6 +96,11 @@ export function validateEnv(): EnvConfig {
     // Observability
     SENTRY_DSN: getEnvVar('SENTRY_DSN', false),
     OTEL_EXPORTER_OTLP_ENDPOINT: getEnvVar('OTEL_EXPORTER_OTLP_ENDPOINT', false),
+
+    // SMS (Twilio)
+    TWILIO_ACCOUNT_SID: getEnvVar('TWILIO_ACCOUNT_SID', false),
+    TWILIO_AUTH_TOKEN: getEnvVar('TWILIO_AUTH_TOKEN', false),
+    TWILIO_PHONE_NUMBER: getEnvVar('TWILIO_PHONE_NUMBER', false),
 
     // App
     NEXT_PUBLIC_SITE_URL: getEnvVar('NEXT_PUBLIC_SITE_URL') || 'https://alayainsider.com',

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ArrowRight, AlertTriangle, Check, Loader2, ShieldAlert } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, AlertTriangle, Check, Loader2, ShieldAlert, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
@@ -29,24 +29,81 @@ export default function SignInForm() {
         setError("Invalid email or password. Please try again.");
       } else if (authError === "OAuthSignin") {
         setError("Could not sign in with Google. Please try again.");
+      } else if (authError === "SessionRequired") {
+        setError("Please sign in to access the admin panel.");
+      } else if (authError === "AccessDenied") {
+        setError("You don't have permission to access the admin panel.");
       }
     }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
-  // 2FA state
+  // 2FA state (TOTP authenticator app)
   const [requires2FA, setRequires2FA] = useState(false);
   const [totpToken, setTotpToken] = useState("");
   const [backupCode, setBackupCode] = useState("");
   const [useBackupCode, setUseBackupCode] = useState(false);
   const totpRef = useRef<HTMLInputElement>(null);
 
-  // Focus the TOTP input when 2FA is triggered
+  // SMS 2FA state
+  const [requiresSms2FA, setRequiresSms2FA] = useState(false);
+  const [smsCode, setSmsCode] = useState("");
+  const [smsSent, setSmsSent] = useState(false);
+  const [smsLoading, setSmsLoading] = useState(false);
+  const [smsCooldown, setSmsCooldown] = useState(0);
+  const smsRef = useRef<HTMLInputElement>(null);
+
+  // Focus inputs when 2FA is triggered
   useEffect(() => {
     if (requires2FA && totpRef.current) {
       totpRef.current.focus();
     }
   }, [requires2FA]);
+
+  useEffect(() => {
+    if (requiresSms2FA && smsRef.current) {
+      smsRef.current.focus();
+    }
+  }, [requiresSms2FA]);
+
+  // SMS cooldown timer
+  useEffect(() => {
+    if (smsCooldown > 0) {
+      const timer = setTimeout(() => setSmsCooldown(smsCooldown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [smsCooldown]);
+
+  // Auto-send SMS OTP when SMS 2FA is triggered
+  useEffect(() => {
+    if (requiresSms2FA && !smsSent) {
+      handleSendSmsOtp();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requiresSms2FA]);
+
+  const handleSendSmsOtp = async () => {
+    setSmsLoading(true);
+    try {
+      const res = await fetch("/api/v1/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setSmsSent(true);
+        setError(null);
+        setSmsCooldown(60); // 60 second cooldown
+      } else {
+        setError(json.error?.message || "Failed to send verification code");
+      }
+    } catch {
+      setError("Network error sending verification code");
+    } finally {
+      setSmsLoading(false);
+    }
+  };
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +116,7 @@ export default function SignInForm() {
         password,
         totpToken: useBackupCode ? "" : totpToken,
         backupCode: useBackupCode ? backupCode : "",
+        smsCode: requiresSms2FA ? smsCode : "",
         redirect: false,
         callbackUrl,
       });
@@ -68,20 +126,29 @@ export default function SignInForm() {
         router.refresh();
       } else {
         const errMsg = result?.error || "";
-        if (errMsg === "requires_2fa") {
+        if (errMsg === "requires_sms_2fa") {
+          setRequiresSms2FA(true);
+          setError(null);
+        } else if (errMsg === "requires_2fa") {
           setRequires2FA(true);
           setError(null);
         } else if (errMsg === "2fa_failed" || errMsg.includes("2fa")) {
           setError("Invalid authentication code. Please try again.");
           setTotpToken("");
           setBackupCode("");
+        } else if (errMsg === "sms_2fa_failed" || errMsg.includes("sms")) {
+          setError("Invalid verification code. Please try again.");
+          setSmsCode("");
         } else {
           setError(errMsg || "Invalid email or password");
         }
       }
     } catch (err: any) {
       const errMsg = err.message || "";
-      if (errMsg === "requires_2fa") {
+      if (errMsg === "requires_sms_2fa") {
+        setRequiresSms2FA(true);
+        setError(null);
+      } else if (errMsg === "requires_2fa") {
         setRequires2FA(true);
         setError(null);
       } else {
@@ -121,8 +188,9 @@ export default function SignInForm() {
   };
 
   // Magic link sent state
-  if (successEmail) {  return (
-    <main className="min-h-screen bg-[#F5F0EA] flex items-center justify-center px-4">
+  if (successEmail) {
+    return (
+      <main className="min-h-screen bg-[#F5F0EA] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white rounded-2xl border border-[#E4DDD5] p-8 shadow-sm text-center">
           <div className="w-14 h-14 rounded-full bg-[#4ADE80]/10 flex items-center justify-center mx-auto mb-4">
             <Check size={28} className="text-[#4ADE80]" />
@@ -154,10 +222,12 @@ export default function SignInForm() {
             <span className="text-lg font-semibold tracking-tight text-[#2C2522]">ALAYA</span>
           </div>
           <h1 className="text-2xl font-semibold text-[#2C2522]">
-            {requires2FA ? "Two-factor authentication" : "Welcome back"}
+            {requiresSms2FA ? "Verify your identity" : requires2FA ? "Two-factor authentication" : "Welcome back"}
           </h1>
           <p className="text-sm text-[#6D655F] mt-1">
-            {requires2FA
+            {requiresSms2FA
+              ? "Enter the code sent to your registered mobile number"
+              : requires2FA
               ? "Enter the verification code from your authenticator app"
               : "Sign in to the ALAYA INSIDER admin panel"}
           </p>
@@ -173,8 +243,75 @@ export default function SignInForm() {
             </div>
           )}
 
-          {requires2FA ? (
-            /* 2FA Verification Form */
+          {requiresSms2FA ? (
+            /* SMS OTP Verification Form */
+            <form onSubmit={handleSignIn} className="space-y-5">
+              <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#F5F0EA] text-sm text-[#5C5249] border border-[#E4DDD5]">
+                <Smartphone size={18} className="text-[#C5AA8A] flex-shrink-0" />
+                <span>
+                  A verification code was sent to your registered mobile number for <strong className="text-[#2C2522]">{email}</strong>
+                </span>
+              </div>
+
+              <div>
+                <label htmlFor="smsCode" className="block text-sm font-medium text-[#2C2522] mb-1.5">
+                  Verification code
+                </label>
+                <input
+                  ref={smsRef}
+                  id="smsCode"
+                  type="text"
+                  value={smsCode}
+                  onChange={(e) => setSmsCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  placeholder="000 000"
+                  maxLength={6}
+                  autoComplete="one-time-code"
+                  inputMode="numeric"
+                  className="w-full px-4 py-3 text-center text-2xl font-mono tracking-[8px] rounded-xl border border-[#E4DDD5] bg-white text-[#2C2522] placeholder:text-[#C5AA8A]/40 focus:outline-none focus:ring-2 focus:ring-[#C5AA8A]/30 focus:border-[#C5AA8A] transition-all"
+                />
+                <p className="text-xs text-[#6D655F] mt-1.5 text-center">
+                  Enter the 6-digit code sent to your phone
+                </p>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading || smsCode.length !== 6}
+                className="w-full py-2.5 bg-[#C5AA8A] text-white text-sm font-medium rounded-xl hover:bg-[#B89B7A] transition-colors disabled:opacity-50 inline-flex items-center justify-center gap-2"
+              >
+                {loading ? <Loader2 size={16} className="animate-spin" /> : <ShieldAlert size={16} />}
+                {loading ? "Verifying..." : "Verify code"}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSendSmsOtp}
+                disabled={smsLoading || smsCooldown > 0}
+                className="w-full text-xs text-[#C5AA8A] hover:text-[#B89B7A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {smsLoading ? (
+                  <><Loader2 size={12} className="animate-spin inline mr-1" /> Sending...</>
+                ) : smsCooldown > 0 ? (
+                  `Resend code in ${smsCooldown}s`
+                ) : (
+                  "Resend verification code"
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setRequiresSms2FA(false);
+                  setSmsCode("");
+                  setSmsSent(false);
+                }}
+                className="w-full text-xs text-[#6D655F] hover:text-[#5C5249] transition-colors"
+              >
+                &larr; Back to sign in
+              </button>
+            </form>
+          ) : requires2FA ? (
+            /* TOTP Authenticator App Verification */
             <form onSubmit={handleSignIn} className="space-y-5">
               <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#F5F0EA] text-sm text-[#5C5249] border border-[#E4DDD5]">
                 <ShieldAlert size={18} className="text-[#C5AA8A] flex-shrink-0" />
@@ -351,7 +488,7 @@ export default function SignInForm() {
         </div>
 
         {/* Footer */}
-        {!requires2FA && (
+        {!requires2FA && !requiresSms2FA && (
           <p className="text-center text-xs text-[#6D655F] mt-6">
             By signing in, you agree to our{" "}
             <Link href="/terms" className="text-[#C5AA8A] hover:underline">Terms</Link>

@@ -43,14 +43,6 @@ async function getTokenFromRequest(request: NextRequest): Promise<{ id?: string;
     return { id: xUserId, role: xRole };
   }
 
-  // 3. Development fallback — allow admin access locally with a header for testing
-  if (process.env.NODE_ENV === "development") {
-    const devRole = request.headers.get("x-dev-admin-role");
-    if (devRole && hasAdminAccess(devRole)) {
-      return { id: "dev_user", role: devRole };
-    }
-  }
-
   return null;
 }
 

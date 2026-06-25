@@ -1,6 +1,6 @@
 /**
  * ALAYA INSIDER — Authentication Layer (Enterprise Security)
- * Single-user primary admin, 2FA, delegated access, password hashing.
+ * Single-user primary admin, 2FA (TOTP + SMS OTP), delegated access, password hashing.
  * Enterprise-grade security modeled after Stripe, Linear, 1Password.
  */
 
@@ -15,6 +15,7 @@ import EmailProvider from "next-auth/providers/email";
 import { sendMagicLink } from "@/lib/backend/email/resend";
 import { verifyPassword } from "@/lib/backend/auth/password";
 import { is2FAEnabled, verifyTOTP, verifyBackupCode } from "@/lib/backend/auth/two-factor";
+import { isSms2FAEnabled, verifySmsOtp } from "@/lib/backend/auth/sms-otp";
 import { hasDelegatedAccess, isPrimaryAdmin } from "@/lib/backend/auth/delegated-access";
 import { resolveSessionRole } from "@/lib/backend/auth/rbac";
 import { recordLoginAttempt, isRateLimited, logSecurityEvent } from "@/lib/backend/security/audit";
@@ -57,6 +58,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
         totpToken: { label: "2FA Code", type: "text" },
         backupCode: { label: "Backup Code", type: "text" },
+        smsCode: { label: "SMS Code", type: "text" },
       },
       async authorize(credentials, req) {
         const ipAddress = (req?.headers?.["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req?.headers?.["x-real-ip"] as string || "unknown";
@@ -141,9 +143,27 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Check 2FA
-        const twoFAEnabled = await is2FAEnabled(user.id);
-        if (twoFAEnabled) {
+        // Check 2FA — support both TOTP (authenticator app) and SMS OTP
+        const totpEnabled = await is2FAEnabled(user.id);
+        const smsEnabled = await isSms2FAEnabled(user.id);
+
+        // If SMS 2FA is enabled, check the SMS code first
+        if (smsEnabled) {
+          const smsCode = credentials.smsCode;
+          
+          if (!smsCode) {
+            // SMS 2FA required but not provided — signal the frontend to show SMS input
+            throw new Error("requires_sms_2fa");
+          }
+
+          const smsResult = await verifySmsOtp(user.id, smsCode);
+          if (!smsResult.success) {
+            await recordLoginAttempt({ email, ipAddress, success: false, failReason: "sms_2fa_failed" });
+            return null;
+          }
+        }
+        // Only check TOTP if SMS 2FA is not enabled
+        else if (totpEnabled) {
           const totpToken = credentials.totpToken;
           const backupCode = credentials.backupCode;
           

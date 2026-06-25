@@ -37,6 +37,8 @@ function createPrismaClient(): PrismaClient {
       universe: { findMany: async () => [], upsert: async () => ({}), count: async () => 0 },
       article: { findMany: async () => [], findUnique: async () => null, create: async () => ({}), count: async () => 0 },
       user: { findMany: async () => [], findUnique: async () => null, create: async () => ({}), upsert: async () => ({}), count: async () => 0 },
+      smsTwoFactor: { findUnique: async () => null, upsert: async () => ({}), update: async () => ({}), count: async () => 0, findFirst: async () => null },
+      smsOtp: { findFirst: async () => null, findMany: async () => [], create: async () => ({}), update: async () => ({}), updateMany: async () => ({ count: 0 }), count: async () => 0 },
       userRole: { findMany: async () => [], create: async () => ({}), upsert: async () => ({}), count: async () => 0 },
       analyticsEvent: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
       aIHistory: { findMany: async () => [], create: async () => ({}), count: async () => 0 },
