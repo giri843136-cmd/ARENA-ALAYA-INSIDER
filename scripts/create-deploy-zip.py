@@ -2,7 +2,7 @@ import zipfile
 import os
 
 src = r'C:\Users\rocki\Downloads\workspace-019ebb86-c6f6-7e2b-bff6-e03ad83125ed'
-dest = os.path.join(src, 'alaya-insider-deploy-v3.zip')
+dest = os.path.join(src, 'alaya-insider-deploy-v4.zip')
 
 os.chdir(src)
 
