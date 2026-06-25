@@ -252,7 +252,7 @@ export default function BrandsPage() {
       {filteredBrands.length > 0 && (
         <div className="container pb-20 px-6 md:px-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mt-8">
-            {filteredBrands.map((brand, index) => (
+            {filteredBrands.map((brand) => (
               <Link
                 key={brand.id}
                 href={`/brands/${brand.slug}`}
