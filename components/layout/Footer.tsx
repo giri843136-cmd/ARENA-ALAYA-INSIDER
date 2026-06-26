@@ -83,9 +83,22 @@ export function Footer() {
 
             <form 
               className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md" 
-              onSubmit={(e) => { 
-                e.preventDefault(); 
-                toast.success("You are now part of the Alaya circle. Welcome."); 
+              onSubmit={async (e) => { 
+                e.preventDefault();
+                const form = e.currentTarget;
+                const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+                try {
+                  const res = await fetch('/api/v1/newsletter/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                  });
+                  if (res.ok) toast.success('You\'re now part of the Alaya circle. Welcome!');
+                  else toast.error('Subscription failed. Please try again.');
+                } catch {
+                  toast.error('Network error. Please try again.');
+                }
+                form.reset();
               }}
             >
               <input 

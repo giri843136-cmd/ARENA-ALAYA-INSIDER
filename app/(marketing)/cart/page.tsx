@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ShoppingBag, Trash2, Minus, Plus, ArrowLeft, ShieldCheck, Truck } from "lucide-react";
+import { toast } from "sonner";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 interface CartItem {
@@ -16,33 +17,32 @@ interface CartItem {
   inStock: boolean;
 }
 
-const MOCK_CART: CartItem[] = [
-  {
-    id: "1",
-    slug: "ceramic-pour-over-set",
-    name: "Ceramic Pour-Over Set",
-    price: 68,
-    quantity: 1,
-    image: "/images/products/ceramic-pour-over.jpg",
-    brand: "Artisan Home",
-    inStock: true,
-  },
-  {
-    id: "2",
-    slug: "linen-bedding-set",
-    name: "French Flax Linen Bedding Set",
-    price: 149,
-    quantity: 1,
-    image: "/images/products/linen-bedding.jpg",
-    brand: "Maison Linen",
-    inStock: true,
-  },
-];
+function loadCart(): CartItem[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const stored = localStorage.getItem('alaya-cart');
+    return stored ? JSON.parse(stored) : [];
+  } catch { return []; }
+}
+
+function saveCart(items: CartItem[]) {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem('alaya-cart', JSON.stringify(items));
+}
 
 export default function CartPage() {
-  const [items, setItems] = useState<CartItem[]>(MOCK_CART);
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
+  useEffect(() => {
+    setItems(loadCart());
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (!loading) saveCart(items);
+  }, [items, loading]);
 
   const updateQuantity = (id: string, delta: number) => {
     setItems((prev) =>
@@ -246,9 +246,15 @@ export default function CartPage() {
                 )}
               </div>
 
-              <button className="w-full mt-6 py-3 bg-[#26221E] text-white text-sm font-medium rounded-xl hover:bg-[#3D3530] transition-colors flex items-center justify-center gap-2">
+              <button
+                onClick={() => {
+                  if (items.length === 0) { toast.error('Your cart is empty'); return; }
+                  toast.success('Checkout coming soon! You would be redirected to secure payment.');
+                }}
+                className="w-full mt-6 py-3 bg-[#26221E] text-white text-sm font-medium rounded-xl hover:bg-[#3D3530] transition-colors flex items-center justify-center gap-2"
+              >
                 <ShoppingBag size={16} />
-                Checkout — ${total.toFixed(0)}
+                Proceed to Checkout — ${total.toFixed(0)}
               </button>
 
               <div className="mt-4 text-center text-xs text-[#8A8178]">

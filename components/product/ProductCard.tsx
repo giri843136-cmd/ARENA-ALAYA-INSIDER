@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Eye, GitCompare } from "lucide-react";
+import { Heart, Eye, GitCompare, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
 import type { Product } from "@/lib/types";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { isInWishlist, toggleWishlist } from "@/lib/wishlist/store";
@@ -41,8 +42,13 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
       setSaved(newState);
     } else if (action === "compare") {
       window.location.href = `/compare?add=${product.slug}`;
-    } else {
-      console.log(`${action} for ${product.name}`);
+    } else if (action === "quick-view") {
+      window.location.href = `/products/${product.slug}`;
+    } else if (action === "add-to-cart") {
+      const cart = JSON.parse(localStorage.getItem('alaya-cart') || '[]');
+      cart.push({ id: product.slug, slug: product.slug, name: product.name, price: product.price, quantity: 1, image: product.images?.[0] || '', brand: product.brandName, inStock: true });
+      localStorage.setItem('alaya-cart', JSON.stringify(cart));
+      toast.success(`"${product.name}" added to cart`);
     }
   };
 
@@ -85,6 +91,13 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
 
           {/* Premium Quick Actions — C-Style inspired */}
           <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+            <button 
+              onClick={(e) => handleQuickAction(e, 'add-to-cart')}
+              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
+              aria-label="Add to cart"
+            >
+              <ShoppingBag className="h-4 w-4 text-[#26221E]" />
+            </button>
             <button 
               onClick={(e) => handleQuickAction(e, 'wishlist')}
               className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
