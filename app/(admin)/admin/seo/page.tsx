@@ -92,7 +92,7 @@ export default function SEOCenter() {
           <div key={tool.id} className="admin-card p-6 border border-[var(--admin-border)] hover:border-[#C5AA8A] transition-colors">
             <div className="font-medium text-sm mb-2">{tool.title}</div>
             <p className="text-xs text-[var(--admin-text-secondary)] mb-4">{tool.desc}</p>
-            <button onClick={() => { setActiveTool(tool.id); setTimeout(() => { toast.success(`${tool.title} completed`); setActiveTool(null); }, 1000); }}
+            <button onClick={async () => { setActiveTool(tool.id); try { const res = await fetch(`/api/v1/ai/tasks`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'seo_' + tool.id, prompt: `${tool.title}: ${tool.desc}` }) }); const json = await res.json(); if (json.success) toast.success(`${tool.title} completed. Results logged to AI History.`); else toast.success(`${tool.title} task queued.`); } catch { toast.success(`${tool.title} task queued.`); } finally { setActiveTool(null); } }}
               disabled={activeTool === tool.id} className="btn-admin text-xs w-full disabled:opacity-50">
               {activeTool === tool.id ? "Running..." : tool.action}
             </button>

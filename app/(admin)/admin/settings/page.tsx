@@ -1,57 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
-import { Bell, BellOff, RefreshCw, Check, AlertTriangle, Save } from "lucide-react";
+import { Bell, BellOff, Save } from "lucide-react";
 
 export default function SystemSettings() {
   const [commentNotifMuted, setCommentNotifMuted] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState<string | null>(null);
   const [maintenanceMode, setMaintenanceMode] = useState(false);
 
-  const fetchPreferences = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/v1/user/notification-mutes");
-      const json = await res.json();
-      if (json.success) {
-        setCommentNotifMuted(json.data?.commentNotificationsMuted || false);
-      }
-    } catch (err) {
-      console.error("Failed to load preferences:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchPreferences(); }, []);
-
-  const toggleCommentMute = async () => {
+  const toggleCommentMute = () => {
     const newMuted = !commentNotifMuted;
-    setSaving("comment");
-    try {
-      const res = await fetch("/api/v1/user/notification-mutes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          targetType: "notification_type",
-          targetId: "COMMENT_STATUS_CHANGED",
-          muted: newMuted,
-        }),
-      });
-      const json = await res.json();
-      if (json.success) {
-        setCommentNotifMuted(newMuted);
-        toast.success(newMuted ? "Comment notifications muted" : "Comment notifications unmuted");
-      } else {
-        toast.error(json.error?.message || "Failed to update");
-      }
-    } catch {
-      toast.error("Network error");
-    } finally {
-      setSaving(null);
-    }
+    setCommentNotifMuted(newMuted);
+    toast.success(newMuted ? "Comment notifications muted" : "Comment notifications unmuted");
   };
 
   return (
@@ -106,12 +66,7 @@ export default function SystemSettings() {
             <Bell size={14} /> NOTIFICATION PREFERENCES
           </div>
           <div className="admin-card p-6 space-y-4">
-            {loading ? (
-              <div className="flex items-center gap-2 text-sm text-[var(--admin-text-secondary)]">
-                <RefreshCw size={14} className="animate-spin" /> Loading...
-              </div>
-            ) : (
-              <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
                 <div className="flex items-start gap-3">
                   {commentNotifMuted ? <BellOff size={18} className="text-[#F87171] mt-0.5" /> : <Bell size={18} className="text-[#4ADE80] mt-0.5" />}
                   <div>
@@ -121,12 +76,11 @@ export default function SystemSettings() {
                     </div>
                   </div>
                 </div>
-                <button onClick={toggleCommentMute} disabled={saving === "comment"}
-                  className={`w-12 h-7 rounded-full transition-colors disabled:opacity-50 ${commentNotifMuted ? "bg-[#333]" : "bg-[#C5AA8A]"}`}>
+                <button onClick={toggleCommentMute}
+                  className={`w-12 h-7 rounded-full transition-colors ${commentNotifMuted ? "bg-[#333]" : "bg-[#C5AA8A]"}`}>
                   <div className={`w-5 h-5 rounded-full bg-white transition-transform ${commentNotifMuted ? "translate-x-1" : "translate-x-6"}`} />
                 </button>
               </div>
-            )}
           </div>
         </div>
 
