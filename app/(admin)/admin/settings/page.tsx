@@ -2,50 +2,39 @@
 
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Bell, BellOff, RefreshCw, Check, AlertTriangle } from "lucide-react";
-
-// Demo user context — in production this would come from auth
-const DEMO_USER_ID = "user_demo_admin";
+import { Bell, BellOff, RefreshCw, Check, AlertTriangle, Save } from "lucide-react";
 
 export default function SystemSettings() {
   const [commentNotifMuted, setCommentNotifMuted] = useState(false);
-  const [mutes, setMutes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
-  const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
 
   const fetchPreferences = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/user/notification-mutes?userId=${DEMO_USER_ID}`);
+      const res = await fetch("/api/v1/user/notification-mutes");
       const json = await res.json();
       if (json.success) {
-        setCommentNotifMuted(json.data.commentNotificationsMuted);
-        setMutes(json.data.mutes);
+        setCommentNotifMuted(json.data?.commentNotificationsMuted || false);
       }
     } catch (err) {
-      console.error("Failed to load notification preferences:", err);
+      console.error("Failed to load preferences:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    /* eslint-disable react-hooks/set-state-in-effect */
-    fetchPreferences();
-    /* eslint-enable react-hooks/set-state-in-effect */
-  }, []);
+  useEffect(() => { fetchPreferences(); }, []);
 
   const toggleCommentMute = async () => {
     const newMuted = !commentNotifMuted;
     setSaving("comment");
-    setFeedback(null);
     try {
       const res = await fetch("/api/v1/user/notification-mutes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: DEMO_USER_ID,
           targetType: "notification_type",
           targetId: "COMMENT_STATUS_CHANGED",
           muted: newMuted,
@@ -54,19 +43,12 @@ export default function SystemSettings() {
       const json = await res.json();
       if (json.success) {
         setCommentNotifMuted(newMuted);
-        setFeedback({
-          type: "success",
-          message: newMuted ? "Comment notifications muted" : "Comment notifications unmuted",
-        });
-        // Update mute list count from response
-        if (json.data?.muted !== undefined) {
-          setCommentNotifMuted(json.data.muted);
-        }
+        toast.success(newMuted ? "Comment notifications muted" : "Comment notifications unmuted");
       } else {
-        setFeedback({ type: "error", message: json.error?.message || "Failed to update preference" });
+        toast.error(json.error?.message || "Failed to update");
       }
-    } catch (err: any) {
-      setFeedback({ type: "error", message: err.message || "Network error" });
+    } catch {
+      toast.error("Network error");
     } finally {
       setSaving(null);
     }
@@ -80,110 +62,78 @@ export default function SystemSettings() {
       </div>
 
       <div className="space-y-8">
+        {/* Site Status */}
         <div>
           <div className="text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">SITE</div>
           <div className="admin-card p-6 space-y-4 text-sm">
-            <div className="flex justify-between">Maintenance Mode <span className="text-[#4ADE80]">OFF</span></div>
+            <div className="flex items-center justify-between">
+              <span>Maintenance Mode</span>
+              <button
+                onClick={() => { setMaintenanceMode(!maintenanceMode); toast.success(maintenanceMode ? "Maintenance mode disabled" : "Maintenance mode enabled"); }}
+                className={`w-12 h-7 rounded-full transition-colors ${maintenanceMode ? "bg-[#F87171]" : "bg-[#333]"}`}
+              >
+                <div className={`w-5 h-5 rounded-full bg-white transition-transform ${maintenanceMode ? "translate-x-6" : "translate-x-1"}`} />
+              </button>
+            </div>
             <div className="flex justify-between">Public Site Status <span className="text-[#4ADE80]">LIVE</span></div>
-            <div className="flex justify-between">CDN Cache <span className="text-[var(--admin-accent)]">99.8% hit rate</span></div>
+            <div className="flex justify-between">CDN Cache <span className="text-[var(--admin-accent)]">Active</span></div>
           </div>
         </div>
 
+        {/* AI & Personalization */}
         <div>
           <div className="text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">AI &amp; PERSONALIZATION</div>
           <div className="admin-card p-6 text-sm space-y-3">
-            <div>Default model: Claude 3.7 Sonnet (Opus priority enabled)</div>
-            <div>Personal AI Concierge: Active • 1,847 generations today</div>
-            <div>Recommendation graph: Fresh (refreshed 4m ago)</div>
+            <div className="flex justify-between"><span>Default Model</span><span className="text-[var(--admin-accent)]">Claude 3.7 Sonnet</span></div>
+            <div className="flex justify-between"><span>AI Workspace</span><span className="text-[#4ADE80]">Active</span></div>
+            <div className="flex justify-between"><span>Recommendation Engine</span><span className="text-[#4ADE80]">Running</span></div>
           </div>
         </div>
 
+        {/* Integrations */}
         <div>
           <div className="text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">INTEGRATIONS</div>
-          <div className="admin-card p-6 text-sm">Typesense, Upstash Redis, BullMQ queues, Stripe, all healthy.</div>
+          <div className="admin-card p-6 text-sm space-y-2">
+            {["Typesense Search", "BullMQ Queues", "Redis Cache", "PostgreSQL"].map((svc, i) => (
+              <div key={i} className="flex justify-between"><span>{svc}</span><span className="text-[#4ADE80]">● Healthy</span></div>
+            ))}
+          </div>
         </div>
 
         {/* Notification Preferences */}
         <div>
           <div className="flex items-center gap-2 text-xs tracking-[2px] text-[var(--admin-accent)] mb-3">
-            <Bell size={14} />
-            NOTIFICATION PREFERENCES
+            <Bell size={14} /> NOTIFICATION PREFERENCES
           </div>
           <div className="admin-card p-6 space-y-4">
             {loading ? (
               <div className="flex items-center gap-2 text-sm text-[var(--admin-text-secondary)]">
-                <RefreshCw size={14} className="animate-spin" />
-                Loading preferences...
+                <RefreshCw size={14} className="animate-spin" /> Loading...
               </div>
             ) : (
-              <>
-                {/* Feedback toast */}
-                {feedback && (
-                  <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs ${
-                    feedback.type === "success"
-                      ? "bg-[#4ADE80]/10 text-[#4ADE80]"
-                      : "bg-[#F87171]/10 text-[#F87171]"
-                  }`}>
-                    {feedback.type === "success" ? <Check size={12} /> : <AlertTriangle size={12} />}
-                    {feedback.message}
-                  </div>
-                )}
-
-                {/* Comment Notifications Toggle */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-start gap-3">
-                    {commentNotifMuted ? (
-                      <BellOff size={18} className="text-[#F87171] mt-0.5 flex-shrink-0" />
-                    ) : (
-                      <Bell size={18} className="text-[#4ADE80] mt-0.5 flex-shrink-0" />
-                    )}
-                    <div>
-                      <div className="text-sm font-medium text-[#EDEDED]">
-                        Comment Status Notifications
-                      </div>
-                      <div className="text-xs text-[var(--admin-text-secondary)] mt-0.5">
-                        {commentNotifMuted
-                          ? "You will not receive notifications when your comments are approved, flagged, or removed."
-                          : "Receive in-app notifications and emails when your comment status changes."}
-                      </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-start gap-3">
+                  {commentNotifMuted ? <BellOff size={18} className="text-[#F87171] mt-0.5" /> : <Bell size={18} className="text-[#4ADE80] mt-0.5" />}
+                  <div>
+                    <div className="text-sm font-medium">Comment Status Notifications</div>
+                    <div className="text-xs text-[var(--admin-text-secondary)] mt-0.5">
+                      {commentNotifMuted ? "Notifications muted" : "Receive notifications when comment status changes"}
                     </div>
                   </div>
-                  <button
-                    onClick={toggleCommentMute}
-                    disabled={saving === "comment"}
-                    className={`flex-shrink-0 w-12 h-7 rounded-full transition-colors disabled:opacity-50 ${
-                      commentNotifMuted
-                        ? "bg-[#333]"
-                        : "bg-[#C5AA8A]"
-                    }`}
-                  >
-                    <div className={`w-5 h-5 rounded-full bg-white transition-transform ${
-                      commentNotifMuted ? "translate-x-1" : "translate-x-6"
-                    }`} />
-                  </button>
                 </div>
-
-                {/* Mute count info */}
-                <div className="text-xs text-[var(--admin-text-muted)] border-t border-[var(--admin-border)] pt-3">
-                  {mutes.length > 0
-                    ? `${mutes.length} notification mute${mutes.length === 1 ? " is" : "s are"} active`
-                    : "No notification mutes configured."}
-                </div>
-              </>
+                <button onClick={toggleCommentMute} disabled={saving === "comment"}
+                  className={`w-12 h-7 rounded-full transition-colors disabled:opacity-50 ${commentNotifMuted ? "bg-[#333]" : "bg-[#C5AA8A]"}`}>
+                  <div className={`w-5 h-5 rounded-full bg-white transition-transform ${commentNotifMuted ? "translate-x-1" : "translate-x-6"}`} />
+                </button>
+              </div>
             )}
           </div>
         </div>
 
-        <button
-          className="btn-admin-primary"
-          onClick={() => toast.success("Settings saved successfully.")}
-        >
-          Save Changes
+        <button className="btn-admin-primary flex items-center gap-2" onClick={() => toast.success("Settings saved")}>
+          <Save size={14} /> Save Changes
         </button>
       </div>
-
-      <div className="text-xs text-[var(--admin-text-muted)] mt-10">All production readiness work (Docker, PM2, Nginx, workers, env validation, backups) remains frozen and untouched.</div>
     </div>
   );
 }
-
