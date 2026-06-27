@@ -8,9 +8,12 @@ import { WifiOff, RefreshCw } from "lucide-react";
  * Detects navigator.onLine changes and shows/hides accordingly.
  */
 export function OfflineBanner() {
-  const [offline, setOffline] = useState(() => typeof navigator !== 'undefined' && !navigator.onLine);
+  const [offline, setOffline] = useState(false);
 
   useEffect(() => {
+    // Only check navigator.onLine after mount to avoid SSR/CSR mismatch
+    setOffline(typeof navigator !== 'undefined' && !navigator.onLine);
+    
     const handleOnline = () => setOffline(false);
     const handleOffline = () => setOffline(true);
 

@@ -53,8 +53,8 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   };
 
   return (
-    <Link href={`/products/${product.slug}`} className="group block">
-      <div className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#6D5C3E]">
+    <div className="group relative block">
+      <Link href={`/products/${product.slug}`} className="group/card relative overflow-hidden rounded-3xl border border-[#E4DDD5] bg-white transition-all duration-300 hover:border-[#6D5C3E] block">
         {/* Premium Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE7DE]">
           <Image
@@ -87,38 +87,6 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
                 LOW STOCK
               </div>
             )}
-          </div>
-
-          {/* Premium Quick Actions — C-Style inspired */}
-          <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
-            <button 
-              onClick={(e) => handleQuickAction(e, 'add-to-cart')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
-              aria-label="Add to cart"
-            >
-              <ShoppingBag className="h-4 w-4 text-[#26221E]" />
-            </button>
-            <button 
-              onClick={(e) => handleQuickAction(e, 'wishlist')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
-              aria-label="Save to wishlist"
-            >
-              <Heart className="h-4 w-4 text-[#26221E]" />
-            </button>
-            <button 
-              onClick={(e) => handleQuickAction(e, 'quick-view')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
-              aria-label="Quick view"
-            >
-              <Eye className="h-4 w-4 text-[#26221E]" />
-            </button>
-            <button 
-              onClick={(e) => handleQuickAction(e, 'compare')}
-              className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
-              aria-label="Compare"
-            >
-              <GitCompare className="h-4 w-4 text-[#26221E]" />
-            </button>
           </div>
 
           {/* Urgency & Availability indicators */}
@@ -182,7 +150,39 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
             </div>
           )}
         </div>
+      </Link>
+
+      {/* Premium Quick Actions — Separate from Link to avoid invalid HTML nesting */}
+      <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 z-10">
+        <button 
+          onClick={(e) => { e.stopPropagation(); handleQuickAction(e, 'add-to-cart'); }}
+          className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
+          aria-label="Add to cart"
+        >
+          <ShoppingBag className="h-4 w-4 text-[#26221E]" />
+        </button>
+        <button 
+          onClick={(e) => { e.stopPropagation(); handleQuickAction(e, 'wishlist'); }}
+          className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
+          aria-label="Save to wishlist"
+        >
+          <Heart className="h-4 w-4 text-[#26221E]" />
+        </button>
+        <button 
+          onClick={(e) => { e.stopPropagation(); handleQuickAction(e, 'quick-view'); }}
+          className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
+          aria-label="Quick view"
+        >
+          <Eye className="h-4 w-4 text-[#26221E]" />
+        </button>
+        <button 
+          onClick={(e) => { e.stopPropagation(); handleQuickAction(e, 'compare'); }}
+          className="h-9 w-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center border border-[#E4DDD5] hover:border-[#6D5C3E] transition-colors active:scale-[0.96]"
+          aria-label="Compare"
+        >
+          <GitCompare className="h-4 w-4 text-[#26221E]" />
+        </button>
       </div>
-    </Link>
+    </div>
   );
 }

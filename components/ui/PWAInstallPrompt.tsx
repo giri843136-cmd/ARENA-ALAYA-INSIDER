@@ -11,9 +11,7 @@ import { Download, X } from "lucide-react";
 export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showPrompt, setShowPrompt] = useState(false);
-  const [installed, setInstalled] = useState(() =>
-    typeof window !== 'undefined' && window.matchMedia("(display-mode: standalone)").matches
-  );
+  const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
     const handleBeforeInstall = (e: Event) => {
