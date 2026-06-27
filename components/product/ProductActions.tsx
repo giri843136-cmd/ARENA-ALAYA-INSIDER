@@ -14,18 +14,40 @@ export function ProductActions({ product }: { product: Product }) {
 
   const handleAddToCart = async () => {
     setAddingToCart(true);
-    // Simulate adding to cart
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 400));
+
+    // Actually write to localStorage using the same cart format as ProductCard
+    try {
+      const cart = JSON.parse(localStorage.getItem('alaya-cart') || '[]');
+      const existing = cart.findIndex((item: any) => item.slug === product.slug);
+      if (existing >= 0) {
+        cart[existing].quantity += 1;
+      } else {
+        cart.push({
+          id: product.slug,
+          slug: product.slug,
+          name: product.name,
+          price: product.price,
+          quantity: 1,
+          image: product.images?.[0] || '',
+          brand: product.brandName,
+          inStock: product.inStock ?? true,
+        });
+      }
+      localStorage.setItem('alaya-cart', JSON.stringify(cart));
+    } catch (e) {
+      console.error('Failed to add to cart:', e);
+    }
+
     setAddingToCart(false);
     setAddedToCart(true);
     toast.success("Added to cart", {
       description: `${product.name} has been added to your cart.`,
       action: {
         label: "View Cart",
-        onClick: () => {},
+        onClick: () => window.location.href = '/cart',
       },
     });
-    // Reset after 3s
     setTimeout(() => setAddedToCart(false), 3000);
   };
 
